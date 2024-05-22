@@ -4,14 +4,18 @@ const AnimationLoader idle= AnimationLoader(":/pictureResoource/Player/idle.png"
                                        48,48,4);
 const AnimationLoader walking = AnimationLoader(":/pictureResoource/Player/Run.png",
                                           48,48,6);
-const AnimationLoader jumping = AnimationLoader("://pictureResoource/Player/jump.png",
+const AnimationLoader jumping = AnimationLoader(":/pictureResoource/Player/jump.png",
                                           48,48,4);
 
 }
 
 namespace MONSTER {
-
-
+const AnimationLoader idle= AnimationLoader(":/pictureResoource/Monster/Idle.png",
+                                             48,48,4);
+const AnimationLoader walking = AnimationLoader(":/pictureResoource/Monster/Walk.png",
+                                                48,48,6);
+const AnimationLoader jumping = AnimationLoader(":/pictureResoource/Monster/Jump.png",
+                                                48,48,4);
 }
 
 namespace BACKGROUND{
@@ -72,5 +76,7 @@ const float maxSpeed = 5;
 const float gravityAcceleration = 0.5;
 const float playerMoveXSpeed = 1;
 const float playerMoveYSpeed = 1;
+const float monsterMoveXSpeed = 1;
+const float monsterMoveYSpeed = 1;
 
 }

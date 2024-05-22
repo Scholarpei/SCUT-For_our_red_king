@@ -11,8 +11,9 @@ namespace PLAYER{
 }
 
 namespace MONSTER {
-
-
+    extern const AnimationLoader idle;
+    extern const AnimationLoader walking;
+    extern const AnimationLoader jumping;
 }
 
 namespace BACKGROUND{
@@ -62,6 +63,8 @@ extern const float maxSpeed;
 extern const float gravityAcceleration ;
 extern const float playerMoveXSpeed;
 extern const float playerMoveYSpeed;
+extern const float monsterMoveXSpeed;
+extern const float monsterMoveYSpeed;
 
 }
 
