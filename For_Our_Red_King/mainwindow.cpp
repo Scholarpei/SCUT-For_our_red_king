@@ -1,6 +1,9 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 #include "game.h"
+#include <QPainter>
+#include "game.h"
+#include "spritecomponent.h"
 
 MainWindow::MainWindow(QWidget *parent):
     ui(new Ui::MainWindow)
@@ -8,10 +11,24 @@ MainWindow::MainWindow(QWidget *parent):
     ui->setupUi(this);//设置主菜单ui界面
     this->setWindowTitle(QString("为了红王"));
     this->setFocusPolicy(Qt::StrongFocus);     //对主窗口进行强关注
-    this->setFixedSize(1960,1080);             //!<设置分辨率为1960*1080
+    this->setFixedSize(800,500);             //!<设置分辨率为1960*1080
+    mPainter = new QPainter(this);
+
+    // QPainter mPainter(this);
+    // mPainter.drawPixmap(0,0,QPixmap(":/pictureResoource/Player/idle.png"));
 
     mGame = new Game(this,this);                    //创建Game对象
+}
 
+void MainWindow::paintEvent(QPaintEvent *event)
+{
+    // qDebug("调用paintEvent msprites大小%d",mGame->mSprites.size());
+    mPainter->begin(this);
+    for (auto sprite:mGame->mSprites)
+    {
+        sprite->Draw();
+    }
+    mPainter->end();
 }
 
 MainWindow::~MainWindow()
@@ -22,10 +39,12 @@ MainWindow::~MainWindow()
 
 void MainWindow::keyPressEvent(QKeyEvent* event)
 {
-    mGame->keyPressInput(event->key());
+    if(!event->isAutoRepeat())
+        mGame->keyPressInput(event->key());
 }
 
 void MainWindow::keyReleaseEvent(QKeyEvent* event)
 {
-    mGame->keyReleaseInput(event->key());
+    if(!event->isAutoRepeat())
+        mGame->keyReleaseInput(event->key());
 }

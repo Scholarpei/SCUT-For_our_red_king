@@ -82,7 +82,10 @@ void Game::Loop()
         mIsLooping = true;
         Event();
         Update();
-        Draw();
+
+        mWindow->update();
+        // Draw();
+
         mIsLooping = false;
     }
 }

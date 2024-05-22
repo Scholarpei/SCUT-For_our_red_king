@@ -13,11 +13,14 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 public:
+    QPainter* mPainter;
+
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
     void keyPressEvent(QKeyEvent* e);
     void keyReleaseEvent(QKeyEvent* e);
+    void paintEvent(QPaintEvent *event);
 
 private:
     Ui::MainWindow *ui;

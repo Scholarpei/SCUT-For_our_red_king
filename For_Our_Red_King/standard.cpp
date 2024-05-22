@@ -1,11 +1,11 @@
 #include "standard.h"
 namespace PLAYER{
 const AnimationLoader idle= AnimationLoader(":/pictureResoource/Player/idle.png",
-                                       192,48,4);
+                                       48,48,4);
 const AnimationLoader walking = AnimationLoader(":/pictureResoource/Player/Run.png",
-                                          288,48,6);
+                                          48,48,6);
 const AnimationLoader jumping = AnimationLoader("://pictureResoource/Player/jump.png",
-                                          192,48,4);
+                                          48,48,4);
 
 }
 

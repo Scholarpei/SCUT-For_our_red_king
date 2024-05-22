@@ -10,6 +10,9 @@ Player::Player(QObject *parent,Game* game):
 {
     mGame = game;//赋值game对象
 
+    this->mWidth = 48;
+    this->mHeight = 60;
+
     gameObjectType = GameObject::Type::Player;
     mPlayerState = playerState::IDLE;   //初始化player状态为idle
     _playerStateSet = new PlayerStatesSet(this,this);
@@ -18,7 +21,9 @@ Player::Player(QObject *parent,Game* game):
     this-> fallCom = new FallComponent(this);
     this->animation= new AnimationComponent(this, DRAWORRDER::Player);
                       //设置player精灵drawOrder = standard常量
+
     animation->resetAnimation(PLAYER::idle);    //预设播放器图片为空闲状态
+    animation->play(true);
 
     this->addComponent(moveCom);
     this->addComponent(fallCom);
@@ -36,33 +41,6 @@ void Player::Update(){
         component->Update();
     }
     //按照组件数组更新
-
-    if(mPlayerState == playerState::IDLE){
-        this->setSpeedX(ACTIONCONST::playerMoveXSpeed);
-        animation->play(false);         //状态切换前先停止
-        animation->resetAnimation(PLAYER::idle);  //输入空闲状态的动画
-        animation->play(true);      //开播放
-        animation->setRepeat(true); //选择重复
-        animation->Draw();          //开始播放
-    }
-    else if(mPlayerState == playerState::JUMPING){
-        this->setSpeedY(ACTIONCONST::playerMoveYSpeed);
-        animation->stop();
-        animation->resetAnimation(PLAYER::jumping);
-        animation->play(true);
-        animation->setRepeat(false);
-        animation->Draw();
-
-    }
-    else if(mPlayerState == playerState::WALKING){
-        this->setSpeedY(ACTIONCONST::playerMoveYSpeed);
-        animation->stop();
-        animation->resetAnimation(PLAYER::walking);
-        animation->play(true);
-        animation->setRepeat(false);
-        animation->Draw();
-    }
-    //动画播放内容根据当前状态决定
 
 
 }
@@ -93,6 +71,20 @@ void Player::changePlayerState(playerState state)
             this->mPlayerState = playerState::WALKING;
             break;
     }
+
+        if(mPlayerState == playerState::IDLE){
+            animation->resetAnimation(PLAYER::idle);  //输入空闲状态的动画
+            animation->play(true);      //开播放
+        }
+        else if(mPlayerState == playerState::JUMPING){
+            animation->resetAnimation(PLAYER::jumping);
+            animation->play(false);
+        }
+        else if(mPlayerState == playerState::WALKING){
+            animation->resetAnimation(PLAYER::walking);
+            animation->play(true);
+        }
+        //动画播放内容根据当前状态决定
 }
 
 int Player::getDirection()

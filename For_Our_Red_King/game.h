@@ -21,6 +21,7 @@ class Game: public QObject
     Q_OBJECT
 public:
     std::vector<GameObject*> mGameObjects;        //!<    游戏物体容器
+    std::vector<spriteComponent*>mSprites;          //!<   精灵容器
     MainWindow* mWindow;                          //!<  主界面
     QPainter* mPainter;                                //!<绘画Painter
     explicit Game(QObject *parent = nullptr,MainWindow* window = nullptr);
@@ -49,7 +50,6 @@ protected:
 
 private:
     std::vector<GameObject*> mPendingObjects;        //!<    等待状态的游戏物体容器
-    std::vector<spriteComponent*>mSprites;          //!<   精灵容器
 
     bool    mIsUpdating;                    //!<    是否在更新状态
     bool    mIsRuning;                      //!<    运行状态

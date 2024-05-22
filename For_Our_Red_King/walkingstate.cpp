@@ -39,7 +39,7 @@ void WalkingState::onKeyDown(int key,GameObject* gameObject)
 void WalkingState::onKeyUp(int key,GameObject* gameObject)
 {
     if(gameObject->gameObjectType == GameObject::Type::Player){
-        // qDebug()<<"walking-keyup";
+        qDebug()<<"walking-keyup";
         Player* playerPtr = dynamic_cast<Player*>(gameObject);
         switch(key)
         {

@@ -29,8 +29,7 @@ void AnimationComponent::Draw()
                  0,
                  this->animation->GetpixX(),
                  this->animation->GetpixY());
-
-    this->mGameObject->mGame->mPainter->drawPixmap(target, this->spriteSheet, source);
+    this->mGameObject->mGame->mWindow->mPainter->drawPixmap(target, this->spriteSheet, source);
 
     if(this->isPlaying)
     {
