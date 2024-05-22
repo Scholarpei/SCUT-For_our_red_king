@@ -37,22 +37,22 @@ void Block::update()
 
 int Block::getX()
 {
-    return this->gridPosition.x() * Brick::SIDE;
+    return this->gridPosition.x() * SYSTEM::tileSide;
 }
 
 int Block::getY()
 {
-    return this->gridPosition.y() * Brick::SIDE;
+    return this->gridPosition.y() * SYSTEM::tileSide;
 }
 
 int Block::getWidth()
 {
-    return this->gridSize.x() * Brick::SIDE;
+    return this->gridSize.x() * SYSTEM::tileSide;
 }
 
 int Block::getHeight()
 {
-    return this->gridSize.y() * Brick::SIDE;
+    return this->gridSize.y() * SYSTEM::tileSide;
 }
 
 

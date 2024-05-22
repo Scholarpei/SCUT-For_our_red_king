@@ -12,9 +12,6 @@ public:
     AnimationComponent* animation;
 
 public:
-    const static int SIDE = 48;
-
-public:
     explicit Brick(QObject *parent = nullptr,class Game* game = nullptr, int drawOrder = 0);
     // virtual ~Brick();
 

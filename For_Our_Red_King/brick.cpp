@@ -1,5 +1,7 @@
-
+#include "standard.h"
 #include "brick.h"
+#include "game.h"
+
 
 Brick::Brick(QObject *parent, Game *game, int drawOrder):
     GameObject(parent, game)
@@ -11,6 +13,7 @@ Brick::Brick(QObject *parent, Game *game, int drawOrder):
     this->animation = new AnimationComponent(this, drawOrder);
 
     this->addComponent(animation);
+    this->mGame->createSprite(this->animation);
 }
 
 void Brick::initialize(const AnimationLoader &anime, QVector2D posi, QVector2D size)
@@ -28,20 +31,20 @@ void Brick::initialize(const AnimationLoader &anime, QVector2D posi, QVector2D s
 
 int Brick::getX()
 {
-    return this->gridPosition.x() * this->SIDE;
+    return this->gridPosition.x() * SYSTEM::tileSide;
 }
 
 int Brick::getY()
 {
-    return this->gridPosition.y() * this->SIDE;
+    return this->gridPosition.y() * SYSTEM::tileSide;
 }
 
 int Brick::getWidth()
 {
-    return this->gridSize.x() * this->SIDE;
+    return this->gridSize.x() * SYSTEM::tileSide;
 }
 
 int Brick::getHeight()
 {
-    return this->gridSize.y() * this->SIDE;
+    return this->gridSize.y() * SYSTEM::tileSide;
 }
