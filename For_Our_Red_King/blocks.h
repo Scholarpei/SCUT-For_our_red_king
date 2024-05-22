@@ -5,12 +5,16 @@
 
 struct InterfaceBlock
 {
-    short category;
-    short position[4];
-    short textureID;
-    short status[5];
+    short category = -1;
+    short position[4] = {0, 0, 0, 0};
+    short textureID = 0;
+    short status[5] = {0, 0, 0, 0, 0};
 
-    void initializeRock(short textureID, QVector2D size, QVector2D inSize, bool up, bool down, bool left, bool right);
+    static std::vector<AnimationLoader> toAnime(short ID);
+
+    void initializeRock(short textureID, QVector2D posi, QVector2D inSize, bool up, bool down, bool left, bool right);
+    void initializeBackGround(short textureID);
+    void initializeDoor(short texturID, QVector2D posi, short type);
 };
 
 
@@ -28,7 +32,7 @@ public:
     // void initialize();
     virtual void initialize(const InterfaceBlock& interface) = 0;
 
-    virtual void update();
+    virtual void update() = 0;
     // void vanish();
 
     int getX();
@@ -51,9 +55,6 @@ private:
     bool right;
     int inWidth;
     int inHeight;
-
-
-public:
     std::array<AnimationLoader, 9> bricks;
 
 private:
@@ -76,8 +77,38 @@ public:
 class BlockRock : public Block
 {
 public:
+    explicit BlockRock(QObject *parent = nullptr,class Game* game = nullptr);
+
     void initialize(RockSpawner::RockSpawner spawner, QVector2D posi);
     virtual void initialize(const InterfaceBlock& interface);
+    virtual void update();
+};
+
+
+class BlockBack : public Block
+{
+public:
+    explicit BlockBack(QObject *parent = nullptr,class Game* game = nullptr);
+
+    void initialize(const AnimationLoader& anime);
+    virtual void initialize(const InterfaceBlock& interface);
+    virtual void update();
+};
+
+class BlockDoor : public Block
+{
+private:
+    bool isOpen;
+    short type;
+
+    void openDoor();
+
+public:
+    explicit BlockDoor(QObject *parent = nullptr,class Game* game = nullptr);
+
+    void initialize(const AnimationLoader& anime, QVector2D posi, short type);
+    virtual void initialize(const InterfaceBlock& interface);
+    virtual void update();
 };
 
 

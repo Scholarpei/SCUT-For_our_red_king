@@ -14,32 +14,34 @@ namespace MONSTER {
 
 }
 
-namespace DOOR{
-
+namespace BACKGROUND{
+const AnimationLoader bg1(":/pictureResoource/background/Background.png",
+                          576, 324, 1);
 }
 
 namespace TILES{
-const AnimationLoader industrialTile1(":/pictureResoource/Tiles/IndustrialTile_1",
+const AnimationLoader industrialTile1(":/pictureResoource/Tiles/IndustrialTile_1.png",
                                 32, 32, 1);
-const AnimationLoader industrialTile2(":/pictureResoource/Tiles/IndustrialTile_2",
+const AnimationLoader industrialTile2(":/pictureResoource/Tiles/IndustrialTile_2.png",
                                 32, 32, 1);
-const AnimationLoader industrialTile3(":/pictureResoource/Tiles/IndustrialTile_3",
+const AnimationLoader industrialTile3(":/pictureResoource/Tiles/IndustrialTile_3.png",
                                 32, 32, 1);
-const AnimationLoader industrialTile4(":/pictureResoource/Tiles/IndustrialTile_4",
+const AnimationLoader industrialTile4(":/pictureResoource/Tiles/IndustrialTile_4.png",
                                 32, 32, 1);
-const AnimationLoader industrialTile5(":/pictureResoource/Tiles/IndustrialTile_5",
+const AnimationLoader industrialTile5(":/pictureResoource/Tiles/IndustrialTile_5.png",
                                 32, 32, 1);
-const AnimationLoader industrialTile6(":/pictureResoource/Tiles/IndustrialTile_6",
+const AnimationLoader industrialTile6(":/pictureResoource/Tiles/IndustrialTile_6.png",
                                 32, 32, 1);
-const AnimationLoader industrialTile7(":/pictureResoource/Tiles/IndustrialTile_7",
+const AnimationLoader industrialTile7(":/pictureResoource/Tiles/IndustrialTile_7.png",
                                 32, 32, 1);
-const AnimationLoader industrialTile8(":/pictureResoource/Tiles/IndustrialTile_8",
+const AnimationLoader industrialTile8(":/pictureResoource/Tiles/IndustrialTile_8.png",
                                 32, 32, 1);
-const AnimationLoader industrialTile9(":/pictureResoource/Tiles/IndustrialTile_9",
+const AnimationLoader industrialTile9(":/pictureResoource/Tiles/IndustrialTile_9.png",
                                 32, 32, 1);
-
-const AnimationLoader masuTile(":/pictureResoource/Tiles/masuTile",
+const AnimationLoader masuTile(":/pictureResoource/Tiles/masuTile.png",
                          32, 32, 1);
+const AnimationLoader door1(":/pictureResoource/Tiles/door.png",
+                            32, 32, 8);
 }
 
 namespace DRAWORRDER{
@@ -63,6 +65,7 @@ const int fpsBreathtaking = 120;
 //fps
 const int windowWidth = 960;
 const int windowHeight = 576;
+const int tileSide = 48;
 }
 namespace ACTIONCONST{
 const float maxSpeed = 15;

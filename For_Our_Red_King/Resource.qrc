@@ -16,5 +16,7 @@
         <file>pictureResoource/Tiles/IndustrialTile_8.png</file>
         <file>pictureResoource/Tiles/IndustrialTile_9.png</file>
         <file>pictureResoource/Tiles/masuTile.png</file>
+        <file>pictureResoource/background/Background.png</file>
+        <file>pictureResoource/Tiles/door1.png</file>
     </qresource>
 </RCC>

@@ -6,7 +6,7 @@
 
 class Brick: public GameObject
 {
-private:
+public:
     QVector2D gridPosition;
     QVector2D gridSize;
     AnimationComponent* animation;
