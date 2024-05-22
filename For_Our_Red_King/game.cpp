@@ -1,0 +1,262 @@
+#include "game.h"
+#include "mytimer.h"
+#include "spritecomponent.h"
+#include "player.h"
+#include "cmath"
+
+Game::Game(QObject *parent,MainWindow* window):
+    QObject{parent},
+    mIsRuning(true),
+    mIsUpdating(false),
+    mPlayer(nullptr)
+{
+    qDebug()<<"到达Game对象构造函数处";
+    mWindow = window;
+    mPainter = new QPainter(mWindow);
+    mPlayer = new Player(this,this);
+    createGameObject(mPlayer);
+    //创建玩家对象
+
+    Initialize();
+
+}
+
+Game::~Game()
+{
+    unloadData();
+}
+
+//!初始化
+bool Game::Initialize()
+{
+    QTimer::singleShot(250,this,[=](){
+        mTimer = new myTimer(this,this);
+        timerLoop = startTimer(15);      //建立循环timer并设定每隔15ms触发事件timerEvent
+    });
+    return true;
+}
+
+
+//!两个物体的碰撞检测
+bool Game::collisionDetection(GameObject* first,GameObject* second)
+{
+    //依靠aabb碰撞实现
+    QVector2D f_pos = first->getPosition(),s_pos = second->getPosition();
+    QVector2D f_scale = first->getScale(),s_scale = second->getScale();
+    float f_Width = first->getWidth()*f_scale.x(),f_Height = first->getHeight() * f_scale.y();//碰撞框宽
+    float s_Width = second->getWidth()*s_scale.x(),s_Height = second->getHeight() * s_scale.y();//碰撞框高
+
+    auto getMiddlePoint = [](QVector2D pos,float width,float height) -> QVector2D{
+        QVector2D ret = QVector2D(pos.x()+(width/2),pos.y() + (height/2));
+        return ret;
+    };//获得框框中心点的lamda function
+
+    QVector2D f_midPoint = getMiddlePoint(f_pos,f_Width,f_Height);
+    QVector2D s_midPoint = getMiddlePoint(s_pos,s_Width,s_Height);
+    QVector2D deltaMidPoint = s_midPoint - f_midPoint;
+    //获得物体对象两个的中心点并计算delta
+    QVector2D totalHalfSize = QVector2D((f_Width+s_Width)/2,(f_Height+s_Height)/2);
+    //计算两个物体一半长的和
+
+    if(abs(deltaMidPoint.x()) < totalHalfSize.x() &&
+        abs(deltaMidPoint.y()) < totalHalfSize.y())
+        return true;   //发生碰撞
+    return false;  //未发生碰撞
+}
+
+void Game::timerEvent(QTimerEvent *event)
+{
+
+    if(event->timerId() == timerLoop){
+
+        Loop();
+        //主循环
+    }
+}
+
+//!主循环
+void Game::Loop()
+{
+    if(mIsRuning && !mIsLooping)
+    {
+        mIsLooping = true;
+        Event();
+        Update();
+        Draw();
+        mIsLooping = false;
+    }
+}
+
+//!设置帧率
+void Game::Tick(int fps)
+{
+    // 根据设置的帧率计算每帧至少的时间
+    int fpsTime = 1000 / fps;
+
+    while(mTimer->recordTime->elapsed() > fpsTime + mTimer->ticksCount)
+        QTest::qSleep(1);
+    //如果这一帧未到达时间，则等待
+
+    mTimer->deltaTime = (mTimer->recordTime->elapsed() - mTimer->ticksCount) /1000.0f;
+    //计算新deltaTime
+    mTimer->ticksCount = mTimer->recordTime->elapsed();
+    //计算新一帧开始之前所经过的总时间
+}
+
+void Game::Shutdown()
+{
+    unloadData();
+}
+
+
+void Game::createGameObject(GameObject* gameObject)
+{
+
+    qDebug("创建第%d个GameObject",mGameObjects.size());
+    // 如果当前正在更新，将该对象加入等待区
+    if (mIsUpdating)
+    {
+        mPendingObjects.emplace_back(gameObject);
+    }
+    else
+    {
+        mGameObjects.emplace_back(gameObject);
+    }
+}
+
+void Game::removeGameObject(GameObject* gameObject)
+{
+    // 先在等待区中寻找并移除物体
+    auto iter = std::find(mPendingObjects.begin(), mPendingObjects.end(), gameObject);
+    if (iter != mPendingObjects.end())
+    {
+        std::iter_swap(iter, mPendingObjects.end() - 1);
+        mPendingObjects.pop_back();
+    }
+
+    // 在正式物体区中寻找并移除物体
+    iter = std::find(mGameObjects.begin(), mGameObjects.end(), gameObject);
+    if (iter != mGameObjects.end())
+    {
+        std::iter_swap(iter, mGameObjects.end() - 1);
+        mGameObjects.pop_back();
+    }
+}
+
+void Game::Event()
+{
+    //to be written需要做的事件操作
+
+}
+
+void Game::Update()
+{
+    //设置帧率
+    Tick(60);
+
+    // 更新开始
+    mIsUpdating = true;
+    // 遍历并执行所有物体的更新函数
+    for (auto gameObject : mGameObjects)
+    {
+        gameObject->Update();
+    }
+    // 更新结束
+    mIsUpdating = false;
+
+    // 将所有等待区物体移动至正式的物体区
+    for (auto pendingObject : mPendingObjects)
+    {
+        mGameObjects.emplace_back(pendingObject);
+    }
+    // 清空等待区
+    mPendingObjects.clear();
+
+    // 将所有状态为EDead的物体添加至死亡区
+    std::vector<GameObject*> deadObjects;
+    for (auto deadObject : mGameObjects)
+    {
+        if (deadObject->getState() == GameObject::State::EDead)
+        {
+            deadObjects.emplace_back(deadObject);
+        }
+    }
+    // 释放掉所有死亡区的物体
+    for (auto deadObject : deadObjects)
+    {
+        delete deadObject;
+    }
+
+
+}
+
+//!绘制精灵
+void Game::Draw()
+{
+    for (auto sprite:mSprites)
+    {
+        sprite->Draw();
+    }
+}
+
+//!创建精灵并按绘画顺序插入
+void Game::createSprite(spriteComponent* sprite)
+{
+    int order = sprite->getDrawOrder();
+    // 按照绘制顺序插入
+    std::vector<spriteComponent*>::iterator iter = mSprites.begin();
+    for (; iter != mSprites.end(); ++iter)
+    {
+        if (order < (*iter)->getDrawOrder())
+        {
+            break;
+        }
+    }
+    mSprites.insert(iter, sprite);
+}
+
+//!移除精灵
+void Game::removeSprite(spriteComponent* sprite)
+{
+    std::vector<spriteComponent*>::iterator iter = std::find(mSprites.begin(), mSprites.end(), sprite);
+    mSprites.erase(iter);
+}
+
+//!移除自定义myTimer
+void Game::removeMyTimer(myTimer* timer)
+{
+    delete timer;
+}
+
+//!释放数据
+void Game::unloadData()
+{
+    while (!mGameObjects.empty())
+    {
+        delete mGameObjects.back();
+    }
+    while (!mPendingObjects.empty())
+    {
+        delete mPendingObjects.back();
+    }
+    while(!mSprites.empty())
+    {
+        delete mSprites.back();
+    }
+}
+
+void Game::keyPressInput(int e)
+{
+    if(this->mIsRuning){
+        for(auto gameObject:mGameObjects)
+            gameObject->inputKeyPressProcess(e);
+    }
+}
+
+void Game::keyReleaseInput(int e)
+{
+    if(this->mIsRuning){
+        for(auto gameObject:mGameObjects)
+            gameObject->inputKeyReleaseProcess(e);
+    }
+}

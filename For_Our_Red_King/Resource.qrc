@@ -1,0 +1,20 @@
+<RCC>
+    <qresource prefix="/">
+        <file>pictureResoource/Player/attack1.png</file>
+        <file>pictureResoource/Player/attack3.png</file>
+        <file>pictureResoource/Player/death.png</file>
+        <file>pictureResoource/Player/idle.png</file>
+        <file>pictureResoource/Player/jump.png</file>
+        <file>pictureResoource/Player/Run.png</file>
+        <file>pictureResoource/Tiles/IndustrialTile_1.png</file>
+        <file>pictureResoource/Tiles/IndustrialTile_2.png</file>
+        <file>pictureResoource/Tiles/IndustrialTile_3.png</file>
+        <file>pictureResoource/Tiles/IndustrialTile_4.png</file>
+        <file>pictureResoource/Tiles/IndustrialTile_5.png</file>
+        <file>pictureResoource/Tiles/IndustrialTile_6.png</file>
+        <file>pictureResoource/Tiles/IndustrialTile_7.png</file>
+        <file>pictureResoource/Tiles/IndustrialTile_8.png</file>
+        <file>pictureResoource/Tiles/IndustrialTile_9.png</file>
+        <file>pictureResoource/Tiles/masuTile.png</file>
+    </qresource>
+</RCC>
