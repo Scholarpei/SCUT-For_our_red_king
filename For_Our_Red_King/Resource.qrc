@@ -18,5 +18,8 @@
         <file>pictureResoource/Tiles/masuTile.png</file>
         <file>pictureResoource/background/Background.png</file>
         <file>pictureResoource/Tiles/door1.png</file>
+        <file>pictureResoource/Monster/Idle.png</file>
+        <file>pictureResoource/Monster/Walk.png</file>
+        <file>pictureResoource/Monster/Jump.png</file>
     </qresource>
 </RCC>
