@@ -9,31 +9,32 @@ MoveComponent::MoveComponent(GameObject* gameObject):
 
 void MoveComponent::Update()
 {
+    // qDebug()<<"MoveComponent update启动";
     //只考虑横向的运动
     int dir = mGameObject->getDirection();
-    int speedX = mGameObject->getSpeedX();
-    QVector2D curPos = mGameObject->getPosition();
+    float speedX = mGameObject->getSpeedX();
+    QVector2D curPos = mGameObject->getPosition();//备份前一个位置
     //获得gameObject各个数值
-    QVector2D nxtPosition = QVector2D(curPos.x() + speedX*dir, curPos.y());//计算下一个位置
-    QVector2D currentPosition = mGameObject->getPosition();     //备份前一个位置
+    const QVector2D nxtPosition = QVector2D(float(curPos.x() + speedX*dir), curPos.y());//计算下一个位置
     mGameObject->setPosition(nxtPosition);
+
+    bool isCollide = false;   //当前gameObject是否跟其他Object发生碰撞
 
     if(mGameObject->attendCollision)
         for(auto s_gameObject : mGameObject->mGame->mGameObjects)
-            if(s_gameObject->attendCollision){//对应的s_gameObject要参与碰撞
+            if(s_gameObject!=mGameObject&&s_gameObject->attendCollision){//对应的s_gameObject要参与碰撞
             if(mGameObject->mGame->collisionDetection(mGameObject,s_gameObject)){
                 //碰撞检测为true
+                isCollide = true;
                 mGameObject->collideOthers(s_gameObject);
                 s_gameObject->beingCollide(mGameObject);
-                mGameObject->setPosition(currentPosition);
-            }
-            else{
-                //碰撞检测为false
-                mGameObject->notCollide();
-                //由于已经改变了mGameObject位置，此处没有操作
+                mGameObject->setPosition(curPos);
             }
         }
-    //碰撞检测部分
 
+    if(!isCollide){
+        mGameObject->notCollide();
+    }
+    //碰撞检测部分
 }
 

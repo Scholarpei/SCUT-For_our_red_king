@@ -25,7 +25,6 @@ void IdleState::onKeyDown(int key,GameObject* gameObject)
                 playerPtr->setMoveDirection(1);//设置向右
                 playerPtr->setSpeedX(ACTIONCONST::playerMoveXSpeed);
                 playerPtr->changePlayerState(Player::playerState::WALKING);
-
                 break;
             case Qt::Key_Left:
                 // qDebug()<<"向左";

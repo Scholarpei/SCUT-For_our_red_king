@@ -68,8 +68,8 @@ const int windowHeight = 576;
 const int tileSide = 48;
 }
 namespace ACTIONCONST{
-const float maxSpeed = 15;
-const float gravityAcceleration = -9.8;
+const float maxSpeed = 5;
+const float gravityAcceleration = 0.5;
 const float playerMoveXSpeed = 1;
 const float playerMoveYSpeed = 1;
 

@@ -40,7 +40,7 @@ public:
     AnimationComponent* animation;           //动画组件
 
 private:
-    int moveDirection;     //!< 运动方向 1为右，-1为左
+    int moveDirection = 1;     //!< 运动方向 1为右，-1为左
     int HP;                //!< 血量
     long long loseHP_timeCount;  //!< 距离上一次扣血已经经过的时间
     float mSpeedX,mSpeedY;     //!< 移动速度 X横,Y竖
