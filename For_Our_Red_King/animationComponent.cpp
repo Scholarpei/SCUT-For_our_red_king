@@ -1,6 +1,7 @@
 #include "animationComponent.h"
 #include "gameobject.h"
 #include "game.h"
+#include <QTransform>
 
 AnimationComponent::AnimationComponent(GameObject *gameObject, int drawOrder):
     spriteComponent(gameObject, drawOrder),
@@ -29,7 +30,15 @@ void AnimationComponent::Draw()
                  0,
                  this->animation.GetpixX(),
                  this->animation.GetpixY());
-    this->mGameObject->mGame->mWindow->mPainter->drawPixmap(target, this->spriteSheet, source);
+
+    QPixmap frame = this->spriteSheet.copy(source);
+    if (this->mGameObject->getDrawDirection() != 1){
+        // 创建一个水平翻转的变换矩阵
+        QTransform transform;
+        transform.scale(-1, 1);  // 水平翻转
+        frame = frame.transformed(transform);
+    }
+    this->mGameObject->mGame->mWindow->mPainter->drawPixmap(target, frame);
 
     if(this->isPlaying)
     {
