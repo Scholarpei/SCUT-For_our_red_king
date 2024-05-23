@@ -11,7 +11,7 @@ GameObject::GameObject(QObject *parent,Game *game):
 {
     //注意这里默认设置了物体参与碰撞
     mGame = game;
-    mGame->createGameObject(this);
+    // mGame->createGameObject(this);
 }
 
 GameObject::~GameObject()

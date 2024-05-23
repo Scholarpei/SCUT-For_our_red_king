@@ -25,10 +25,10 @@ void AnimationComponent::Draw()
                  mGameObject->mWidth * mGameObject->getScale().x(),
                  mGameObject->mHeight * mGameObject->getScale().y());
 
-    QRect source(this->animation->GetpixX() * this->currentFrame,
+    QRect source(this->animation.GetpixX() * this->currentFrame,
                  0,
-                 this->animation->GetpixX(),
-                 this->animation->GetpixY());
+                 this->animation.GetpixX(),
+                 this->animation.GetpixY());
     this->mGameObject->mGame->mWindow->mPainter->drawPixmap(target, this->spriteSheet, source);
 
     if(this->isPlaying)
@@ -39,7 +39,7 @@ void AnimationComponent::Draw()
 
 void AnimationComponent::resetAnimation(const AnimationLoader &animation)
 {
-    this->animation = &animation;
+    this->animation = animation;
     this->stop();
     this->spriteSheet = QPixmap(animation.GetpixAddress());
 }
@@ -80,13 +80,13 @@ void AnimationComponent::nextTick()
     if (this->currentTick == this->TICKS_PER_FRAME)
     {
         this->currentTick = 0;
-        this->currentFrame = (this->currentFrame + 1) % this->animation->GetpixFrame();
+        this->currentFrame = (this->currentFrame + 1) % this->animation.GetpixFrame();
     }
 
     if(this->currentFrame == 0 && this->currentTick == 0 && !this->isRepeating)
     {
         this->isPlaying = false;
-        this->currentFrame = this->animation->GetpixFrame() - 1;
+        this->currentFrame = this->animation.GetpixFrame() - 1;
         this->currentTick = this->TICKS_PER_FRAME - 1;
     }
 }

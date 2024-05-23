@@ -30,7 +30,7 @@ Block::~Block()
     // }
 }
 
-void Block::update()
+void Block::Update()
 {
 
 }
@@ -145,6 +145,7 @@ void BlockRock::initialize(RockSpawner::RockSpawner spawner, QVector2D posi)
                           QVector2D(1, 1));
 
             this->bricks[i][j] = b;
+            // this->mGame->removeGameObject(b);
         }
     }
 }
@@ -162,7 +163,7 @@ void BlockRock::initialize(const InterfaceBlock &interface)
     this->initialize(spawner, QVector2D(interface.position[0], interface.position[1]));
 }
 
-void BlockRock::update()
+void BlockRock::Update()
 {
 
 }
@@ -250,7 +251,7 @@ void BlockBack::initialize(const InterfaceBlock &interface)
     this->initialize(interface.toAnime(interface.textureID)[0]);
 }
 
-void BlockBack::update()
+void BlockBack::Update()
 {
 
 }
@@ -292,7 +293,7 @@ void BlockDoor::initialize(const InterfaceBlock &interface)
                      interface.status[0]);
 }
 
-void BlockDoor::update()
+void BlockDoor::Update()
 {
     // TODO 检测怪物数量，检测玩家位置，发送下一关信号
 }

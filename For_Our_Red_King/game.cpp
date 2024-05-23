@@ -3,6 +3,7 @@
 #include "spritecomponent.h"
 #include "player.h"
 #include "cmath"
+#include "blocks.h"
 
 Game::Game(QObject *parent,MainWindow* window):
     QObject{parent},
@@ -13,9 +14,42 @@ Game::Game(QObject *parent,MainWindow* window):
     qDebug()<<"到达Game对象构造函数处";
     mWindow = window;
     mPainter = new QPainter(mWindow);
+
     mPlayer = new Player(this,this);
     createGameObject(mPlayer);
     //创建玩家对象
+
+    {
+        // 测试用创建砖块
+        // 注释掉所有和 masu 有关的来去掉玩家脚下的 〼　砖块
+        InterfaceBlock interface;
+        BlockRock* ground = new BlockRock(this, this);
+        BlockRock* highland = new BlockRock(this, this);
+        BlockRock* masu = new BlockRock(this, this);
+        BlockBack* back = new BlockBack(this, this);
+        createGameObject(ground);
+        createGameObject(masu);
+        createGameObject(highland);
+        createGameObject(back);
+
+        interface.initializeRock(11,
+                                 QVector2D(0, 8),
+                                 QVector2D(9, 3),
+                                 1,0,1,0);
+        ground->initialize(interface);
+        interface.initializeRock(21,
+                                 QVector2D(0, 1),
+                                 QVector2D(1, 1),
+                                 0,0,0,0);
+        masu->initialize(interface);
+        interface.initializeRock(11,
+                                 QVector2D(10, 6),
+                                 QVector2D(5, 3),
+                                 1,1,1,1);
+        highland->initialize(interface);
+        interface.initializeBackGround(1);
+        back->initialize(interface);
+    }
 
     Initialize();
 

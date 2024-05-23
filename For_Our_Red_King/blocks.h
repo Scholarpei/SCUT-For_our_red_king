@@ -32,7 +32,7 @@ public:
     // void initialize();
     virtual void initialize(const InterfaceBlock& interface) = 0;
 
-    virtual void update() = 0;
+    virtual void Update();
     // void vanish();
 
     int getX();
@@ -81,7 +81,7 @@ public:
 
     void initialize(RockSpawner::RockSpawner spawner, QVector2D posi);
     virtual void initialize(const InterfaceBlock& interface);
-    virtual void update();
+    virtual void Update();
 };
 
 
@@ -92,7 +92,7 @@ public:
 
     void initialize(const AnimationLoader& anime);
     virtual void initialize(const InterfaceBlock& interface);
-    virtual void update();
+    virtual void Update();
 };
 
 class BlockDoor : public Block
@@ -108,7 +108,7 @@ public:
 
     void initialize(const AnimationLoader& anime, QVector2D posi, short type);
     virtual void initialize(const InterfaceBlock& interface);
-    virtual void update();
+    virtual void Update();
 };
 
 

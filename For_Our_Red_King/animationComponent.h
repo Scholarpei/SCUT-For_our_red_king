@@ -46,7 +46,7 @@ private:
     bool isRepeating;           // 是否重复播放
     bool willReStart;           // 播放时是否重新开始
 
-    const AnimationLoader* animation;  // 动画本尊哒
+    AnimationLoader animation;  // 动画本尊哒
 
     //下一帧
     void nextTick();
