@@ -76,7 +76,9 @@ void Player::fallcollideOthers(GameObject* d,QVector2D& lastposition)
     this->mSpeedY = 0;
     if(this->mPlayerState == playerState::JUMPING){
         // this->mSpeedX = 0;
-        this->changePlayerState(playerState::WALKING);
+        if(!this->jumpFinalStateDecision)
+             this->changePlayerState(playerState::WALKING);
+        else this->changePlayerState(playerState::IDLE);
     }
 }
 
@@ -120,6 +122,8 @@ void Player::changePlayerState(playerState state)
             this->mPlayerState = playerState::IDLE;
             break;
         case playerState::JUMPING:
+            if(this->mPlayerState == playerState::WALKING)
+                jumpFinalStateDecision = 0;
             this->mPlayerState = playerState::JUMPING;
             break;
         case playerState::WALKING:

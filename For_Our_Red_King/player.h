@@ -16,6 +16,7 @@ public:
 
     class PlayerStatesSet* _playerStateSet;    //!<玩家状态集合
     enum class playerState{IDLE,JUMPING,WALKING};//!玩家状态集合（判断）
+    bool jumpFinalStateDecision =  1;   //!<决定跳跃后落地是walking还是idle
     playerState mPlayerState;
     virtual void changePlayerState(playerState state);//!改变玩家状态
 
@@ -43,6 +44,7 @@ public:
     FallComponent * fallCom;       //掉落组件
     MoveComponent * moveCom;        //移动组件
     AnimationComponent* animation;           //动画组件
+
 
 private:
     int moveDirection = 1;     //!< 运动方向 1为右，-1为左

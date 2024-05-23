@@ -42,9 +42,11 @@ void JumpingState::onKeyUp(int key,GameObject* gameObject)
         switch(key)
         {
         case Qt::Key_Right:
+            playerPtr->jumpFinalStateDecision = 1;
             playerPtr->setSpeedX(0);
             break;
         case Qt::Key_Left:
+            playerPtr->jumpFinalStateDecision = 1;
             playerPtr->setSpeedX(0);
             break;
         }
