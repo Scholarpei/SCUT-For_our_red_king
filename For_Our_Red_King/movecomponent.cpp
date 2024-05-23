@@ -26,14 +26,14 @@ void MoveComponent::Update()
             if(mGameObject->mGame->collisionDetection(mGameObject,s_gameObject)){
                 //碰撞检测为true
                 isCollide = true;
-                mGameObject->collideOthers(s_gameObject);
+                mGameObject->movecollideOthers(s_gameObject,curPos);
                 s_gameObject->beingCollide(mGameObject);
                 mGameObject->setPosition(curPos);
             }
         }
 
     if(!isCollide){
-        mGameObject->notCollide();
+        mGameObject->movenotCollide();
     }
     //碰撞检测部分
 }

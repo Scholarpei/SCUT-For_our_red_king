@@ -1,6 +1,7 @@
 #include "animationComponent.h"
 #include "gameobject.h"
 #include "game.h"
+#include <QTransform>
 
 AnimationComponent::AnimationComponent(GameObject *gameObject, int drawOrder):
     spriteComponent(gameObject, drawOrder),
@@ -25,11 +26,19 @@ void AnimationComponent::Draw()
                  mGameObject->mWidth * mGameObject->getScale().x(),
                  mGameObject->mHeight * mGameObject->getScale().y());
 
-    QRect source(this->animation->GetpixX() * this->currentFrame,
+    QRect source(this->animation.GetpixX() * this->currentFrame,
                  0,
-                 this->animation->GetpixX(),
-                 this->animation->GetpixY());
-    this->mGameObject->mGame->mWindow->mPainter->drawPixmap(target, this->spriteSheet, source);
+                 this->animation.GetpixX(),
+                 this->animation.GetpixY());
+
+    QPixmap frame = this->spriteSheet.copy(source);
+    if (this->mGameObject->getDrawDirection() != 1){
+        // 创建一个水平翻转的变换矩阵
+        QTransform transform;
+        transform.scale(-1, 1);  // 水平翻转
+        frame = frame.transformed(transform);
+    }
+    this->mGameObject->mGame->mWindow->mPainter->drawPixmap(target, frame);
 
     if(this->isPlaying)
     {
@@ -39,7 +48,7 @@ void AnimationComponent::Draw()
 
 void AnimationComponent::resetAnimation(const AnimationLoader &animation)
 {
-    this->animation = &animation;
+    this->animation = animation;
     this->stop();
     this->spriteSheet = QPixmap(animation.GetpixAddress());
 }
@@ -80,13 +89,13 @@ void AnimationComponent::nextTick()
     if (this->currentTick == this->TICKS_PER_FRAME)
     {
         this->currentTick = 0;
-        this->currentFrame = (this->currentFrame + 1) % this->animation->GetpixFrame();
+        this->currentFrame = (this->currentFrame + 1) % this->animation.GetpixFrame();
     }
 
     if(this->currentFrame == 0 && this->currentTick == 0 && !this->isRepeating)
     {
         this->isPlaying = false;
-        this->currentFrame = this->animation->GetpixFrame() - 1;
+        this->currentFrame = this->animation.GetpixFrame() - 1;
         this->currentTick = this->TICKS_PER_FRAME - 1;
     }
 }

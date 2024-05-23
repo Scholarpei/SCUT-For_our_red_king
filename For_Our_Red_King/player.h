@@ -30,10 +30,15 @@ public:
     void setMoveDirection(int dir)override;    //!<设置运动方向
     void setSpeedX(float s)override;   //!<设置X速度
     void setSpeedY(float s)override;   //!<设置Y速度
+    int getDrawDirection()override;    //!<获得绘画方向(正常1、镜像-1)
 
-    void collideOthers(GameObject* d)override;        //!<碰撞其他gameobject的事件处理(d是this碰撞到的GameObject)
+    void movecollideOthers(GameObject* d,QVector2D& lastposition)override;        //!<碰撞其他gameobject的事件处理(d是this碰撞到的GameObject)
+    void fallcollideOthers(GameObject* d,QVector2D& lastposition)override;        //!<碰撞其他gameobject的事件处理(d是this碰撞到的GameObject)
     void beingCollide(GameObject* s)override;         //!<被碰撞后发生的事件处理(s是碰撞this的GameObject)
-    void notCollide()override;                        //!<如果没有发生碰撞后该Object的处理
+    void movenotCollide()override;                        //!<如果movecomponent没有发生碰撞后该Object的处理
+    void fallnotCollide()override;                        //!<如果fallcomponent没有发生碰撞后该Object的处理
+
+    void loseHPEvent(int num);                        //!Player扣血事件
 
     FallComponent * fallCom;       //掉落组件
     MoveComponent * moveCom;        //移动组件
@@ -41,7 +46,7 @@ public:
 
 private:
     int moveDirection = 1;     //!< 运动方向 1为右，-1为左
-    int HP;                //!< 血量
+    int HP = PLAYER::MaxHP;                //!< 血量
     long long loseHP_timeCount;  //!< 距离上一次扣血已经经过的时间
     float mSpeedX,mSpeedY;     //!< 移动速度 X横,Y竖
 };

@@ -11,7 +11,6 @@ GameObject::GameObject(QObject *parent,Game *game):
 {
     //注意这里默认设置了物体参与碰撞
     mGame = game;
-    mGame->createGameObject(this);
 }
 
 GameObject::~GameObject()
@@ -141,17 +140,33 @@ void GameObject::setSpeedY(float s)
     qDebug()<<"调用了setSpeedY来自GameObject基类的函数，发生错误！\n";
 }
 
-void GameObject::collideOthers(GameObject* d)
+void GameObject::movecollideOthers(GameObject* d,QVector2D& lastposition)
 {
-    qDebug()<<"调用了collideOthers来自GameObject基类的函数，发生错误！\n";
+    qDebug()<<"调用了movecollideOthers来自GameObject基类的函数，发生错误！\n";
+}
+void GameObject::fallcollideOthers(GameObject* d,QVector2D& lastposition)
+{
+    qDebug()<<"调用了fallcollideOthers来自GameObject基类的函数，发生错误！\n";
 }
 void GameObject::beingCollide(GameObject* s)
 {
     qDebug()<<"调用了beingCollide来自GameObject基类的函数，发生错误！\n";
 }
 
-void GameObject::notCollide()
+void GameObject::movenotCollide()
 {
-    qDebug()<<"调用了notCollide来自GameObject基类的函数，发生错误！\n";
+    qDebug()<<"调用了movenotCollide来自GameObject基类的函数，发生错误！\n";
+}
+
+void GameObject::fallnotCollide()
+{
+    qDebug()<<"调用了fallnotCollide来自GameObject基类的函数，发生错误！\n";
+}
+
+//!获得绘画方向（正常1、镜像-1）
+int GameObject::getDrawDirection()
+{
+    return 1;
+    //默认基类返回1
 }
 
