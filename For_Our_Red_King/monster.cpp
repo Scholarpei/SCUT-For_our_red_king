@@ -5,7 +5,9 @@
 #include "gameobject.h"
 #include "standard.h"
 Monster::Monster(QObject *parent,Game* game):
-    GameObject(parent,game)
+    GameObject(parent,game),
+    mSpeedX(ACTIONCONST::monsterMoveXSpeed),
+    moveDirection(1)
 {
     mGame = game;//赋值game对象
 
@@ -13,14 +15,14 @@ Monster::Monster(QObject *parent,Game* game):
     this->mHeight = 60;
 
     gameObjectType = GameObject::Type::Monster;
-    mMonsterState = MonsterState::IDLE;   //初始化Monster状态为idle
+    mMonsterState = MonsterState::WALKING;   //初始化Monster状态为idle
 
     this-> moveCom = new MoveComponent(this);
     this-> fallCom = new FallComponent(this);
     this->animation= new AnimationComponent(this, DRAWORRDER::Monster);
         //设置player精灵drawOrder = standard常量
 
-    animation->resetAnimation(MONSTER::idle);    //预设播放器图片为空闲状态
+    animation->resetAnimation(MONSTER::walking);    //预设播放器图片为行走
     animation->play(true);
 
     this->addComponent(moveCom);
@@ -34,7 +36,6 @@ void Monster::Update(){
     if(mState == State::EDead)
         return;
     //物体标定为消亡就不再更新了
-
     for(auto component:mComponents){
         component->Update();
     }
@@ -50,10 +51,10 @@ void Monster::collideOthers(GameObject* d)
 //!<被碰撞后发生的事件处理(s是碰撞this的GameObject)
 void Monster::beingCollide(GameObject* s)
 {
-    //to be written
+    //如果
 }
 
-void Monster::changePlayerState(MonsterState state)
+void Monster::changeMonsterState(MonsterState state)
 {
 
 

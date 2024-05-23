@@ -16,7 +16,7 @@ public:
 
     enum class MonsterState{IDLE,JUMPING,WALKING};//!怪物状态集合（判断）
     MonsterState mMonsterState;
-    virtual void changePlayerState(MonsterState state);//!改变怪物状态
+    virtual void changeMonsterState(MonsterState state);//!改变怪物状态
 
     void Update()override;                          //!<每帧更新
 
@@ -39,7 +39,7 @@ private:
     int moveDirection;     //!< 运动方向 1为右，-1为左
     int HP;                //!< 血量
     long long loseHP_timeCount;  //!< 距离上一次扣血已经经过的时间
-    float mSpeedX,mSpeedY;     //!< 移动速度 X横,Y竖
+    float mSpeedX ,mSpeedY;     //!< 移动速度 X横,Y竖
 };
 
 #endif // MONSTER_H

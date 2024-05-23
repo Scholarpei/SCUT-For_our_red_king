@@ -20,6 +20,7 @@ void FallComponent::Update()
                 if(mGameObject->mGame->collisionDetection(mGameObject,s_gameObject)){
                     //碰撞检测为true
                     mGameObject->collideOthers(s_gameObject);
+
                     s_gameObject->beingCollide(mGameObject);
                     mGameObject->setPosition(currentPosition);
                 }
