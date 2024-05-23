@@ -82,5 +82,7 @@ const float playerMoveXSpeed = 1;
 const float playerMoveYSpeed = -5;
 const float monsterMoveXSpeed = 1;
 const float monsterMoveYSpeed = 1;
+const int monsterIdleFrame = 90;
+
 
 }

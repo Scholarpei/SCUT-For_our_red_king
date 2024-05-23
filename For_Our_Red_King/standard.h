@@ -70,6 +70,8 @@ extern const float playerMoveYSpeed;
 extern const float monsterMoveXSpeed;
 extern const float monsterMoveYSpeed;
 extern const float jump_gravityAcceleration;
+extern const int monsterIdleFrame;
+
 }
 
 
