@@ -10,14 +10,14 @@ FallComponent::FallComponent(GameObject* gameObject):
 void FallComponent::Update()
 {
     if(mGameObject->gameObjectType == GameObject::Type::Player){
-        //濡傛灉杩欐槸player
+        //player类型的判定
         Player* playerPtr = dynamic_cast<Player*>(mGameObject);
         if(playerPtr->mPlayerState == Player::playerState::JUMPING){
             if(playerPtr->getSpeedY()+ACTIONCONST::jump_gravityAcceleration < ACTIONCONST::maxSpeed)
                 playerPtr->setSpeedY(playerPtr->getSpeedY()+ACTIONCONST::jump_gravityAcceleration);
         }
         else{
-            //player鍏朵粬鐘舵€�
+            //player其他状态下
             if(playerPtr->getSpeedY()+ACTIONCONST::gravityAcceleration < ACTIONCONST::maxSpeed)
                 playerPtr->setSpeedY(playerPtr->getSpeedY()+ACTIONCONST::gravityAcceleration);
         }
@@ -25,27 +25,26 @@ void FallComponent::Update()
     else{
         if(mGameObject->getSpeedY()+ACTIONCONST::gravityAcceleration < ACTIONCONST::maxSpeed)
             mGameObject->setSpeedY(mGameObject->getSpeedY()+ACTIONCONST::gravityAcceleration);
-        //鍏朵粬绫诲瀷
+        //其他type的gameObject
     }
     QVector2D curPos = mGameObject->getPosition();
-    QVector2D currentPosition = mGameObject->getPosition();     //澶囦唤鍓嶄竴涓綅缃?
-    mGameObject->setPosition(QVector2D(curPos.x(), curPos.y() + mGameObject->getSpeedY()));//璁剧疆涓轰笅涓€涓綅缃?
+    QVector2D currentPosition = mGameObject->getPosition();     //备份上一帧的位置
+    mGameObject->setPosition(QVector2D(curPos.x(), curPos.y() + mGameObject->getSpeedY()));//设置新位置
 
     if(mGameObject->attendCollision)
         for(auto s_gameObject : mGameObject->mGame->mGameObjects)
-            if(s_gameObject!=mGameObject&&s_gameObject->attendCollision){//瀵瑰簲鐨剆_gameObject瑕佸弬涓庣鎾?
+            if(s_gameObject!=mGameObject&&s_gameObject->attendCollision){//要参与碰撞且不为自身
                 if(mGameObject->mGame->collisionDetection(mGameObject,s_gameObject)){
-                    //纰版挒妫€娴嬩负true
+                    //与其他物体发生碰撞
                     mGameObject->fallcollideOthers(s_gameObject,curPos);
 
                     s_gameObject->beingCollide(mGameObject);
                     mGameObject->setPosition(currentPosition);
                 }
                 else{
-                    //纰版挒妫€娴嬩负false
+                    //不发生碰撞
                     mGameObject->fallnotCollide();
-                    //鐢变簬宸茬粡鏀瑰彉浜唌GameObject浣嶇疆锛屾澶勬病鏈夋搷浣?
                 }
             }
-    //纰版挒妫€娴嬮儴鍒?
+    //fall碰撞检测
 }
