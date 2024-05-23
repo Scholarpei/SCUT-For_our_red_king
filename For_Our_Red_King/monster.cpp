@@ -36,14 +36,14 @@ void Monster::Update(){
 
     if(mState == State::EDead)
         return;
-    //物体标定为消亡就不再更新�?
+    //物体标定为消亡就不再更新�?
     for(auto component:mComponents){
         component->Update();
     }
     //按照组件数组更新
 }
 
-//!碰撞其他gameobject的事件处�?(d是this碰撞到的GameObject)
+//!碰撞其他gameobject的事件处�?(d是this碰撞到的GameObject)
 void Monster::movecollideOthers(GameObject* d,QVector2D& lastposition)
 {
     //to be written
@@ -58,7 +58,7 @@ void Monster::movecollideOthers(GameObject* d,QVector2D& lastposition)
     this->mSpeedX = 0;
 }
 
-//!碰撞其他gameobject的事件处�?(d是this碰撞到的GameObject)
+//!碰撞其他gameobject的事件处�?(d是this碰撞到的GameObject)
 void Monster::fallcollideOthers(GameObject* d,QVector2D& lastposition)
 {
     //to be written
@@ -73,7 +73,7 @@ void Monster::fallcollideOthers(GameObject* d,QVector2D& lastposition)
     this->mSpeedY = 0;
 }
 
-//!<被碰撞后发生的事件处�?(s是碰撞this的GameObject)
+//!<被碰撞后发生的事件处�?(s是碰撞this的GameObject)
 void Monster::beingCollide(GameObject* s)
 {
     //to be written
@@ -88,7 +88,7 @@ void Monster::beingCollide(GameObject* s)
 void Monster::movenotCollide()
 {
     //to be written
-    //似乎什么都不用�?
+    //似乎什么都不用�?
 
 }
 
@@ -96,7 +96,7 @@ void Monster::movenotCollide()
 void Monster::fallnotCollide()
 {
     //to be written
-    //似乎什么都不用�?
+    //似乎什么都不用�?
 }
 
 int Monster::getDrawDirection()
@@ -120,7 +120,7 @@ void Monster::changeMonsterState(MonsterState state)
         animation->resetAnimation(MONSTER::walking);
         animation->play(true);
     }
-    //动画播放内容根据当前状态决�?
+    //动画播放内容根据当前状态决�?
 }
 
 int Monster::getDirection()
