@@ -1,5 +1,6 @@
 #include "fallcomponent.h"
 #include "game.h"
+#include "player.h"
 FallComponent::FallComponent(GameObject* gameObject):
     Component(gameObject)
 {
@@ -8,8 +9,24 @@ FallComponent::FallComponent(GameObject* gameObject):
 
 void FallComponent::Update()
 {
-    if(mGameObject->getSpeedY()+ACTIONCONST::gravityAcceleration < ACTIONCONST::maxSpeed)
-        mGameObject->setSpeedY(mGameObject->getSpeedY()+ACTIONCONST::gravityAcceleration);
+    if(mGameObject->gameObjectType == GameObject::Type::Player){
+        //如果这是player
+        Player* playerPtr = dynamic_cast<Player*>(mGameObject);
+        if(playerPtr->mPlayerState == Player::playerState::JUMPING){
+            if(playerPtr->getSpeedY()+ACTIONCONST::jump_gravityAcceleration < ACTIONCONST::maxSpeed)
+                playerPtr->setSpeedY(playerPtr->getSpeedY()+ACTIONCONST::jump_gravityAcceleration);
+        }
+        else{
+            //player其他状态
+            if(playerPtr->getSpeedY()+ACTIONCONST::gravityAcceleration < ACTIONCONST::maxSpeed)
+                playerPtr->setSpeedY(playerPtr->getSpeedY()+ACTIONCONST::gravityAcceleration);
+        }
+    }
+    else{
+        if(mGameObject->getSpeedY()+ACTIONCONST::gravityAcceleration < ACTIONCONST::maxSpeed)
+            mGameObject->setSpeedY(mGameObject->getSpeedY()+ACTIONCONST::gravityAcceleration);
+        //其他类型
+    }
     QVector2D curPos = mGameObject->getPosition();
     QVector2D currentPosition = mGameObject->getPosition();     //备份前一个位置
     mGameObject->setPosition(QVector2D(curPos.x(), curPos.y() + mGameObject->getSpeedY()));//设置为下一个位置

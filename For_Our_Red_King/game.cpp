@@ -25,10 +25,10 @@ Game::Game(QObject *parent,MainWindow* window):
         InterfaceBlock interface;
         BlockRock* ground = new BlockRock(this, this);
         BlockRock* highland = new BlockRock(this, this);
-        BlockRock* masu = new BlockRock(this, this);
+        // BlockRock* masu = new BlockRock(this, this);
         BlockBack* back = new BlockBack(this, this);
         createGameObject(ground);
-        createGameObject(masu);
+        // createGameObject(masu);
         createGameObject(highland);
         createGameObject(back);
 
@@ -41,7 +41,7 @@ Game::Game(QObject *parent,MainWindow* window):
                                  QVector2D(0, 1),
                                  QVector2D(1, 1),
                                  0,0,0,0);
-        masu->initialize(interface);
+        // masu->initialize(interface);
         interface.initializeRock(11,
                                  QVector2D(10, 6),
                                  QVector2D(5, 3),

@@ -58,6 +58,7 @@ void Player::movecollideOthers(GameObject* d,QVector2D& lastposition)
     this->setPosition(lastposition);
     //若发生碰撞，让移动不执行
     this->mSpeedX = 0;
+
 }
 
 //!碰撞其他gameobject的事件处理(d是this碰撞到的GameObject)
@@ -73,6 +74,10 @@ void Player::fallcollideOthers(GameObject* d,QVector2D& lastposition)
     this->setPosition(lastposition);
     //若发生碰撞，让移动不执行
     this->mSpeedY = 0;
+    if(this->mPlayerState == playerState::JUMPING){
+        // this->mSpeedX = 0;
+        this->changePlayerState(playerState::WALKING);
+    }
 }
 
 //!<被碰撞后发生的事件处理(s是碰撞this的GameObject)
