@@ -1,17 +1,17 @@
 #include "player.h"
-#include "spritecomponent.h"
 #include "movecomponent.h"
 #include "game.h"
 #include "gameobject.h"
 #include "playerstatesset.h"
 #include "standard.h"
+#include "monster.h"
 Player::Player(QObject *parent,Game* game):
     GameObject(parent,game)
 {
     mGame = game;//赋值game对象
 
-    this->mWidth = 48;
-    this->mHeight = 60;
+    mWidth = PLAYER::Player_Width;
+    mHeight = PLAYER::Player_Height;
 
     gameObjectType = GameObject::Type::Player;
     mPlayerState = playerState::IDLE;   //初始化player状态为idle
@@ -33,6 +33,7 @@ Player::Player(QObject *parent,Game* game):
 
 void Player::Update(){
 
+    loseHP_timeCount ++ ;   //扣血限制计时器更新
     if(mState == State::EDead)
         return;
     //物体标定为消亡就不再更新了
@@ -42,20 +43,69 @@ void Player::Update(){
     }
     //按照组件数组更新
 
-
 }
 
 //!碰撞其他gameobject的事件处理(d是this碰撞到的GameObject)
-void Player::collideOthers(GameObject* d)
+void Player::movecollideOthers(GameObject* d,QVector2D& lastposition)
 {
     //to be written
+    if(d->gameObjectType == GameObject::Type::Monster){
+        //玩家碰到怪物
+        Monster* MonsterPtr = dynamic_cast<Monster*>(d);
+        // loseHPEvent();   还没确定扣多少血
+    }
+
+    this->setPosition(lastposition);
+    //若发生碰撞，让移动不执行
+    this->mSpeedX = 0;
+}
+
+//!碰撞其他gameobject的事件处理(d是this碰撞到的GameObject)
+void Player::fallcollideOthers(GameObject* d,QVector2D& lastposition)
+{
+    //to be written
+    if(d->gameObjectType == GameObject::Type::Monster){
+        //玩家碰到怪物
+        Monster* MonsterPtr = dynamic_cast<Monster*>(d);
+        // loseHPEvent();
+    }
+
+    this->setPosition(lastposition);
+    //若发生碰撞，让移动不执行
+    this->mSpeedY = 0;
 }
 
 //!<被碰撞后发生的事件处理(s是碰撞this的GameObject)
 void Player::beingCollide(GameObject* s)
 {
     //to be written
+    if(s->gameObjectType == GameObject::Type::Monster){
+        //玩家碰到怪物
+        Monster* MonsterPtr = dynamic_cast<Monster*>(s);
+        // loseHPEvent();
+    }
 }
+
+//!碰撞其他gameobject的事件movecomponent处理(d是this碰撞到的GameObject)
+void Player::movenotCollide()
+{
+    //to be written
+    //似乎什么都不用做
+
+}
+
+//!碰撞其他gameobject的事件fallcomponent处理(d是this碰撞到的GameObject)
+void Player::fallnotCollide()
+{
+    //to be written
+    //似乎什么都不用做
+}
+
+int Player::getDrawDirection()
+{
+    return this->moveDirection;
+}
+
 
 void Player::changePlayerState(playerState state)
 {
@@ -85,6 +135,23 @@ void Player::changePlayerState(playerState state)
             animation->play(true);
         }
         //动画播放内容根据当前状态决定
+}
+
+void Player::loseHPEvent(int num)
+{
+    if(loseHP_timeCount < PLAYER::loseHPTimePeriod)
+        return ;
+    //用于限制扣血的时间间隔
+
+    loseHP_timeCount = 0;  //扣血计时归零
+
+    if(this->HP  > num)
+        this->HP -= num;
+    else{
+        HP = 0;
+
+        //触发Player死亡
+    }
 }
 
 int Player::getDirection()
@@ -117,11 +184,6 @@ void Player::setSpeedX(float s)
 void Player::setSpeedY(float s)
 {
     this->mSpeedY = s;
-}
-
-void Player::notCollide()
-{
-    //没有发生碰撞啥都不做
 }
 
 //!键盘按下事件处理

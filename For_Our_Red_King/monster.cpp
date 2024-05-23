@@ -4,6 +4,7 @@
 #include "game.h"
 #include "gameobject.h"
 #include "standard.h"
+#include "player.h"
 Monster::Monster(QObject *parent,Game* game):
     GameObject(parent,game)
 {
@@ -42,15 +43,59 @@ void Monster::Update(){
 }
 
 //!碰撞其他gameobject的事件处理(d是this碰撞到的GameObject)
-void Monster::collideOthers(GameObject* d)
+void Player::movecollideOthers(GameObject* d,QVector2D& lastposition)
 {
     //to be written
+    if(d->gameObjectType == GameObject::Type::Monster){
+        //玩家碰到怪物
+        Monster* MonsterPtr = dynamic_cast<Monster*>(d);
+        // loseHPEvent();   还没确定扣多少血
+    }
+
+    this->setPosition(lastposition);
+    //若发生碰撞，让移动不执行
+    this->mSpeedX = 0;
+}
+
+//!碰撞其他gameobject的事件处理(d是this碰撞到的GameObject)
+void Monster::fallcollideOthers(GameObject* d,QVector2D& lastposition)
+{
+    //to be written
+    if(d->gameObjectType == GameObject::Type::Player){
+        //玩家碰到怪物
+        Player* PlayerPtr = dynamic_cast<Player*>(d);
+        // loseHPEvent();
+    }
+
+    this->setPosition(lastposition);
+    //若发生碰撞，让移动不执行
+    this->mSpeedY = 0;
 }
 
 //!<被碰撞后发生的事件处理(s是碰撞this的GameObject)
 void Monster::beingCollide(GameObject* s)
 {
     //to be written
+    if(s->gameObjectType == GameObject::Type::Monster){
+        //玩家碰到怪物
+        Monster* MonsterPtr = dynamic_cast<Monster*>(s);
+        // loseHPEvent();
+    }
+}
+
+//!碰撞其他gameobject的事件movecomponent处理(d是this碰撞到的GameObject)
+void Monster::movenotCollide()
+{
+    //to be written
+    //似乎什么都不用做
+
+}
+
+//!碰撞其他gameobject的事件fallcomponent处理(d是this碰撞到的GameObject)
+void Monster::fallnotCollide()
+{
+    //to be written
+    //似乎什么都不用做
 }
 
 void Monster::changePlayerState(MonsterState state)
@@ -102,11 +147,6 @@ void Monster::setSpeedX(float s)
 void Monster::setSpeedY(float s)
 {
     this->mSpeedY = s;
-}
-
-void Monster::notCollide()
-{
-
 }
 
 

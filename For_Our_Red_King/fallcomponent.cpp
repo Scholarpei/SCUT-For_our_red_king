@@ -19,13 +19,13 @@ void FallComponent::Update()
             if(s_gameObject!=mGameObject&&s_gameObject->attendCollision){//对应的s_gameObject要参与碰撞
                 if(mGameObject->mGame->collisionDetection(mGameObject,s_gameObject)){
                     //碰撞检测为true
-                    mGameObject->collideOthers(s_gameObject);
+                    mGameObject->fallcollideOthers(s_gameObject,curPos);
                     s_gameObject->beingCollide(mGameObject);
                     mGameObject->setPosition(currentPosition);
                 }
                 else{
                     //碰撞检测为false
-                    mGameObject->notCollide();
+                    mGameObject->fallnotCollide();
                     //由于已经改变了mGameObject位置，此处没有操作
                 }
             }
