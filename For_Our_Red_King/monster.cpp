@@ -43,7 +43,7 @@ void Monster::Update(){
 }
 
 //!碰撞其他gameobject的事件处理(d是this碰撞到的GameObject)
-void Player::movecollideOthers(GameObject* d,QVector2D& lastposition)
+void Monster::movecollideOthers(GameObject* d,QVector2D& lastposition)
 {
     //to be written
     if(d->gameObjectType == GameObject::Type::Monster){
@@ -96,6 +96,11 @@ void Monster::fallnotCollide()
 {
     //to be written
     //似乎什么都不用做
+}
+
+int Monster::getDrawDirection()
+{
+    return this->moveDirection;
 }
 
 void Monster::changePlayerState(MonsterState state)

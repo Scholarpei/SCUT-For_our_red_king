@@ -26,7 +26,7 @@ void MainWindow::paintEvent(QPaintEvent *event)
     mPainter->begin(this);
     for (auto sprite:mGame->mSprites)
     {
-        sprite->Draw(sprite->mGameObject->getDrawDirection());
+        sprite->Draw();
     }
     mPainter->end();
 }

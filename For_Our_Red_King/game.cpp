@@ -230,6 +230,7 @@ void Game::Update()
 //!绘制精灵
 void Game::Draw()
 {
+    //这个实际上已经不会调用了，在mainwindows中paintevent中实现
     for (auto sprite:mSprites)
     {
         sprite->Draw();

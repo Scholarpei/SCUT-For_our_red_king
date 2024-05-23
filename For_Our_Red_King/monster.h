@@ -26,6 +26,7 @@ public:
     void setMoveDirection(int dir)override;    //!<设置运动方向
     void setSpeedX(float s)override;   //!<设置X速度
     void setSpeedY(float s)override;   //!<设置Y速度
+    int getDrawDirection()override;    //!<获得绘画方向（正常1，镜像-1）
 
     void movecollideOthers(GameObject* d,QVector2D& lastposition)override;        //!<在moveComponent中碰撞其他gameobject的事件处理(d是this碰撞到的GameObject)
     void fallcollideOthers(GameObject* d,QVector2D& lastposition)override;        //!<在fallComponent中碰撞其他gameobject的事件处理(d是this碰撞到的GameObject)
