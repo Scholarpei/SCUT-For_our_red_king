@@ -33,7 +33,7 @@ void MoveComponent::Update()
         }
 
     if(!isCollide){
-        mGameObject->movenotCollide();
+        mGameObject->movenotCollide(curPos);
     }
     //碰撞检测部分
 }

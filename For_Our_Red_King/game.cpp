@@ -269,18 +269,19 @@ void Game::removeMyTimer(myTimer* timer)
 //!释放数据
 void Game::unloadData()
 {
-    while (!mGameObjects.empty())
-    {
-        delete mGameObjects.back();
-    }
-    while (!mPendingObjects.empty())
-    {
-        delete mPendingObjects.back();
-    }
-    while(!mSprites.empty())
-    {
-        delete mSprites.back();
-    }
+    // while (!mGameObjects.empty())
+    // {
+    //     delete mGameObjects.back();
+    // }
+    // while (!mPendingObjects.empty())
+    // {
+    //     delete mPendingObjects.back();
+    // }
+    // while(!mSprites.empty())
+    // {
+    //     delete mSprites.back();
+    // }
+    // 上面的这些注释掉了就不会出现关掉窗口崩溃了
 }
 
 void Game::keyPressInput(int e)
@@ -296,5 +297,13 @@ void Game::keyReleaseInput(int e)
     if(this->mIsRuning){
         for(auto gameObject:mGameObjects)
             gameObject->inputKeyReleaseProcess(e);
+    }
+}
+
+void Game::mousePressInput(int e)
+{
+    if(this->mIsRuning){
+        for(auto gameObject:mGameObjects)
+            gameObject->inputMousePressProcess(e);
     }
 }

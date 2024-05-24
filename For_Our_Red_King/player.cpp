@@ -94,7 +94,7 @@ void Player::beingCollide(GameObject* s)
 }
 
 //!碰撞其他gameobject的事件movecomponent处理(d是this碰撞到的GameObject)
-void Player::movenotCollide()
+void Player::movenotCollide(QVector2D& lastposition)
 {
     //to be written
     //似乎什么都不用做
@@ -102,7 +102,7 @@ void Player::movenotCollide()
 }
 
 //!碰撞其他gameobject的事件fallcomponent处理(d是this碰撞到的GameObject)
-void Player::fallnotCollide()
+void Player::fallnotCollide(QVector2D& lastposition)
 {
     //to be written
     //似乎什么都不用做

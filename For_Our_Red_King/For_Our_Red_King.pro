@@ -29,6 +29,7 @@ HEADERS += animationComponent.h \
            jumpingstate.h \
            mainwindow.h \
            monster.h \
+           monsterstateset.h \
            movecomponent.h \
            mytimer.h \
            player.h \
@@ -53,6 +54,7 @@ SOURCES += animationComponent.cpp \
            main.cpp \
            mainwindow.cpp \
            monster.cpp \
+           monsterstateset.cpp \
            movecomponent.cpp \
            mytimer.cpp \
            player.cpp \

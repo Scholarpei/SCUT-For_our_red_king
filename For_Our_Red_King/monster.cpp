@@ -12,11 +12,8 @@ Monster::Monster(QObject *parent,Game* game):
 {
     mGame = game;//赋值game对象
 
-    this->mWidth = 48;
-    this->mHeight = 60;
-
     gameObjectType = GameObject::Type::Monster;
-    mMonsterState = MonsterState::WALKING;   //初始化Monster状态为idle
+    mMonsterState = MonsterState::WALKING;   //初始化Monster状态为walking
 
     this-> moveCom = new MoveComponent(this);
     this-> fallCom = new FallComponent(this);
@@ -36,29 +33,30 @@ void Monster::Update(){
 
     if(mState == State::EDead)
         return;
-    //物体标定为消亡就不再更新�?
+    //物体标定为消亡就不再更新
     for(auto component:mComponents){
         component->Update();
     }
     //按照组件数组更新
 }
 
-//!碰撞其他gameobject的事件处�?(d是this碰撞到的GameObject)
+//!碰撞其他gameobject的事件处理(d是this碰撞到的GameObject)
 void Monster::movecollideOthers(GameObject* d,QVector2D& lastposition)
 {
     //to be written
     if(d->gameObjectType == GameObject::Type::Monster){
         //玩家碰到怪物
-        Monster* MonsterPtr = dynamic_cast<Monster*>(d);
+        Player* PlayerPtr = dynamic_cast<Player*>(d);
         // loseHPEvent();   还没确定扣多少血
     }
 
     this->setPosition(lastposition);
-    //若发生碰撞，让移动不执行
+    //若发生碰撞，让移动不执行并切换运动方向
     this->mSpeedX = 0;
+    this->moveDirection = -this->moveDirection;
 }
 
-//!碰撞其他gameobject的事件处�?(d是this碰撞到的GameObject)
+//!碰撞其他gameobject的事件处理(d是this碰撞到的GameObject)
 void Monster::fallcollideOthers(GameObject* d,QVector2D& lastposition)
 {
     //to be written
@@ -73,30 +71,31 @@ void Monster::fallcollideOthers(GameObject* d,QVector2D& lastposition)
     this->mSpeedY = 0;
 }
 
-//!<被碰撞后发生的事件处�?(s是碰撞this的GameObject)
+//!<被碰撞后发生的事件处理(s是碰撞this的GameObject)
 void Monster::beingCollide(GameObject* s)
 {
     //to be written
     if(s->gameObjectType == GameObject::Type::Monster){
         //玩家碰到怪物
-        Monster* MonsterPtr = dynamic_cast<Monster*>(s);
+        Player* PlayerPtr = dynamic_cast<Player*>(s);
         // loseHPEvent();
     }
 }
 
 //!碰撞其他gameobject的事件movecomponent处理(d是this碰撞到的GameObject)
-void Monster::movenotCollide()
+void Monster::movenotCollide(QVector2D& lastposition)
 {
     //to be written
-    //似乎什么都不用�?
+    //似乎什么都不用做
 
 }
 
 //!碰撞其他gameobject的事件fallcomponent处理(d是this碰撞到的GameObject)
-void Monster::fallnotCollide()
+void Monster::fallnotCollide(QVector2D& lastposition)
 {
-    //to be written
-    //似乎什么都不用�?
+    //说明要脱离平台、地面了，阻止其
+    this->setPosition(lastposition);
+    this->mSpeedY = 0;
 }
 
 int Monster::getDrawDirection()
@@ -107,20 +106,11 @@ int Monster::getDrawDirection()
 void Monster::changeMonsterState(MonsterState state)
 {
 
-
-    if(mMonsterState == MonsterState::IDLE){
-        animation->resetAnimation(MONSTER::idle);  //输入空闲状态的动画
-        animation->play(true);      //开播放
-    }
-    else if(mMonsterState == MonsterState::JUMPING){
-        animation->resetAnimation(MONSTER::jumping);
-        animation->play(false);
-    }
-    else if(mMonsterState == MonsterState::WALKING){
+    if(mMonsterState == MonsterState::WALKING){
         animation->resetAnimation(MONSTER::walking);
         animation->play(true);
     }
-    //动画播放内容根据当前状态决�?
+    //动画播放内容根据当前状态决定
 }
 
 int Monster::getDirection()

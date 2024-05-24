@@ -36,8 +36,8 @@ public:
     void movecollideOthers(GameObject* d,QVector2D& lastposition)override;        //!<碰撞其他gameobject的事件处理(d是this碰撞到的GameObject)
     void fallcollideOthers(GameObject* d,QVector2D& lastposition)override;        //!<碰撞其他gameobject的事件处理(d是this碰撞到的GameObject)
     void beingCollide(GameObject* s)override;         //!<被碰撞后发生的事件处理(s是碰撞this的GameObject)
-    void movenotCollide()override;                        //!<如果movecomponent没有发生碰撞后该Object的处理
-    void fallnotCollide()override;                        //!<如果fallcomponent没有发生碰撞后该Object的处理
+    void movenotCollide(QVector2D& lastposition)override;                        //!<如果movecomponent没有发生碰撞后该Object的处理
+    void fallnotCollide(QVector2D& lastposition)override;                        //!<如果fallcomponent没有发生碰撞后该Object的处理
 
     void loseHPEvent(int num);                        //!Player扣血事件
 

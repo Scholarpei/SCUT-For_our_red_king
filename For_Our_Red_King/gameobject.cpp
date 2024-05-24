@@ -98,6 +98,11 @@ void GameObject::inputKeyReleaseProcess(int key){
     //不需要键盘事件的Object执行这个空函数
 }
 
+void GameObject::inputMousePressProcess(int key)
+{
+    //不需要鼠标事件的Object执行这个空函数
+}
+
 float GameObject::getWidth()
 {
     return this->mWidth;
@@ -153,12 +158,12 @@ void GameObject::beingCollide(GameObject* s)
     qDebug()<<"调用了beingCollide来自GameObject基类的函数，发生错误！\n";
 }
 
-void GameObject::movenotCollide()
+void GameObject::movenotCollide(QVector2D& lastposition)
 {
     qDebug()<<"调用了movenotCollide来自GameObject基类的函数，发生错误！\n";
 }
 
-void GameObject::fallnotCollide()
+void GameObject::fallnotCollide(QVector2D& lastposition)
 {
     qDebug()<<"调用了fallnotCollide来自GameObject基类的函数，发生错误！\n";
 }

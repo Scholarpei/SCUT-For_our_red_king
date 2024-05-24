@@ -35,6 +35,7 @@ public:
 
     virtual void inputKeyPressProcess(int key);   //处理键盘输入按下
     virtual void inputKeyReleaseProcess(int key);   //处理键盘输入松开
+    virtual void inputMousePressProcess(int key);   //处理鼠标按下
 
     QVector2D getScale();
     QVector2D getPosition();
@@ -58,8 +59,8 @@ public:
     virtual void movecollideOthers(GameObject* d,QVector2D& lastposition);        //!<在moveComponent中碰撞其他gameobject的事件处理(d是this碰撞到的GameObject)
     virtual void fallcollideOthers(GameObject* d,QVector2D& lastposition);        //!<在fallComponent中碰撞其他gameobject的事件处理(d是this碰撞到的GameObject)
     virtual void beingCollide(GameObject* s);         //!<被碰撞后发生的事件处理(s是碰撞this的GameObject)
-    virtual void movenotCollide();                        //!<如果movecomponent没有发生碰撞后该Object的处理(用于monster)
-    virtual void fallnotCollide();                        //!<如果fallcomponent没有发生碰撞后该Object的处理(用于monster)
+    virtual void movenotCollide(QVector2D& lastposition);                        //!<如果movecomponent没有发生碰撞后该Object的处理(用于monster)
+    virtual void fallnotCollide(QVector2D& lastposition);                        //!<如果fallcomponent没有发生碰撞后该Object的处理(用于monster)
 
     State getState();          //!<获取当前状态
     Game* getGame();           //!<获取Game对象

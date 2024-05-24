@@ -48,3 +48,8 @@ void MainWindow::keyReleaseEvent(QKeyEvent* event)
     if(!event->isAutoRepeat())
         mGame->keyReleaseInput(event->key());
 }
+
+void MainWindow::mousePressEvent(QMouseEvent * e)
+{
+    mGame->mousePressInput(e->button());
+}

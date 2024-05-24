@@ -14,7 +14,8 @@ public:
 
     explicit Monster(QObject *parent = nullptr,class Game* game = nullptr);
 
-    enum class MonsterState{IDLE,JUMPING,WALKING};//!怪物状态集合（判断）
+    class MonsterStateSet* _monsterStateSet;     //!<怪物状态集合
+    enum class MonsterState{WALKING};//!怪物状态集合（判断,怪物应该只存在walking跟fighting的两种状态）
     MonsterState mMonsterState;
     virtual void changeMonsterState(MonsterState state);//!改变怪物状态
 
@@ -31,8 +32,8 @@ public:
     void movecollideOthers(GameObject* d,QVector2D& lastposition)override;        //!<在moveComponent中碰撞其他gameobject的事件处理(d是this碰撞到的GameObject)
     void fallcollideOthers(GameObject* d,QVector2D& lastposition)override;        //!<在fallComponent中碰撞其他gameobject的事件处理(d是this碰撞到的GameObject)
     void beingCollide(GameObject* s)override;         //!<被碰撞后发生的事件处理(s是碰撞this的GameObject)
-    void movenotCollide()override;                        //!<如果movecomponent没有发生碰撞后该Object的处理(用于monster)
-    void fallnotCollide()override;                        //!<如果fallcomponent没有发生碰撞后该Object的处理(用于monster)
+    void movenotCollide(QVector2D& lastposition)override;                        //!<如果movecomponent没有发生碰撞后该Object的处理(用于monster)
+    void fallnotCollide(QVector2D& lastposition)override;                        //!<如果fallcomponent没有发生碰撞后该Object的处理(用于monster)
 
     FallComponent * fallCom;       //掉落组件
     MoveComponent * moveCom;        //移动组件

@@ -43,7 +43,7 @@ void FallComponent::Update()
                 }
                 else{
                     //不发生碰撞
-                    mGameObject->fallnotCollide();
+                    mGameObject->fallnotCollide(curPos);
                 }
             }
     //fall碰撞检测

@@ -34,6 +34,7 @@ public:
 
     void keyPressInput(int event);  //!<按下按键event
     void keyReleaseInput(int event); //!<松开按键event
+    void mousePressInput(int event); //!<按下鼠标按键event
 
 
     void createGameObject(GameObject*);  //!<创建gameObject
