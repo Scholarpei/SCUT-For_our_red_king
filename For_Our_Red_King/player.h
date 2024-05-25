@@ -8,17 +8,33 @@
 #include<QDebug>
 #include"standard.h"
 class GameObject;
+
+struct InterfacePlayer
+{
+    float x,y;    //坐标
+    InterfacePlayer(){
+        //空的构造函数
+    }
+    InterfacePlayer(float x,float y){
+        this->x = x;
+        this->y = y;
+    }
+};
+
 class Player : public GameObject
 {
 public:
 
     explicit Player(QObject *parent = nullptr,class Game* game = nullptr);
+    explicit Player(QObject *parent = nullptr,class Game* game = nullptr,InterfacePlayer i = InterfacePlayer ());
 
     class PlayerStatesSet* _playerStateSet;    //!<玩家状态集合
     enum class playerState{IDLE,JUMPING,WALKING};//!玩家状态集合（判断）
     bool jumpFinalStateDecision =  1;   //!<决定跳跃后落地是walking还是idle
     playerState mPlayerState;
     virtual void changePlayerState(playerState state);//!改变玩家状态
+
+    InterfacePlayer intoInterface();        //!<从player转为Interface函数
 
     void Update()override;                          //!<每帧更新
 
