@@ -20,6 +20,7 @@ class Game: public QObject
 {
     Q_OBJECT
 public:
+    Player* mPlayer;                  //!<    玩家角色
     std::vector<GameObject*> mGameObjects;        //!<    游戏物体容器
     std::vector<spriteComponent*>mSprites;          //!<   精灵容器
     MainWindow* mWindow;                          //!<  主界面
@@ -55,7 +56,7 @@ private:
     bool    mIsUpdating;                    //!<    是否在更新状态
     bool    mIsRuning;                      //!<    运行状态
     bool    mIsLooping;                     //!<    是否在循环中
-    Player* mPlayer;                  //!<    玩家角色
+
     int timerLoop;                    //!<主循环Loop的timer ID
     myTimer* mTimer;                  //!<主循环用timer
 

@@ -215,7 +215,6 @@ void Game::removeGameObject(GameObject* gameObject)
 void Game::Event()
 {
     //to be written需要做的事件操作
-
 }
 
 void Game::Update()
