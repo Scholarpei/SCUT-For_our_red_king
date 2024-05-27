@@ -18,6 +18,9 @@ public:
     //初始化砖块，传入信息
     void initialize(const AnimationLoader& anime, QVector2D posi, QVector2D size);
 
+    // 接受 duration per frame
+    void setDurationPerFrame(short dpf);
+
     // void update();
     // void vanish();
 

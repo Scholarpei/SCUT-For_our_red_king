@@ -83,6 +83,16 @@ void AnimationComponent::setRepeat(bool do_repeat)
     this->isRepeating = do_repeat;
 }
 
+void AnimationComponent::TickPerFrame(short durationPerFrame)
+{
+    this->TICKS_PER_FRAME = durationPerFrame;
+}
+
+short AnimationComponent::TickPerFrame()
+{
+    return this->TICKS_PER_FRAME;
+}
+
 void AnimationComponent::nextTick()
 {
     this->currentTick++;

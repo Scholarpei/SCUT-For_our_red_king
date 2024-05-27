@@ -25,23 +25,22 @@ Game::Game(QObject *parent,MainWindow* window):
         InterfaceBlock interface;
         BlockRock* ground = new BlockRock(this, this);
         BlockRock* highland = new BlockRock(this, this);
-        // BlockRock* masu = new BlockRock(this, this);
+        BlockRock* cone = new BlockRock(this, this);
         BlockBack* back = new BlockBack(this, this);
         createGameObject(ground);
-        // createGameObject(masu);
+        createGameObject(cone);
         createGameObject(highland);
         createGameObject(back);
-
         interface.initializeRock(11,
                                  QVector2D(0, 8),
                                  QVector2D(9, 3),
                                  1,0,1,0);
         ground->initialize(interface);
-        interface.initializeRock(21,
-                                 QVector2D(0, 1),
-                                 QVector2D(1, 1),
-                                 0,0,0,0);
-        // masu->initialize(interface);
+        interface.initializeRock(11,
+                                 QVector2D(10, 0),
+                                 QVector2D(1, 4),
+                                 0,1,0,0);
+        cone->initialize(interface);
         interface.initializeRock(11,
                                  QVector2D(10, 6),
                                  QVector2D(5, 3),
@@ -49,6 +48,21 @@ Game::Game(QObject *parent,MainWindow* window):
         highland->initialize(interface);
         interface.initializeBackGround(1);
         back->initialize(interface);
+
+        BlockDecoration* money = new BlockDecoration(this, this);
+        BlockDecoration* screen = new BlockDecoration(this, this);
+        createGameObject(money);
+        createGameObject(screen);
+        interface.initializeDecoration(41,
+                                       QVector2D(12, 5),
+                                       0,
+                                       13);
+        money->initialize(interface);
+        interface.initializeDecoration(43,
+                                       QVector2D(0, 1),
+                                       0,
+                                       13);
+        screen->initialize(interface);
     }
 
     Initialize();

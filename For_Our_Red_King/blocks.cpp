@@ -55,6 +55,11 @@ int Block::getHeight()
     return this->gridSize.y() * SYSTEM::tileSide;
 }
 
+void Block::beingCollide(GameObject *s)
+{
+
+}
+
 
 void RockSpawner::RockSpawner::fromID(short id)
 {
@@ -67,8 +72,8 @@ void RockSpawner::RockSpawner::fromID(short id)
     }
 }
 
-RockSpawner::RockSpawner::RockSpawner(short id, bool up, bool down, bool left, bool right, int inWidth, int inHeight):
-    up(up),down(down),left(left),right(right),inWidth(inWidth),inHeight(inHeight)
+RockSpawner::RockSpawner::RockSpawner(short id, bool up, bool down, bool left, bool right, int inWidth, int inHeight, short durationPerFrame):
+    up(up),down(down),left(left),right(right),inWidth(inWidth),inHeight(inHeight),durationPerFrame(durationPerFrame)
 {
     this->fromID(id);
 }
@@ -143,6 +148,7 @@ void BlockRock::initialize(RockSpawner::RockSpawner spawner, QVector2D posi)
             b->initialize(spawner.getAnime(i, j),
                           QVector2D(x, y),
                           QVector2D(1, 1));
+            b->setDurationPerFrame(spawner.durationPerFrame);
 
             this->bricks[i][j] = b;
             // this->mGame->removeGameObject(b);
@@ -159,7 +165,8 @@ void BlockRock::initialize(const InterfaceBlock &interface)
                                      interface.status[2],
                                      interface.status[3],
                                      interface.position[2],
-                                     interface.position[3]);
+                                     interface.position[3],
+                                     interface.durationPerFrame);
     this->initialize(spawner, QVector2D(interface.position[0], interface.position[1]));
 }
 
@@ -191,12 +198,14 @@ std::vector<AnimationLoader> InterfaceBlock::toAnime(short ID)
               TILES::masuTile,
               TILES::masuTile,
               TILES::masuTile}},
-        {31, {TILES::door1}}
+        {31, {TILES::door1}},
+        {41, {TILES::money}},
+        {43, {TILES::screen2}}
     };
     return mapping[ID];
 }
 
-void InterfaceBlock::initializeRock(short textureID, QVector2D posi, QVector2D inSize, bool up, bool down, bool left, bool right)
+void InterfaceBlock::initializeRock(short textureID, QVector2D posi, QVector2D inSize, bool up, bool down, bool left, bool right, short durationPerFrame)
 {
     this->category = 0;
     this->textureID = textureID;
@@ -208,21 +217,34 @@ void InterfaceBlock::initializeRock(short textureID, QVector2D posi, QVector2D i
     this->status[1] = down;
     this->status[2] = left;
     this->status[3] = right;
+    this->durationPerFrame = durationPerFrame;
 }
 
-void InterfaceBlock::initializeBackGround(short textureID)
+void InterfaceBlock::initializeBackGround(short textureID, short durationPerFrame)
 {
     this->category = 1;
     this->textureID = textureID;
+    this->durationPerFrame = durationPerFrame;
 }
 
-void InterfaceBlock::initializeDoor(short texturID, QVector2D posi, short type)
+void InterfaceBlock::initializeDoor(short texturID, QVector2D posi, short type, short durationPerFrame)
 {
     this->category = 2;
     this->textureID = texturID;
     this->position[0] = posi.x();
     this->position[1] = posi.y();
     this->status[0] = type;
+    this->durationPerFrame = durationPerFrame;
+}
+
+void InterfaceBlock::initializeDecoration(short texturID, QVector2D posi, short type, short durationPerFrame)
+{
+    this->category = 3;
+    this->textureID = texturID;
+    this->position[0] = posi.x();
+    this->position[1] = posi.y();
+    this->status[0] = type;
+    this->durationPerFrame = durationPerFrame;
 }
 
 BlockBack::BlockBack(QObject *parent, Game *game):
@@ -231,7 +253,7 @@ BlockBack::BlockBack(QObject *parent, Game *game):
     this->attendCollision = false;
 }
 
-void BlockBack::initialize(const AnimationLoader &anime)
+void BlockBack::initialize(const AnimationLoader &anime, short dpf)
 {
     this->gridPosition = QVector2D(0, 0);
     this->gridSize = QVector2D(SYSTEM::windowWidth / SYSTEM::tileSide, SYSTEM::windowHeight / SYSTEM::tileSide);
@@ -243,18 +265,15 @@ void BlockBack::initialize(const AnimationLoader &anime)
 
     Brick* b = new Brick(this, mGame, DRAWORRDER::backGround);
     b->initialize(anime, this->gridPosition, this->gridSize);
+    b->setDurationPerFrame(dpf);
     this->bricks[0][0] = b;
 }
 
 void BlockBack::initialize(const InterfaceBlock &interface)
 {
-    this->initialize(interface.toAnime(interface.textureID)[0]);
+    this->initialize(interface.toAnime(interface.textureID)[0], interface.durationPerFrame);
 }
 
-void BlockBack::Update()
-{
-
-}
 
 void BlockDoor::openDoor()
 {
@@ -268,10 +287,11 @@ BlockDoor::BlockDoor(QObject *parent, Game *game):
     this->attendCollision = false;  // 是否要参与碰撞
 }
 
-void BlockDoor::initialize(const AnimationLoader &anime, QVector2D posi, short type)
+void BlockDoor::initialize(const AnimationLoader &anime, QVector2D posi, short type, short dpf)
 {
     this->gridPosition = posi;
-    this->gridSize = QVector2D(floor(anime.GetpixX()), floor(anime.GetpixY()));
+    this->gridSize = QVector2D(ceil((double)anime.GetpixX() / SYSTEM::imgSide),
+                               ceil((double)anime.GetpixY() / SYSTEM::imgSide));
     this->setPosition(QVector2D(this->getX(), this->getY()));
     this->mWidth = this->getWidth();
     this->mHeight = this->getHeight();
@@ -280,6 +300,7 @@ void BlockDoor::initialize(const AnimationLoader &anime, QVector2D posi, short t
 
     Brick* b = new Brick(this, mGame, DRAWORRDER::door);
     b->initialize(anime, this->gridPosition, this->gridSize);
+    b->setDurationPerFrame(dpf);
     this->bricks[0][0] = b;
 
     this->type = type;
@@ -290,10 +311,50 @@ void BlockDoor::initialize(const InterfaceBlock &interface)
     this->initialize(interface.toAnime(interface.textureID)[0],
                      QVector2D(interface.position[0],
                                interface.position[1]),
-                     interface.status[0]);
+                     interface.status[0],
+                     interface.durationPerFrame);
 }
 
 void BlockDoor::Update()
 {
     // TODO 检测怪物数量，检测玩家位置，发送下一关信号
+}
+
+void BlockDoor::beingCollide(GameObject *s)
+{
+    // TODO 检测怪物数量，检测玩家位置，发送下一关信号
+}
+
+BlockDecoration::BlockDecoration(QObject *parent, Game *game):
+    Block(parent, game)
+{
+    this->attendCollision = false;
+}
+
+void BlockDecoration::initiialize(const AnimationLoader &anime, QVector2D posi, short type, short dpf)
+{
+    this->gridPosition = posi;
+    this->gridSize = QVector2D(ceil((double)anime.GetpixX() / SYSTEM::imgSide),
+                               ceil((double)anime.GetpixY() / SYSTEM::imgSide));
+    this->setPosition(QVector2D(this->getX(), this->getY()));
+    this->mWidth = this->getWidth();
+    this->mHeight = this->getHeight();
+
+    this->bricks.resize(1, std::vector<Brick*>(1));
+
+    Brick* b = new Brick(this, mGame, DRAWORRDER::door);
+    b->initialize(anime, this->gridPosition, this->gridSize);
+    b->setDurationPerFrame(dpf);
+    this->bricks[0][0] = b;
+
+    this->type = type;
+}
+
+void BlockDecoration::initialize(const InterfaceBlock &interface)
+{
+    this->initiialize(interface.toAnime(interface.textureID)[0],
+                      QVector2D(interface.position[0],
+                                interface.position[1]),
+                      interface.status[0],
+                      interface.durationPerFrame);
 }

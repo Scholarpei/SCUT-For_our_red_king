@@ -31,36 +31,36 @@ Player::Player(QObject *parent,Game* game):
     //添加组件到组件数组中
 }
 
-Player::Player(QObject *parent,class Game* game,InterfacePlayer i):
-    GameObject(parent,game)
-{
-    this->setPosition(QVector2D(i.x,i.y));   //通过interface设置Player位置
+// Player::Player(QObject *parent,class Game* game,InterfacePlayer i):
+//     GameObject(parent,game)
+// {
+//     this->setPosition(QVector2D(i.x,i.y));   //通过interface设置Player位置
 
-    //下面与原默认的不含Interface构造函数内容相同
+//     //下面与原默认的不含Interface构造函数内容相同
 
-    mGame = game;//赋值game对象
+//     mGame = game;//赋值game对象
 
 
-    mWidth = PLAYER::Player_Width;
-    mHeight = PLAYER::Player_Height;
+//     mWidth = PLAYER::Player_Width;
+//     mHeight = PLAYER::Player_Height;
 
-    gameObjectType = GameObject::Type::Player;
-    mPlayerState = playerState::IDLE;   //初始化player状态为idle
-    _playerStateSet = new PlayerStatesSet(this,this);
+//     gameObjectType = GameObject::Type::Player;
+//     mPlayerState = playerState::IDLE;   //初始化player状态为idle
+//     _playerStateSet = new PlayerStatesSet(this,this);
 
-    this-> moveCom = new MoveComponent(this);
-    this-> fallCom = new FallComponent(this);
-    this->animation= new AnimationComponent(this, DRAWORRDER::Player);
-        //设置player精灵drawOrder = standard常量
+//     this-> moveCom = new MoveComponent(this);
+//     this-> fallCom = new FallComponent(this);
+//     this->animation= new AnimationComponent(this, DRAWORRDER::Player);
+//         //设置player精灵drawOrder = standard常量
 
-    animation->resetAnimation(PLAYER::idle);    //预设播放器图片为空闲状态
-    animation->play(true);
+//     animation->resetAnimation(PLAYER::idle);    //预设播放器图片为空闲状态
+//     animation->play(true);
 
-    this->addComponent(moveCom);
-    this->addComponent(fallCom);
-    this->addComponent(animation);
-    //添加组件到组件数组中
-}
+//     this->addComponent(moveCom);
+//     this->addComponent(fallCom);
+//     this->addComponent(animation);
+//     //添加组件到组件数组中
+// }
 
 InterfacePlayer Player::intoInterface()
 {
@@ -114,7 +114,10 @@ void Player::fallcollideOthers(GameObject* d,QVector2D& lastposition)
         // this->mSpeedX = 0;
         if(!this->jumpFinalStateDecision)
              this->changePlayerState(playerState::WALKING);
-        else this->changePlayerState(playerState::IDLE);
+        else{
+            this->changePlayerState(playerState::IDLE);
+            this->mSpeedX = 0;
+        }
     }
 }
 

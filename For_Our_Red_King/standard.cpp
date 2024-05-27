@@ -49,6 +49,10 @@ const AnimationLoader masuTile(":/pictureResoource/Tiles/masuTile.png",
                          32, 32, 1);
 const AnimationLoader door1(":/pictureResoource/Tiles/door.png",
                             32, 32, 8);
+const AnimationLoader money(":/pictureResoource/Tiles/Money.png",
+                            24, 24, 6);
+const AnimationLoader screen2(":/pictureResource/Tiles/Screen2.png",
+                              32, 42, 4);
 }
 
 namespace DRAWORRDER{
@@ -73,6 +77,8 @@ const int fpsBreathtaking = 120;
 const int windowWidth = 960;
 const int windowHeight = 576;
 const int tileSide = 48;
+const int imgSide = 32;
+const int durationPerFrame = 6;
 }
 namespace ACTIONCONST{
 const float maxSpeed = 5;

@@ -26,7 +26,7 @@ class Player : public GameObject
 public:
 
     explicit Player(QObject *parent = nullptr,class Game* game = nullptr);
-    explicit Player(QObject *parent = nullptr,class Game* game = nullptr,InterfacePlayer i = InterfacePlayer ());
+    // explicit Player(QObject *parent = nullptr,class Game* game = nullptr,InterfacePlayer i = InterfacePlayer ());
 
     class PlayerStatesSet* _playerStateSet;    //!<玩家状态集合
     enum class playerState{IDLE,JUMPING,WALKING};//!玩家状态集合（判断）

@@ -21,5 +21,7 @@
         <file>pictureResoource/Monster/Idle.png</file>
         <file>pictureResoource/Monster/Walk.png</file>
         <file>pictureResoource/Monster/Jump.png</file>
+        <file>pictureResoource/Tiles/Money.png</file>
+        <file>pictureResoource/Tiles/Screen2.png</file>
     </qresource>
 </RCC>

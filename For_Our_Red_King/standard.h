@@ -36,6 +36,9 @@ extern const AnimationLoader industrialTile8;
 extern const AnimationLoader industrialTile9;
 extern const AnimationLoader masuTile;
 extern const AnimationLoader door1;
+extern const AnimationLoader money;
+extern const AnimationLoader screen2;
+
 }
 
 
@@ -61,6 +64,8 @@ namespace SYSTEM{
     extern const int windowWidth;
     extern const int windowHeight;
     extern const int tileSide;
+    extern const int imgSide;
+    extern const int durationPerFrame;
 }
 namespace ACTIONCONST{
 extern const float maxSpeed;

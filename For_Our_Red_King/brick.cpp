@@ -29,6 +29,15 @@ void Brick::initialize(const AnimationLoader &anime, QVector2D posi, QVector2D s
     this->mHeight = this->getHeight();
 }
 
+void Brick::setDurationPerFrame(short dpf)
+{
+    if(dpf != 0)
+    {
+        this->animation->TickPerFrame(dpf);
+        this->animation->play(true);
+    }
+}
+
 int Brick::getX()
 {
     return this->gridPosition.x() * SYSTEM::tileSide;
