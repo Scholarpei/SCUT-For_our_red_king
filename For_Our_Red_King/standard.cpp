@@ -51,7 +51,7 @@ const AnimationLoader door1(":/pictureResoource/Tiles/door.png",
                             32, 32, 8);
 const AnimationLoader money(":/pictureResoource/Tiles/Money.png",
                             24, 24, 6);
-const AnimationLoader screen2(":/pictureResource/Tiles/Screen2.png",
+const AnimationLoader screen2(":/pictureResoource/Tiles/Screen2.png",
                               32, 42, 4);
 }
 

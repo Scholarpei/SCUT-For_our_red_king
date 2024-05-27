@@ -256,7 +256,8 @@ BlockBack::BlockBack(QObject *parent, Game *game):
 void BlockBack::initialize(const AnimationLoader &anime, short dpf)
 {
     this->gridPosition = QVector2D(0, 0);
-    this->gridSize = QVector2D(SYSTEM::windowWidth / SYSTEM::tileSide, SYSTEM::windowHeight / SYSTEM::tileSide);
+    this->gridSize = QVector2D(SYSTEM::windowWidth / SYSTEM::tileSide,
+                               SYSTEM::windowHeight / SYSTEM::tileSide);
     this->setPosition(QVector2D(0, 0));
     this->mWidth = SYSTEM::windowWidth;
     this->mHeight = SYSTEM::windowHeight;
@@ -271,7 +272,8 @@ void BlockBack::initialize(const AnimationLoader &anime, short dpf)
 
 void BlockBack::initialize(const InterfaceBlock &interface)
 {
-    this->initialize(interface.toAnime(interface.textureID)[0], interface.durationPerFrame);
+    this->initialize(interface.toAnime(interface.textureID)[0],
+                     interface.durationPerFrame);
 }
 
 

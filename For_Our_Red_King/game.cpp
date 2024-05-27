@@ -39,7 +39,7 @@ Game::Game(QObject *parent,MainWindow* window):
         interface.initializeRock(11,
                                  QVector2D(10, 0),
                                  QVector2D(1, 4),
-                                 0,1,0,0);
+                                 0,0,0,0);
         cone->initialize(interface);
         interface.initializeRock(11,
                                  QVector2D(10, 6),
@@ -59,9 +59,9 @@ Game::Game(QObject *parent,MainWindow* window):
                                        13);
         money->initialize(interface);
         interface.initializeDecoration(43,
-                                       QVector2D(0, 1),
+                                       QVector2D(8, 6),
                                        0,
-                                       13);
+                                       42);
         screen->initialize(interface);
     }
 
