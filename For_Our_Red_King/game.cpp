@@ -88,11 +88,29 @@ bool Game::Initialize()
 //!两个物体的碰撞检测
 bool Game::collisionDetection(GameObject* first,GameObject* second)
 {
+    if(second ->gameObjectType == GameObject::Type::Player)
+        std::swap(first,second);
     //依靠aabb碰撞实现
     QVector2D f_pos = first->getPosition(),s_pos = second->getPosition();
     QVector2D f_scale = first->getScale(),s_scale = second->getScale();
     float f_Width = first->getWidth()*f_scale.x(),f_Height = first->getHeight() * f_scale.y();//碰撞框宽
     float s_Width = second->getWidth()*s_scale.x(),s_Height = second->getHeight() * s_scale.y();//碰撞框高
+
+    //下面是对于贴图不透明度的修改进行的玄学修改框框位置以及大小（针对player）
+    auto getCollidePosition = [](QVector2D pos,GameObject* object) -> QVector2D{
+        if(object->getDirection() == 1)
+            pos = QVector2D(pos.x() + object->getWidth() * 0.08,pos.y()+ object->getHeight() * 0.15);
+        else
+            pos = QVector2D(pos.x() + object->getWidth() * 0.07,pos.y()+ object->getHeight() * 0.15);
+        return pos;
+    };
+
+    if(first->gameObjectType == GameObject::Type::Player){
+        f_pos = getCollidePosition(f_pos,first);
+        f_Width *= 0.55;
+        f_Height *= 0.85;
+    }
+
 
     auto getMiddlePoint = [](QVector2D pos,float width,float height) -> QVector2D{
         QVector2D ret = QVector2D(pos.x()+(width/2),pos.y() + (height/2));

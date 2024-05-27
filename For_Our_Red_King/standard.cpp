@@ -84,7 +84,7 @@ namespace ACTIONCONST{
 const float maxSpeed = 5;
 const float gravityAcceleration = 0.5;
 const float jump_gravityAcceleration = 0.1;
-const float playerMoveXSpeed = 1;
+const float playerMoveXSpeed = 5;
 const float playerMoveYSpeed = -5;
 const float monsterMoveXSpeed = 1;
 const float monsterMoveYSpeed = 1;
