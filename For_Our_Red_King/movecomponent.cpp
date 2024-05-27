@@ -1,4 +1,4 @@
-#include "movecomponent.h"
+﻿#include "movecomponent.h"
 #include "game.h"
 
 MoveComponent::MoveComponent(GameObject* gameObject):
@@ -15,7 +15,7 @@ void MoveComponent::Update()
     float speedX = mGameObject->getSpeedX();
     QVector2D curPos = mGameObject->getPosition();//备份前一个位置
     //获得gameObject各个数值
-    const QVector2D nxtPosition = QVector2D(float(curPos.x() + speedX*dir), curPos.y());//计算下一个位置
+    const QVector2D nxtPosition = QVector2D(float(curPos.x() + speedX*dir*0.2), curPos.y());//计算下一个位置
     mGameObject->setPosition(nxtPosition);
 
     bool isCollide = false;   //当前gameObject是否跟其他Object发生碰撞

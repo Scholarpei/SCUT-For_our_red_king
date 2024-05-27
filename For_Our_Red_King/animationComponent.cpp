@@ -1,4 +1,4 @@
-#include "animationComponent.h"
+﻿#include "animationComponent.h"
 #include "gameobject.h"
 #include "game.h"
 #include <QTransform>
@@ -21,7 +21,7 @@ AnimationComponent::~AnimationComponent()
 
 void AnimationComponent::Draw()
 {
-    QRect target(this->mGameObject->getPosition().x(),
+    QRect target1(this->mGameObject->getPosition().x(),
                  this->mGameObject->getPosition().y(),
                  mGameObject->mWidth * mGameObject->getScale().x(),
                  mGameObject->mHeight * mGameObject->getScale().y());
@@ -37,9 +37,15 @@ void AnimationComponent::Draw()
         QTransform transform;
         transform.scale(-1, 1);  // 水平翻转
         frame = frame.transformed(transform);
+        QRect target2(this->mGameObject->getPosition().x()-15,
+                     this->mGameObject->getPosition().y(),
+                     mGameObject->mWidth * mGameObject->getScale().x(),
+                     mGameObject->mHeight * mGameObject->getScale().y());
+        this->mGameObject->mGame->mWindow->mPainter->drawPixmap(target2, frame);
     }
-    this->mGameObject->mGame->mWindow->mPainter->drawPixmap(target, frame);
-
+    else{
+    this->mGameObject->mGame->mWindow->mPainter->drawPixmap(target1, frame);
+    }
     if(this->isPlaying)
     {
         this->nextTick();
