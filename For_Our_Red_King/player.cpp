@@ -93,7 +93,7 @@ void Player::movecollideOthers(GameObject* d,QVector2D& lastposition)
 
     this->setPosition(lastposition);
     //若发生碰撞，让移动不执行
-    this->mSpeedX = 0;
+    // this->mSpeedX = 0;
 
 }
 
@@ -137,7 +137,6 @@ void Player::movenotCollide(QVector2D& lastposition)
 {
     //to be written
     //似乎什么都不用做
-
 }
 
 //!碰撞其他gameobject的事件fallcomponent处理(d是this碰撞到的GameObject)
