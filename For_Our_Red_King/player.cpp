@@ -118,6 +118,7 @@ void Player::fallcollideOthers(GameObject* d,QVector2D& lastposition)
             this->changePlayerState(playerState::IDLE);
             this->mSpeedX = 0;
         }
+        this->jumpFinalStateDecision = 1;
     }
 }
 
