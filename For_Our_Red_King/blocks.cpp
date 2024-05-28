@@ -1,6 +1,7 @@
 #include "blocks.h"
 #include "standard.h"
 #include "game.h"
+#include "player.h"
 #include <math.h>
 
 Block::Block(QObject *parent, Game *game):
@@ -198,9 +199,19 @@ std::vector<AnimationLoader> InterfaceBlock::toAnime(short ID)
               TILES::masuTile,
               TILES::masuTile,
               TILES::masuTile}},
+        {22,{TILES::air,
+             TILES::air,
+             TILES::air,
+             TILES::air,
+             TILES::air,
+             TILES::air,
+             TILES::air,
+             TILES::air,
+             TILES::air}},
         {31, {TILES::door1}},
         {41, {TILES::money}},
-        {43, {TILES::screen2}}
+        {43, {TILES::screen2}},
+        {44, {TILES::bench}}
     };
     return mapping[ID];
 }
@@ -245,6 +256,28 @@ void InterfaceBlock::initializeDecoration(short texturID, QVector2D posi, short 
     this->position[1] = posi.y();
     this->status[0] = type;
     this->durationPerFrame = durationPerFrame;
+}
+
+void InterfaceBlock::initializeBar(short textureID, QVector2D posi)
+{
+    this->category = 4;
+    this->textureID = textureID;
+    this->position[0] = posi.x();
+    this->position[1] = posi.y();
+}
+
+void InterfaceBlock::initializeDamage(short texturID, QVector2D posi, short type, short interval, short damage, QVector2D size, short durationPerFrame)
+{
+    this->category = 5;
+    this->textureID = texturID;
+    this->position[0] = posi.x();
+    this->position[1] = posi.y();
+    this->position[2] = size.x();
+    this->position[3] = size.y();
+    this->status[0] = type;
+    this->durationPerFrame = durationPerFrame;
+    this->status[1] = interval;
+    this->status[2] = damage;
 }
 
 BlockBack::BlockBack(QObject *parent, Game *game):
@@ -360,3 +393,136 @@ void BlockDecoration::initialize(const InterfaceBlock &interface)
                       interface.status[0],
                       interface.durationPerFrame);
 }
+
+BlockBar::BlockBar(QObject *parent, Game *game):
+    Block(parent, game)
+{
+    this->attendCollision = false;
+}
+
+void BlockBar::initialize(BleedingComponent *bar, int posX, int posY)
+{
+    this->gridPosition = QVector2D(0, 0);
+    this->gridSize = QVector2D(0, 0);
+    this->setPosition(QVector2D(posX, posY));
+    this->mWidth = this->getWidth();
+    this->mHeight = this->getHeight();
+
+    this->bricks.resize(0, std::vector<Brick*>(0));
+
+    this->HPbar = bar;
+    this->addComponent(this->HPbar);
+}
+
+void BlockBar::initialize(const InterfaceBlock &interface)
+{
+    BleedingComponent *bar = new BleedingComponent(this);
+
+    this->initialize(bar,
+                     interface.position[0],
+                     interface.position[1]);
+
+
+}
+
+void BlockBar::Update()
+{
+    int hp = this->mGame->mPlayer->getHP();
+    if (hp != this->hp)
+    {
+        this->HPbar->changeHP(hp);
+        this->hp = hp;
+    }
+}
+
+BlockDamage::BlockDamage(QObject *parent, Game *game):
+    Block(parent, game)
+{
+
+}
+
+void BlockDamage::initialize(const AnimationLoader &anime, QVector2D posi, short type, short dpf,  short interval, short damage, QVector2D size)
+{
+    QVector2D singleSize = QVector2D(ceil((double)anime.GetpixX() / SYSTEM::imgSide),
+                                     ceil((double)anime.GetpixY() / SYSTEM::imgSide));
+
+    this->gridPosition = posi;
+    this->gridSize = QVector2D(singleSize.x() * size.x(),
+                               singleSize.y() * size.y());
+    this->setPosition(QVector2D(this->getX(), this->getY()));
+    this->mWidth = this->getWidth();
+    this->mHeight = this->getHeight();
+
+    this->bricks.resize(size.x(), std::vector<Brick*>(size.y()));
+
+    for(int i = 0; i < size.x(); i++)
+    {
+        for ( int j = 0; j < size.y(); j++)
+        {
+            Brick* b = new Brick(this, mGame, DRAWORRDER::door);
+            b->initialize(anime,
+                          QVector2D(this->gridPosition.x() + i * singleSize.x(),
+                                    this->gridPosition.y() + j * singleSize.y()),
+                          singleSize);
+            b->setDurationPerFrame(dpf);
+
+            this->bricks[i][j] = b;
+        }
+    }
+
+    // Brick* b = new Brick(this, mGame, DRAWORRDER::door);
+    // b->initialize(anime, this->gridPosition, this->gridSize);
+    // b->setDurationPerFrame(dpf);
+    // this->bricks[0][0] = b;
+
+    this->HURT_INTERVAL = interval;
+    this->current_tick = 0;
+    this->damage = damage;
+
+    switch(type)
+    {
+    case 1:
+    {
+        this->attendCollision = false;
+        break;
+    }
+    case 2:
+    {
+        this->attendCollision = true;
+        break;
+    }
+    default:
+        break;
+    }
+}
+
+void BlockDamage::initialize(const InterfaceBlock &interface)
+{
+    this->initialize(interface.toAnime(interface.textureID)[0],
+                     QVector2D(interface.position[0],
+                               interface.position[1]),
+                     interface.status[0],
+                     interface.durationPerFrame,
+                     interface.status[1],
+                     interface.status[2],
+                     QVector2D(interface.position[2],
+                               interface.position[3]));
+}
+
+void BlockDamage::Update()
+{
+    if(this->current_tick != 0)
+    {
+        this->current_tick--;
+    }
+}
+
+void BlockDamage::beingCollide(GameObject *s)
+{
+    if(this->current_tick == 0)
+    {
+        this->mGame->mPlayer->loseHPEvent(this->damage);
+        this->current_tick = this->HURT_INTERVAL;
+    }
+}
+

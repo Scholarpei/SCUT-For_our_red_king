@@ -44,6 +44,7 @@ public:
     float getSpeedX()override;   //!<获得X速度
     float getSpeedY()override;   //!<获得Y速度
     int getDirection()override; //!<获得运动方向
+    int getHP();                // 获得血量
     void setMoveDirection(int dir)override;    //!<设置运动方向
     void setSpeedX(float s)override;   //!<设置X速度
     void setSpeedY(float s)override;   //!<设置Y速度
@@ -65,7 +66,7 @@ public:
 private:
     int moveDirection = 1;     //!< 运动方向 1为右，-1为左
     int HP = PLAYER::MaxHP;                //!< 血量
-    long long loseHP_timeCount;  //!< 距离上一次扣血已经经过的时间
+    long long loseHP_timeCount = 0;  //!< 距离上一次扣血已经经过的时间
     float mSpeedX,mSpeedY;     //!< 移动速度 X横,Y竖
 };
 

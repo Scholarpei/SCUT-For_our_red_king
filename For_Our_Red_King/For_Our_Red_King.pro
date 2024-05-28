@@ -17,6 +17,7 @@ QT+= testlib core gui multimedia widgets
 # Input
 HEADERS += animationComponent.h \
            animationloader.h \
+           bleedingcomponent.h \
            blocks.h \
            brick.h \
            component.h \
@@ -42,6 +43,7 @@ HEADERS += animationComponent.h \
 FORMS += mainwindow.ui
 SOURCES += animationComponent.cpp \
            animationloader.cpp \
+           bleedingcomponent.cpp \
            blocks.cpp \
            brick.cpp \
            component.cpp \
