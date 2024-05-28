@@ -1,4 +1,4 @@
-#include "monster.h"
+﻿#include "monster.h"
 #include "spritecomponent.h"
 #include "movecomponent.h"
 #include "game.h"
@@ -14,10 +14,15 @@ Monster::Monster(QObject *parent,Game* game):
 
     gameObjectType = GameObject::Type::Monster;
     mMonsterState = MonsterState::WALKING;   //初始化Monster状态为walking
+    mWidth = MONSTER::Monster_Width;
+    mHeight = MONSTER::Monster_Height;
+    this->setPosition(QVector2D(100,320));   //怪物位置也需要确定好
+
 
     this-> moveCom = new MoveComponent(this);
     this-> fallCom = new FallComponent(this);
     this->animation= new AnimationComponent(this, DRAWORRDER::Monster);
+    this->mSpeedX = ACTIONCONST::monsterMoveXSpeed;
         //设置player精灵drawOrder = standard常量
 
     animation->resetAnimation(MONSTER::walking);    //预设播放器图片为行走
@@ -30,7 +35,7 @@ Monster::Monster(QObject *parent,Game* game):
 }
 
 void Monster::Update(){
-
+    loseHP_timeCount ++;  //扣血限制计时器更新
     if(mState == State::EDead)
         return;
     //物体标定为消亡就不再更新
@@ -47,12 +52,13 @@ void Monster::movecollideOthers(GameObject* d,QVector2D& lastposition)
     if(d->gameObjectType == GameObject::Type::Monster){
         //玩家碰到怪物
         Player* PlayerPtr = dynamic_cast<Player*>(d);
+        this->moveDirection =  -(PlayerPtr->getDirection());    //让怪物朝向人物，发动攻击
+        changeMonsterState(MonsterState::FIGHTING);
         // loseHPEvent();   还没确定扣多少血
     }
 
     this->setPosition(lastposition);
     //若发生碰撞，让移动不执行并切换运动方向
-    this->mSpeedX = 0;
     this->moveDirection = -this->moveDirection;
 }
 
@@ -62,8 +68,10 @@ void Monster::fallcollideOthers(GameObject* d,QVector2D& lastposition)
     //to be written
     if(d->gameObjectType == GameObject::Type::Player){
         //玩家碰到怪物
+        mMonsterState = MonsterState::FIGHTING;
         Player* PlayerPtr = dynamic_cast<Player*>(d);
         // loseHPEvent();
+
     }
 
     this->setPosition(lastposition);
@@ -78,7 +86,8 @@ void Monster::beingCollide(GameObject* s)
     if(s->gameObjectType == GameObject::Type::Monster){
         //玩家碰到怪物
         Player* PlayerPtr = dynamic_cast<Player*>(s);
-        // loseHPEvent();
+
+        //loseHPEvent()
     }
 }
 
@@ -93,7 +102,7 @@ void Monster::movenotCollide(QVector2D& lastposition)
 //!碰撞其他gameobject的事件fallcomponent处理(d是this碰撞到的GameObject)
 void Monster::fallnotCollide(QVector2D& lastposition)
 {
-    //说明要脱离平台、地面了，阻止其
+    //说明要脱离平台、地面了，阻止发生
     this->setPosition(lastposition);
     this->mSpeedY = 0;
 }
@@ -105,12 +114,49 @@ int Monster::getDrawDirection()
 
 void Monster::changeMonsterState(MonsterState state)
 {
-
+    switch (state)
+    {
+    case MonsterState::IDLE:
+        this->mMonsterState = MonsterState::IDLE;
+        break;
+    case MonsterState::WALKING:
+        if(this->mMonsterState == MonsterState::WALKING)
+            this->mMonsterState = MonsterState::WALKING;
+        break;
+    case MonsterState::FIGHTING:
+        this->mMonsterState = MonsterState::FIGHTING;
+        break;
+    }
     if(mMonsterState == MonsterState::WALKING){
         animation->resetAnimation(MONSTER::walking);
         animation->play(true);
     }
+    else if(mMonsterState == MonsterState::FIGHTING){
+        animation->resetAnimation((MONSTER::fighting));
+        animation->play(true);
+    }
+    else if(mMonsterState == MonsterState::IDLE){
+        animation->resetAnimation((MONSTER::idle));
+        animation->play(true);
+    }
     //动画播放内容根据当前状态决定
+}
+
+void Monster::loseHPEvent(int num)
+{
+    if(loseHP_timeCount < MONSTER::loseHPTimePeriod)
+        return ;
+    //用于限制扣血的时间间隔
+
+    loseHP_timeCount = 0;  //扣血计时归零
+
+    if(this->HP  > num)
+        this->HP -= num;
+    else{
+        HP = 0;
+
+        //触发Monster死亡
+    }
 }
 
 int Monster::getDirection()

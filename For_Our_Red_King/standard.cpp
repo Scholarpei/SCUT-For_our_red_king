@@ -1,4 +1,4 @@
-#include "standard.h"
+﻿#include "standard.h"
 namespace PLAYER{
 const AnimationLoader idle= AnimationLoader(":/pictureResoource/Player/idle.png",
                                        48,48,4);
@@ -17,8 +17,12 @@ const AnimationLoader idle= AnimationLoader(":/pictureResoource/Monster/Idle.png
                                              48,48,4);
 const AnimationLoader walking = AnimationLoader(":/pictureResoource/Monster/Walk.png",
                                                 48,48,6);
-const AnimationLoader jumping = AnimationLoader(":/pictureResoource/Monster/Jump.png",
-                                                48,48,4);
+const AnimationLoader fighting = AnimationLoader(":/pictureResoource/Monster/attack.png",
+                                                48,48,8);
+const int MaxHP = 60;
+const int loseHPTimePeriod = 30;
+const int Monster_Width = 48;
+const int Monster_Height = 60;
 }
 
 namespace BACKGROUND{
