@@ -1,4 +1,4 @@
-#ifndef STANDARD_H
+﻿#ifndef STANDARD_H
 #define STANDARD_H
 #include "animationloader.h"
 //用于
@@ -17,7 +17,11 @@ namespace PLAYER{
 namespace MONSTER {
     extern const AnimationLoader idle;
     extern const AnimationLoader walking;
-    extern const AnimationLoader jumping;
+    extern const AnimationLoader fighting;
+    extern const int MaxHP;
+    extern const int loseHPTimePeriod;
+    extern const int Monster_Width;
+    extern const int Monster_Height;
 }
 
 namespace BACKGROUND{
