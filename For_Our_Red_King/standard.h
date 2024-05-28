@@ -26,6 +26,11 @@ namespace MONSTER {
 
 namespace BACKGROUND{
 extern const AnimationLoader bg1;
+extern const AnimationLoader plate;
+extern const AnimationLoader shocked_plate;
+extern const AnimationLoader blood;
+extern const AnimationLoader healing;
+extern const AnimationLoader hurting;
 }
 
 namespace TILES{
@@ -42,6 +47,8 @@ extern const AnimationLoader masuTile;
 extern const AnimationLoader door1;
 extern const AnimationLoader money;
 extern const AnimationLoader screen2;
+extern const AnimationLoader bench;
+extern const AnimationLoader air;
 
 }
 

@@ -41,8 +41,8 @@ Game::Game(QObject *parent,MainWindow* window):
         ground->initialize(interface);
         interface.initializeRock(11,
                                  QVector2D(10, 0),
-                                 QVector2D(1, 4),
-                                 0,0,0,0);
+                                 QVector2D(1, 2),
+                                 0,1,0,0);
         cone->initialize(interface);
         interface.initializeRock(11,
                                  QVector2D(10, 6),
@@ -66,6 +66,42 @@ Game::Game(QObject *parent,MainWindow* window):
                                        0,
                                        42);
         screen->initialize(interface);
+
+        BlockBar* bar = new BlockBar(this, this);
+        createGameObject(bar);
+        interface.initializeBar(0, QVector2D(5, 5));
+        bar->initialize(interface);
+
+        BlockDamage* damage = new BlockDamage(this, this);
+        createGameObject(damage);
+        interface.initializeDamage(44,
+                                   QVector2D(2, 4),
+                                   2,
+                                   60,
+                                   5,
+                                   QVector2D(1, 1));
+        damage->initialize(interface);
+
+        BlockDamage* heal = new BlockDamage(this, this);
+        createGameObject(heal);
+        interface.initializeDamage(22,
+                                   QVector2D(7, 2),
+                                   2,
+                                   60,
+                                   -10,
+                                   QVector2D(1, 1));
+        heal->initialize(interface);
+
+        BlockDamage* vanity = new BlockDamage(this, this);
+        createGameObject(vanity);
+        interface.initializeDamage(22,
+                                   QVector2D(17, 11),
+                                   2,
+                                   60,
+                                   1000,
+                                   QVector2D(3, 1));
+        vanity->initialize(interface);
+
     }
 
     Initialize();
