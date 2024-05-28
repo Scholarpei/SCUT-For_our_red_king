@@ -10,6 +10,7 @@
 #include <QEvent>
 #include <QPainter>
 #include "mainwindow.h"
+#include "musicplayer.h"
 
 class GameObject;
 class spriteComponent;
@@ -53,6 +54,7 @@ protected:
 
 
 private:
+    MusicPlayer * mMusicPlayer ;                    //!<音乐播放player
     std::vector<GameObject*> mPendingObjects;        //!<    等待状态的游戏物体容器
 
     bool    mIsUpdating;                    //!<    是否在更新状态

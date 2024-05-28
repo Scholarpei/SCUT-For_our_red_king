@@ -41,6 +41,7 @@ void AnimationComponent::Draw()
                      this->mGameObject->getPosition().y(),
                      mGameObject->mWidth * mGameObject->getScale().x(),
                      mGameObject->mHeight * mGameObject->getScale().y());
+        //这里-15是因为我们的图片是有透明区域的，翻转过后人物会翻转到另一边，我们通过平移绘画位置解决这一点（经过尝试，-15是比较合理的值）
         this->mGameObject->mGame->mWindow->mPainter->drawPixmap(target2, frame);
     }
     else{

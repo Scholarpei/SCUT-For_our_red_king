@@ -12,6 +12,9 @@ namespace PLAYER{
     extern const int MaxHP;
     extern const int Player_Width;
     extern const int Player_Height;
+
+    extern const QString walkSoundURL;
+    extern const QString jumpSoundURL;
 }
 
 namespace MONSTER {
@@ -77,6 +80,8 @@ namespace SYSTEM{
     extern const int tileSide;
     extern const int imgSide;
     extern const int durationPerFrame;
+
+    extern const QString bgmURL;
 }
 namespace ACTIONCONST{
 extern const float maxSpeed;

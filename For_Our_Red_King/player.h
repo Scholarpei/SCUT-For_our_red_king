@@ -7,6 +7,7 @@
 #include"animationComponent.h"
 #include<QDebug>
 #include"standard.h"
+#include "musicplayer.h"
 class GameObject;
 
 struct InterfacePlayer
@@ -64,6 +65,7 @@ public:
 
 
 private:
+    MusicPlayer* mSoundPlayer; //!< 音效播放
     int moveDirection = 1;     //!< 运动方向 1为右，-1为左
     int HP = PLAYER::MaxHP;                //!< 血量
     long long loseHP_timeCount = 0;  //!< 距离上一次扣血已经经过的时间

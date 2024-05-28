@@ -5,6 +5,9 @@
 #include "cmath"
 #include "blocks.h"
 #include"monster.h"
+#include "standard.h"
+#include <QAudioOutput>
+
 Game::Game(QObject *parent,MainWindow* window):
     QObject{parent},
     mIsRuning(true),
@@ -15,6 +18,10 @@ Game::Game(QObject *parent,MainWindow* window):
     qDebug()<<"到达Game对象构造函数处";
     mWindow = window;
     mPainter = new QPainter(mWindow);
+
+    mMusicPlayer = new MusicPlayer;
+    mMusicPlayer->play(SYSTEM::bgmURL,true);
+    //设置bgm
 
     mPlayer = new Player(this,this);
     createGameObject(mPlayer);

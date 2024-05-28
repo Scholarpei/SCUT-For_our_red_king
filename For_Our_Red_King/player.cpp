@@ -13,6 +13,8 @@ Player::Player(QObject *parent,Game* game):
     mWidth = PLAYER::Player_Width;
     mHeight = PLAYER::Player_Height;
 
+    mSoundPlayer = new MusicPlayer;
+
     gameObjectType = GameObject::Type::Player;
     mPlayerState = playerState::IDLE;   //初始化player状态为idle
     _playerStateSet = new PlayerStatesSet(this,this);
@@ -155,17 +157,21 @@ int Player::getDrawDirection()
 
 void Player::changePlayerState(playerState state)
 {
+    this->mSoundPlayer->stop();
+
     switch (state)
     {
         case playerState::IDLE:
             this->mPlayerState = playerState::IDLE;
             break;
         case playerState::JUMPING:
+            this->mSoundPlayer->play(PLAYER::jumpSoundURL,false);
             if(this->mPlayerState == playerState::WALKING)
                 jumpFinalStateDecision = 0;
             this->mPlayerState = playerState::JUMPING;
             break;
         case playerState::WALKING:
+            this->mSoundPlayer->play(PLAYER::walkSoundURL,true);
             this->mPlayerState = playerState::WALKING;
             break;
     }

@@ -32,6 +32,7 @@ HEADERS += animationComponent.h \
            monster.h \
            monsterstateset.h \
            movecomponent.h \
+           musicplayer.h \
            mytimer.h \
            player.h \
            playerstatesset.h \
@@ -58,6 +59,7 @@ SOURCES += animationComponent.cpp \
            monster.cpp \
            monsterstateset.cpp \
            movecomponent.cpp \
+           musicplayer.cpp \
            mytimer.cpp \
            player.cpp \
            playerstatesset.cpp \
@@ -66,4 +68,5 @@ SOURCES += animationComponent.cpp \
            statebase.cpp \
            threedimenbutton.cpp \
            walkingstate.cpp
-RESOURCES += player.qrc Resource.qrc resources.qrc
+RESOURCES += Resource.qrc \
+    soundResource.qrc

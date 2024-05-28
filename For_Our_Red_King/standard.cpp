@@ -10,6 +10,9 @@ const int loseHPTimePeriod = 30;
 const int MaxHP = 100;
 const int Player_Width = 48;
 const int Player_Height = 60;
+
+const QString walkSoundURL = ":/sound/player/soundPlayerWalking.wav";
+const QString jumpSoundURL = ":/sound/player/soundPlayerJumping.wav";
 }
 
 namespace MONSTER {
@@ -97,6 +100,8 @@ const int windowHeight = 576;
 const int tileSide = 48;
 const int imgSide = 32;
 const int durationPerFrame = 6;
+
+const QString bgmURL = ":/sound/system/bgm.wav";
 }
 namespace ACTIONCONST{
 const float maxSpeed = 5;
