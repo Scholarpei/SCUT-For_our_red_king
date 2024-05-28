@@ -2,6 +2,7 @@
 #define BLOCKS_H
 
 #include "brick.h"
+#include "bleedingcomponent.h"
 
 struct InterfaceBlock
 {
@@ -17,6 +18,8 @@ struct InterfaceBlock
     void initializeBackGround(short textureID, short durationPerFrame = 0);
     void initializeDoor(short texturID, QVector2D posi, short type, short durationPerFrame = 0);
     void initializeDecoration(short texturID, QVector2D posi, short type, short durationPerFrame = 0);
+    void initializeBar(short textureID, QVector2D posi);
+    void initializeDamage(short texturID, QVector2D posi, short type,short interval, short damage, QVector2D size ,short durationPerFrame = 0);
 
     void clear() = delete;
 };
@@ -130,7 +133,40 @@ public:
     virtual void initialize(const InterfaceBlock& interface);
     virtual void Update();
     virtual void beingCollide(GameObject* s);
+};
 
+class BlockDamage : public Block
+{
+protected:
+    int damage;
+    int HURT_INTERVAL;      // 单位是tick
+
+    int current_tick;
+
+public:
+    explicit BlockDamage(QObject *parent = nullptr,class Game* game = nullptr);
+
+    void initialize(const AnimationLoader& anime, QVector2D posi, short type, short dpf, short interval, short damage, QVector2D size);
+    virtual void initialize(const InterfaceBlock& interface);
+    virtual void Update();
+    virtual void beingCollide(GameObject* s);
+};
+
+
+class BlockBar : public Block
+{
+public:
+    explicit BlockBar(QObject *parent = nullptr,class Game* game = nullptr);
+
+    void initialize(BleedingComponent* bar, int posX, int posY);
+    virtual void initialize(const InterfaceBlock& interface);
+
+    virtual void Update();
+
+protected:
+    BleedingComponent* HPbar;
+
+    int hp = PLAYER::MaxHP;
 };
 
 

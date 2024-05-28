@@ -13,7 +13,7 @@ Brick::Brick(QObject *parent, Game *game, int drawOrder):
     this->animation = new AnimationComponent(this, drawOrder);
 
     this->addComponent(animation);
-    this->mGame->createSprite(this->animation);
+    // this->mGame->createSprite(this->animation);
 }
 
 void Brick::initialize(const AnimationLoader &anime, QVector2D posi, QVector2D size)

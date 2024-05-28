@@ -193,18 +193,30 @@ void Player::loseHPEvent(int num)
 
     loseHP_timeCount = 0;  //扣血计时归零
 
-    if(this->HP  > num)
-        this->HP -= num;
-    else{
+    if (this->HP <= num)
+    {
         HP = 0;
 
-        //触发Player死亡
+        // 触发Player死亡
+    }
+    else if(this->HP - num > PLAYER::MaxHP)
+    {
+        HP = PLAYER::MaxHP;
+    }
+    else
+    {
+        this->HP -= num;
     }
 }
 
 int Player::getDirection()
 {
     return this->moveDirection;
+}
+
+int Player::getHP()
+{
+    return this->HP;
 }
 
 void Player::setMoveDirection(int dir)

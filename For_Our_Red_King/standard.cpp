@@ -24,6 +24,16 @@ const AnimationLoader jumping = AnimationLoader(":/pictureResoource/Monster/Jump
 namespace BACKGROUND{
 const AnimationLoader bg1(":/pictureResoource/background/Background.png",
                           576, 324, 1);
+const AnimationLoader blood(":/pictureResoource/background/blood.png",
+                          232, 15, 1);
+const AnimationLoader plate(":/pictureResoource/background/plate.png",
+                          240, 24, 1);
+const AnimationLoader shocked_plate(":/pictureResoource/background/shocked_plate.png",
+                            240, 24, 1);
+const AnimationLoader hurting(":/pictureResoource/background/hurting.png",
+                            232, 15, 1);
+const AnimationLoader healing(":/pictureResoource/background/healing.png",
+                            232, 15, 1);
 }
 
 namespace TILES{
@@ -53,6 +63,10 @@ const AnimationLoader money(":/pictureResoource/Tiles/Money.png",
                             24, 24, 6);
 const AnimationLoader screen2(":/pictureResoource/Tiles/Screen2.png",
                               32, 42, 4);
+const AnimationLoader bench(":/pictureResoource/Tiles/Bench.png",
+                              32, 32, 1);
+const AnimationLoader air(":/pictureResoource/Tiles/Bench.png",
+                          4, 4, 1);
 }
 
 namespace DRAWORRDER{
