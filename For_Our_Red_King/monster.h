@@ -1,4 +1,4 @@
-#ifndef MONSTER_H
+﻿#ifndef MONSTER_H
 #define MONSTER_H
 #include "game.h"
 #include "gameobject.h"
@@ -15,7 +15,7 @@ public:
     explicit Monster(QObject *parent = nullptr,class Game* game = nullptr);
 
     class MonsterStateSet* _monsterStateSet;     //!<怪物状态集合
-    enum class MonsterState{WALKING};//!怪物状态集合（判断,怪物应该只存在walking跟fighting的两种状态）
+    enum class MonsterState{WALKING,FIGHTING,IDLE};//!怪物状态集合（判断,怪物应该只存在walking跟fighting的两种状态）
     MonsterState mMonsterState;
     virtual void changeMonsterState(MonsterState state);//!改变怪物状态
 
@@ -33,15 +33,16 @@ public:
     void fallcollideOthers(GameObject* d,QVector2D& lastposition)override;        //!<在fallComponent中碰撞其他gameobject的事件处理(d是this碰撞到的GameObject)
     void beingCollide(GameObject* s)override;         //!<被碰撞后发生的事件处理(s是碰撞this的GameObject)
     void movenotCollide(QVector2D& lastposition)override;                        //!<如果movecomponent没有发生碰撞后该Object的处理(用于monster)
-    void fallnotCollide(QVector2D& lastposition)override;                        //!<如果fallcomponent没有发生碰撞后该Object的处理(用于monster)
+    void fallnotCollide(QVector2D& lastposition)override;        //!<如果fallcomponent没有发生碰撞后该Object的处理(用于monster)
 
+    void loseHPEvent(int HPlost);       //掉血量事件，传入的是每帧扣的血量
     FallComponent * fallCom;       //掉落组件
     MoveComponent * moveCom;        //移动组件
     AnimationComponent* animation;           //动画组件
 
 private:
     int moveDirection;     //!< 运动方向 1为右，-1为左
-    int HP;                //!< 血量
+    int HP = MONSTER::MaxHP;                //!< 血量
     long long loseHP_timeCount;  //!< 距离上一次扣血已经经过的时间
     float mSpeedX ,mSpeedY;     //!< 移动速度 X横,Y竖
 };
