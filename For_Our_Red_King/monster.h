@@ -39,6 +39,8 @@ public:
     FallComponent * fallCom;       //掉落组件
     MoveComponent * moveCom;        //移动组件
     AnimationComponent* animation;           //动画组件
+    int changeTheFightingAnimation;              //是否对打玩家图片特殊处理
+    bool changeTheFightSpecial;
 
 private:
     int moveDirection;     //!< 运动方向 1为右，-1为左

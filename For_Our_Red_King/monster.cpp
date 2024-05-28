@@ -5,6 +5,7 @@
 #include "gameobject.h"
 #include "standard.h"
 #include "player.h"
+
 Monster::Monster(QObject *parent,Game* game):
     GameObject(parent,game),
     mSpeedX(ACTIONCONST::monsterMoveXSpeed),
@@ -17,6 +18,8 @@ Monster::Monster(QObject *parent,Game* game):
     mWidth = MONSTER::Monster_Width;
     mHeight = MONSTER::Monster_Height;
     this->setPosition(QVector2D(100,320));   //怪物位置也需要确定好
+    changeTheFightingAnimation = 0;
+    changeTheFightSpecial = false;
 
 
     this-> moveCom = new MoveComponent(this);
@@ -36,6 +39,7 @@ Monster::Monster(QObject *parent,Game* game):
 
 void Monster::Update(){
     loseHP_timeCount ++;  //扣血限制计时器更新
+    changeTheFightingAnimation++;      //对是否战斗播放做特判
     if(mState == State::EDead)
         return;
     //物体标定为消亡就不再更新
@@ -49,12 +53,14 @@ void Monster::Update(){
 void Monster::movecollideOthers(GameObject* d,QVector2D& lastposition)
 {
     //to be written
-    if(d->gameObjectType == GameObject::Type::Monster){
+    if(d->gameObjectType == GameObject::Type::Player){
         //玩家碰到怪物
         Player* PlayerPtr = dynamic_cast<Player*>(d);
+        changeTheFightingAnimation =0;
+        changeTheFightSpecial = true;
         this->moveDirection =  -(PlayerPtr->getDirection());    //让怪物朝向人物，发动攻击
         changeMonsterState(MonsterState::FIGHTING);
-        // loseHPEvent();   还没确定扣多少血
+        //loseHPEvent();                                //玩家掉血，在Player类中实现
     }
 
     this->setPosition(lastposition);
@@ -68,7 +74,6 @@ void Monster::fallcollideOthers(GameObject* d,QVector2D& lastposition)
     //to be written
     if(d->gameObjectType == GameObject::Type::Player){
         //玩家碰到怪物
-        mMonsterState = MonsterState::FIGHTING;
         Player* PlayerPtr = dynamic_cast<Player*>(d);
         // loseHPEvent();
 
@@ -83,19 +88,24 @@ void Monster::fallcollideOthers(GameObject* d,QVector2D& lastposition)
 void Monster::beingCollide(GameObject* s)
 {
     //to be written
-    if(s->gameObjectType == GameObject::Type::Monster){
+    if(s->gameObjectType == GameObject::Type::Player){
         //玩家碰到怪物
         Player* PlayerPtr = dynamic_cast<Player*>(s);
-
-        //loseHPEvent()
+        changeTheFightingAnimation =0;
+        changeTheFightSpecial = true;
+        this->moveDirection =  -(PlayerPtr->getDirection());    //让怪物朝向人物，发动攻击
+        changeMonsterState(MonsterState::FIGHTING);
+        //loseHPEvent();                                //玩家掉血，在Player类中实现
     }
 }
 
 //!碰撞其他gameobject的事件movecomponent处理(d是this碰撞到的GameObject)
 void Monster::movenotCollide(QVector2D& lastposition)
 {
-    //to be written
-    //似乎什么都不用做
+    if(changeTheFightingAnimation==8 && changeTheFightSpecial == true){
+        changeMonsterState(MonsterState::WALKING);
+        changeTheFightSpecial = false;
+    }
 
 }
 
@@ -120,19 +130,24 @@ void Monster::changeMonsterState(MonsterState state)
         this->mMonsterState = MonsterState::IDLE;
         break;
     case MonsterState::WALKING:
-        if(this->mMonsterState == MonsterState::WALKING)
             this->mMonsterState = MonsterState::WALKING;
         break;
     case MonsterState::FIGHTING:
         this->mMonsterState = MonsterState::FIGHTING;
         break;
     }
+
+
     if(mMonsterState == MonsterState::WALKING){
+        changeTheFightingAnimation = 0;
+        this->setSpeedX(ACTIONCONST::monsterMoveXSpeed);
         animation->resetAnimation(MONSTER::walking);
         animation->play(true);
     }
     else if(mMonsterState == MonsterState::FIGHTING){
+        this->setSpeedX(0);
         animation->resetAnimation((MONSTER::fighting));
+        animation->pause();
         animation->play(true);
     }
     else if(mMonsterState == MonsterState::IDLE){
