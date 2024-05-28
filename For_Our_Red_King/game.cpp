@@ -1,15 +1,16 @@
-#include "game.h"
+﻿#include "game.h"
 #include "mytimer.h"
 #include "spritecomponent.h"
 #include "player.h"
 #include "cmath"
 #include "blocks.h"
-
+#include"monster.h"
 Game::Game(QObject *parent,MainWindow* window):
     QObject{parent},
     mIsRuning(true),
     mIsUpdating(false),
-    mPlayer(nullptr)
+    mPlayer(nullptr),
+    mMonster(nullptr)
 {
     qDebug()<<"到达Game对象构造函数处";
     mWindow = window;
@@ -18,6 +19,8 @@ Game::Game(QObject *parent,MainWindow* window):
     mPlayer = new Player(this,this);
     createGameObject(mPlayer);
     //创建玩家对象
+    mMonster = new Monster(this,this);
+    createGameObject(mMonster);
 
     {
         // 测试用创建砖块

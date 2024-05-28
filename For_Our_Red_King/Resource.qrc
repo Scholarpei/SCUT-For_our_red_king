@@ -23,5 +23,6 @@
         <file>pictureResoource/Monster/Jump.png</file>
         <file>pictureResoource/Tiles/Money.png</file>
         <file>pictureResoource/Tiles/Screen2.png</file>
+        <file>pictureResoource/Monster/attack.png</file>
     </qresource>
 </RCC>
