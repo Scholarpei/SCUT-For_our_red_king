@@ -4,6 +4,7 @@
 #include <QPainter>
 #include "game.h"
 #include "spritecomponent.h"
+#include "standard.h"
 
 MainWindow::MainWindow(QWidget *parent):
     ui(new Ui::MainWindow)
@@ -11,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent):
     ui->setupUi(this);//设置主菜单ui界面
     this->setWindowTitle(QString("为了红王"));
     this->setFocusPolicy(Qt::StrongFocus);     //对主窗口进行强关注
-    this->setFixedSize(800,500);             //!<设置分辨率为1960*1080
+    this->setFixedSize(SYSTEM::windowWidth,SYSTEM::windowHeight);             //!<设置分辨率为1960*1080
     mPainter = new QPainter(this);
 
     // QPainter mPainter(this);
@@ -47,4 +48,9 @@ void MainWindow::keyReleaseEvent(QKeyEvent* event)
 {
     if(!event->isAutoRepeat())
         mGame->keyReleaseInput(event->key());
+}
+
+void MainWindow::mousePressEvent(QMouseEvent * e)
+{
+    mGame->mousePressInput(e->button());
 }

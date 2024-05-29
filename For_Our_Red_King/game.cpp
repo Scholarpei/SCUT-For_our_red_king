@@ -1,21 +1,115 @@
-#include "game.h"
+﻿#include "game.h"
 #include "mytimer.h"
 #include "spritecomponent.h"
 #include "player.h"
 #include "cmath"
+#include "blocks.h"
+#include"monster.h"
+#include "standard.h"
+#include <QAudioOutput>
 
 Game::Game(QObject *parent,MainWindow* window):
     QObject{parent},
     mIsRuning(true),
     mIsUpdating(false),
-    mPlayer(nullptr)
+    mPlayer(nullptr),
+    mMonster(nullptr)
 {
     qDebug()<<"到达Game对象构造函数处";
     mWindow = window;
     mPainter = new QPainter(mWindow);
+
+    mMusicPlayer = new MusicPlayer;
+    mMusicPlayer->play(SYSTEM::bgmURL,true);
+    //设置bgm
+
     mPlayer = new Player(this,this);
     createGameObject(mPlayer);
     //创建玩家对象
+    mMonster = new Monster(this,this);
+    createGameObject(mMonster);
+
+    {
+        // 测试用创建砖块
+        // 注释掉所有和 masu 有关的来去掉玩家脚下的 〼　砖块
+        InterfaceBlock interface;
+        BlockRock* ground = new BlockRock(this, this);
+        BlockRock* highland = new BlockRock(this, this);
+        BlockRock* cone = new BlockRock(this, this);
+        BlockBack* back = new BlockBack(this, this);
+        createGameObject(ground);
+        createGameObject(cone);
+        createGameObject(highland);
+        createGameObject(back);
+        interface.initializeRock(11,
+                                 QVector2D(0, 8),
+                                 QVector2D(9, 3),
+                                 1,0,1,0);
+        ground->initialize(interface);
+        interface.initializeRock(11,
+                                 QVector2D(10, 0),
+                                 QVector2D(1, 2),
+                                 0,1,0,0);
+        cone->initialize(interface);
+        interface.initializeRock(11,
+                                 QVector2D(10, 6),
+                                 QVector2D(5, 3),
+                                 1,1,1,1);
+        highland->initialize(interface);
+        interface.initializeBackGround(1);
+        back->initialize(interface);
+
+        BlockDecoration* money = new BlockDecoration(this, this);
+        BlockDecoration* screen = new BlockDecoration(this, this);
+        createGameObject(money);
+        createGameObject(screen);
+        interface.initializeDecoration(41,
+                                       QVector2D(12, 5),
+                                       0,
+                                       13);
+        money->initialize(interface);
+        interface.initializeDecoration(43,
+                                       QVector2D(8, 6),
+                                       0,
+                                       42);
+        screen->initialize(interface);
+
+        BlockBar* bar = new BlockBar(this, this);
+        createGameObject(bar);
+        interface.initializeBar(0, QVector2D(5, 5));
+        bar->initialize(interface);
+
+        BlockDamage* damage = new BlockDamage(this, this);
+        createGameObject(damage);
+        interface.initializeDamage(44,
+                                   QVector2D(2, 4),
+                                   2,
+                                   60,
+                                   5,
+                                   QVector2D(1, 1));
+        damage->initialize(interface);
+
+        BlockDamage* heal = new BlockDamage(this, this);
+        createGameObject(heal);
+        interface.initializeDamage(22,
+                                   QVector2D(7, 2),
+                                   2,
+                                   60,
+                                   -10,
+                                   QVector2D(1, 1));
+        heal->initialize(interface);
+
+        BlockDamage* vanity = new BlockDamage(this, this);
+        createGameObject(vanity);
+        interface.initializeDamage(22,
+                                   QVector2D(17, 11),
+                                   2,
+                                   60,
+                                   1000,
+                                   QVector2D(3, 1));
+        vanity->initialize(interface);
+
+    }
 
     Initialize();
 
@@ -40,11 +134,29 @@ bool Game::Initialize()
 //!两个物体的碰撞检测
 bool Game::collisionDetection(GameObject* first,GameObject* second)
 {
+    if(second ->gameObjectType == GameObject::Type::Player)
+        std::swap(first,second);
     //依靠aabb碰撞实现
     QVector2D f_pos = first->getPosition(),s_pos = second->getPosition();
     QVector2D f_scale = first->getScale(),s_scale = second->getScale();
     float f_Width = first->getWidth()*f_scale.x(),f_Height = first->getHeight() * f_scale.y();//碰撞框宽
     float s_Width = second->getWidth()*s_scale.x(),s_Height = second->getHeight() * s_scale.y();//碰撞框高
+
+    //下面是对于贴图不透明度的修改进行的玄学修改框框位置以及大小（针对player）
+    auto getCollidePosition = [](QVector2D pos,GameObject* object) -> QVector2D{
+        if(object->getDirection() == 1)
+            pos = QVector2D(pos.x() + object->getWidth() * 0.08,pos.y()+ object->getHeight() * 0.15);
+        else
+            pos = QVector2D(pos.x() + object->getWidth() * 0.07,pos.y()+ object->getHeight() * 0.15);
+        return pos;
+    };
+
+    if(first->gameObjectType == GameObject::Type::Player){
+        f_pos = getCollidePosition(f_pos,first);
+        f_Width *= 0.55;
+        f_Height *= 0.85;
+    }
+
 
     auto getMiddlePoint = [](QVector2D pos,float width,float height) -> QVector2D{
         QVector2D ret = QVector2D(pos.x()+(width/2),pos.y() + (height/2));
@@ -149,7 +261,6 @@ void Game::removeGameObject(GameObject* gameObject)
 void Game::Event()
 {
     //to be written需要做的事件操作
-
 }
 
 void Game::Update()
@@ -196,6 +307,7 @@ void Game::Update()
 //!绘制精灵
 void Game::Draw()
 {
+    //这个实际上已经不会调用了，在mainwindows中paintevent中实现
     for (auto sprite:mSprites)
     {
         sprite->Draw();
@@ -234,18 +346,19 @@ void Game::removeMyTimer(myTimer* timer)
 //!释放数据
 void Game::unloadData()
 {
-    while (!mGameObjects.empty())
-    {
-        delete mGameObjects.back();
-    }
-    while (!mPendingObjects.empty())
-    {
-        delete mPendingObjects.back();
-    }
-    while(!mSprites.empty())
-    {
-        delete mSprites.back();
-    }
+    // while (!mGameObjects.empty())
+    // {
+    //     delete mGameObjects.back();
+    // }
+    // while (!mPendingObjects.empty())
+    // {
+    //     delete mPendingObjects.back();
+    // }
+    // while(!mSprites.empty())
+    // {
+    //     delete mSprites.back();
+    // }
+    // 上面的这些注释掉了就不会出现关掉窗口崩溃了
 }
 
 void Game::keyPressInput(int e)
@@ -261,5 +374,13 @@ void Game::keyReleaseInput(int e)
     if(this->mIsRuning){
         for(auto gameObject:mGameObjects)
             gameObject->inputKeyReleaseProcess(e);
+    }
+}
+
+void Game::mousePressInput(int e)
+{
+    if(this->mIsRuning){
+        for(auto gameObject:mGameObjects)
+            gameObject->inputMousePressProcess(e);
     }
 }

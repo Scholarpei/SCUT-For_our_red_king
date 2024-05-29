@@ -17,6 +17,7 @@ QT+= testlib core gui multimedia widgets
 # Input
 HEADERS += animationComponent.h \
            animationloader.h \
+           bleedingcomponent.h \
            blocks.h \
            brick.h \
            component.h \
@@ -29,7 +30,9 @@ HEADERS += animationComponent.h \
            jumpingstate.h \
            mainwindow.h \
            monster.h \
+           monsterstateset.h \
            movecomponent.h \
+           musicplayer.h \
            mytimer.h \
            player.h \
            playerstatesset.h \
@@ -41,6 +44,7 @@ HEADERS += animationComponent.h \
 FORMS += mainwindow.ui
 SOURCES += animationComponent.cpp \
            animationloader.cpp \
+           bleedingcomponent.cpp \
            blocks.cpp \
            brick.cpp \
            component.cpp \
@@ -53,7 +57,9 @@ SOURCES += animationComponent.cpp \
            main.cpp \
            mainwindow.cpp \
            monster.cpp \
+           monsterstateset.cpp \
            movecomponent.cpp \
+           musicplayer.cpp \
            mytimer.cpp \
            player.cpp \
            playerstatesset.cpp \
@@ -62,4 +68,5 @@ SOURCES += animationComponent.cpp \
            statebase.cpp \
            threedimenbutton.cpp \
            walkingstate.cpp
-RESOURCES += player.qrc Resource.qrc resources.qrc
+RESOURCES += Resource.qrc \
+    soundResource.qrc

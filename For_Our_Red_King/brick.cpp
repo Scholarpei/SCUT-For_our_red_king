@@ -13,7 +13,7 @@ Brick::Brick(QObject *parent, Game *game, int drawOrder):
     this->animation = new AnimationComponent(this, drawOrder);
 
     this->addComponent(animation);
-    this->mGame->createSprite(this->animation);
+    // this->mGame->createSprite(this->animation);
 }
 
 void Brick::initialize(const AnimationLoader &anime, QVector2D posi, QVector2D size)
@@ -27,6 +27,15 @@ void Brick::initialize(const AnimationLoader &anime, QVector2D posi, QVector2D s
 
     this->mWidth = this->getWidth();
     this->mHeight = this->getHeight();
+}
+
+void Brick::setDurationPerFrame(short dpf)
+{
+    if(dpf != 0)
+    {
+        this->animation->TickPerFrame(dpf);
+        this->animation->play(true);
+    }
 }
 
 int Brick::getX()

@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>sound/player/soundPlayerWalking.wav</file>
+        <file>sound/system/bgm.wav</file>
+        <file>sound/player/soundPlayerJumping.wav</file>
+    </qresource>
+</RCC>

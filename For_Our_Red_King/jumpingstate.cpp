@@ -18,12 +18,13 @@ void JumpingState::onKeyDown(int key,GameObject* gameObject)
         switch(key)
         {
         case Qt::Key_Right:
-
+            playerPtr->jumpFinalStateDecision = 0;
             playerPtr->setMoveDirection(1);//设置向右
             playerPtr->setSpeedX(ACTIONCONST::playerMoveXSpeed);
 
             break;
         case Qt::Key_Left:
+            playerPtr->jumpFinalStateDecision = 0;
             playerPtr->setMoveDirection(-1);//设置向左
             playerPtr->setSpeedX(ACTIONCONST::playerMoveXSpeed);
 
@@ -42,10 +43,11 @@ void JumpingState::onKeyUp(int key,GameObject* gameObject)
         switch(key)
         {
         case Qt::Key_Right:
+            playerPtr->jumpFinalStateDecision = 1;
             playerPtr->setSpeedX(0);
-
             break;
         case Qt::Key_Left:
+            playerPtr->jumpFinalStateDecision = 1;
             playerPtr->setSpeedX(0);
             break;
         }

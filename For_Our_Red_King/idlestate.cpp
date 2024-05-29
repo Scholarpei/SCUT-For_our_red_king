@@ -34,9 +34,11 @@ void IdleState::onKeyDown(int key,GameObject* gameObject)
                 break;
             case Qt::Key_Space:
                 // qDebug()<<"跳跃space";
+                playerPtr->setSpeedY(ACTIONCONST::playerMoveYSpeed);
                 playerPtr->changePlayerState(Player::playerState::JUMPING);
                 break;
             case Qt::Key_Up:
+                playerPtr->setSpeedY(ACTIONCONST::playerMoveYSpeed);
                 playerPtr->changePlayerState(Player::playerState::JUMPING);
                 break;
         }

@@ -1,4 +1,4 @@
-#ifndef GAME_H
+﻿#ifndef GAME_H
 #define GAME_H
 
 #include <QObject>
@@ -10,16 +10,20 @@
 #include <QEvent>
 #include <QPainter>
 #include "mainwindow.h"
+#include "musicplayer.h"
 
 class GameObject;
 class spriteComponent;
 class Player;
 class myTimer;
+class Monster;
 
 class Game: public QObject
 {
     Q_OBJECT
 public:
+    Player* mPlayer;                  //!<    玩家角色
+    Monster* mMonster;                  //!<  怪物角色
     std::vector<GameObject*> mGameObjects;        //!<    游戏物体容器
     std::vector<spriteComponent*>mSprites;          //!<   精灵容器
     MainWindow* mWindow;                          //!<  主界面
@@ -34,6 +38,7 @@ public:
 
     void keyPressInput(int event);  //!<按下按键event
     void keyReleaseInput(int event); //!<松开按键event
+    void mousePressInput(int event); //!<按下鼠标按键event
 
 
     void createGameObject(GameObject*);  //!<创建gameObject
@@ -49,12 +54,13 @@ protected:
 
 
 private:
+    MusicPlayer * mMusicPlayer ;                    //!<音乐播放player
     std::vector<GameObject*> mPendingObjects;        //!<    等待状态的游戏物体容器
 
     bool    mIsUpdating;                    //!<    是否在更新状态
     bool    mIsRuning;                      //!<    运行状态
     bool    mIsLooping;                     //!<    是否在循环中
-    Player* mPlayer;                  //!<    玩家角色
+
     int timerLoop;                    //!<主循环Loop的timer ID
     myTimer* mTimer;                  //!<主循环用timer
 

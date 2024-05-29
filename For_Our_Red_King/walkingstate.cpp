@@ -21,7 +21,7 @@ void WalkingState::onKeyDown(int key,GameObject* gameObject)
         switch(key)
         {
         case Qt::Key_Space:
-            qDebug()<<"jump空格";
+            // qDebug()<<"jump空格";
             playerPtr->setSpeedY(ACTIONCONST::playerMoveYSpeed);
             playerPtr->changePlayerState(Player::playerState::JUMPING);
             break;

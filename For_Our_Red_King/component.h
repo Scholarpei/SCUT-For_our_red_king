@@ -4,6 +4,8 @@
 class Component
 {
 public:
+    class GameObject* mGameObject;        //!<    自身附着的游戏物体
+
     //! 构造函数
     explicit Component(class GameObject* gameObject=nullptr);
     //! 析构函数
@@ -23,7 +25,6 @@ public:
     GameObject* getGameObject();
 
 protected:
-    class GameObject* mGameObject;        //!<    自身附着的游戏物体
     int mUpdateOrder;        //!<    更新顺序
 
 };

@@ -1,17 +1,19 @@
 #include "player.h"
-#include "spritecomponent.h"
 #include "movecomponent.h"
 #include "game.h"
 #include "gameobject.h"
 #include "playerstatesset.h"
 #include "standard.h"
+#include "monster.h"
 Player::Player(QObject *parent,Game* game):
     GameObject(parent,game)
 {
     mGame = game;//赋值game对象
 
-    this->mWidth = 48;
-    this->mHeight = 60;
+    mWidth = PLAYER::Player_Width;
+    mHeight = PLAYER::Player_Height;
+
+    mSoundPlayer = new MusicPlayer;
 
     gameObjectType = GameObject::Type::Player;
     mPlayerState = playerState::IDLE;   //初始化player状态为idle
@@ -31,8 +33,45 @@ Player::Player(QObject *parent,Game* game):
     //添加组件到组件数组中
 }
 
+// Player::Player(QObject *parent,class Game* game,InterfacePlayer i):
+//     GameObject(parent,game)
+// {
+//     this->setPosition(QVector2D(i.x,i.y));   //通过interface设置Player位置
+
+//     //下面与原默认的不含Interface构造函数内容相同
+
+//     mGame = game;//赋值game对象
+
+
+//     mWidth = PLAYER::Player_Width;
+//     mHeight = PLAYER::Player_Height;
+
+//     gameObjectType = GameObject::Type::Player;
+//     mPlayerState = playerState::IDLE;   //初始化player状态为idle
+//     _playerStateSet = new PlayerStatesSet(this,this);
+
+//     this-> moveCom = new MoveComponent(this);
+//     this-> fallCom = new FallComponent(this);
+//     this->animation= new AnimationComponent(this, DRAWORRDER::Player);
+//         //设置player精灵drawOrder = standard常量
+
+//     animation->resetAnimation(PLAYER::idle);    //预设播放器图片为空闲状态
+//     animation->play(true);
+
+//     this->addComponent(moveCom);
+//     this->addComponent(fallCom);
+//     this->addComponent(animation);
+//     //添加组件到组件数组中
+// }
+
+InterfacePlayer Player::intoInterface()
+{
+    return InterfacePlayer(this->getPosition().x(),this->getPosition().y());
+}
+
 void Player::Update(){
 
+    loseHP_timeCount ++ ;   //扣血限制计时器更新
     if(mState == State::EDead)
         return;
     //物体标定为消亡就不再更新了
@@ -42,32 +81,97 @@ void Player::Update(){
     }
     //按照组件数组更新
 
+}
+
+//!碰撞其他gameobject的事件处理(d是this碰撞到的GameObject)
+void Player::movecollideOthers(GameObject* d,QVector2D& lastposition)
+{
+    //to be written
+    if(d->gameObjectType == GameObject::Type::Monster){
+        //玩家碰到怪物
+        Monster* MonsterPtr = dynamic_cast<Monster*>(d);
+        // loseHPEvent();   还没确定扣多少血
+    }
+
+    this->setPosition(lastposition);
+    //若发生碰撞，让移动不执行
+    // this->mSpeedX = 0;
 
 }
 
 //!碰撞其他gameobject的事件处理(d是this碰撞到的GameObject)
-void Player::collideOthers(GameObject* d)
+void Player::fallcollideOthers(GameObject* d,QVector2D& lastposition)
 {
     //to be written
+    if(d->gameObjectType == GameObject::Type::Monster){
+        //玩家碰到怪物
+        Monster* MonsterPtr = dynamic_cast<Monster*>(d);
+        // loseHPEvent();
+    }
+
+    this->setPosition(lastposition);
+    //若发生碰撞，让移动不执行
+    this->mSpeedY = 0;
+    if(this->mPlayerState == playerState::JUMPING){
+        // this->mSpeedX = 0;
+        if(!this->jumpFinalStateDecision)
+             this->changePlayerState(playerState::WALKING);
+        else{
+            this->changePlayerState(playerState::IDLE);
+            this->mSpeedX = 0;
+        }
+        this->jumpFinalStateDecision = 1;
+    }
 }
 
 //!<被碰撞后发生的事件处理(s是碰撞this的GameObject)
 void Player::beingCollide(GameObject* s)
 {
     //to be written
+    if(s->gameObjectType == GameObject::Type::Monster){
+        //玩家碰到怪物
+        Monster* MonsterPtr = dynamic_cast<Monster*>(s);
+        // loseHPEvent();
+    }
 }
+
+//!碰撞其他gameobject的事件movecomponent处理(d是this碰撞到的GameObject)
+void Player::movenotCollide(QVector2D& lastposition)
+{
+    //to be written
+    //似乎什么都不用做
+}
+
+//!碰撞其他gameobject的事件fallcomponent处理(d是this碰撞到的GameObject)
+void Player::fallnotCollide(QVector2D& lastposition)
+{
+    //to be written
+    //似乎什么都不用做
+}
+
+int Player::getDrawDirection()
+{
+    return this->moveDirection;
+}
+
 
 void Player::changePlayerState(playerState state)
 {
+    this->mSoundPlayer->stop();
+
     switch (state)
     {
         case playerState::IDLE:
             this->mPlayerState = playerState::IDLE;
             break;
         case playerState::JUMPING:
+            this->mSoundPlayer->play(PLAYER::jumpSoundURL,false);
+            if(this->mPlayerState == playerState::WALKING)
+                jumpFinalStateDecision = 0;
             this->mPlayerState = playerState::JUMPING;
             break;
         case playerState::WALKING:
+            this->mSoundPlayer->play(PLAYER::walkSoundURL,true);
             this->mPlayerState = playerState::WALKING;
             break;
     }
@@ -87,9 +191,38 @@ void Player::changePlayerState(playerState state)
         //动画播放内容根据当前状态决定
 }
 
+void Player::loseHPEvent(int num)
+{
+    if(loseHP_timeCount < PLAYER::loseHPTimePeriod)
+        return ;
+    //用于限制扣血的时间间隔
+
+    loseHP_timeCount = 0;  //扣血计时归零
+
+    if (this->HP <= num)
+    {
+        HP = 0;
+
+        // 触发Player死亡
+    }
+    else if(this->HP - num > PLAYER::MaxHP)
+    {
+        HP = PLAYER::MaxHP;
+    }
+    else
+    {
+        this->HP -= num;
+    }
+}
+
 int Player::getDirection()
 {
     return this->moveDirection;
+}
+
+int Player::getHP()
+{
+    return this->HP;
 }
 
 void Player::setMoveDirection(int dir)
@@ -117,11 +250,6 @@ void Player::setSpeedX(float s)
 void Player::setSpeedY(float s)
 {
     this->mSpeedY = s;
-}
-
-void Player::notCollide()
-{
-    //没有发生碰撞啥都不做
 }
 
 //!键盘按下事件处理

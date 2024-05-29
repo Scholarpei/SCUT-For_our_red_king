@@ -3,6 +3,7 @@
 
 #include "spritecomponent.h"
 #include "animationloader.h"
+#include "standard.h"
 
 
 class AnimationComponent: public spriteComponent
@@ -26,17 +27,15 @@ public:
     void backToStart();
     // 设置是否重复动画
     void setRepeat(bool do_repeat);
-
-
-
-
-
+    // 多少刻切换一帧动画
+    void TickPerFrame(short durationPerFrame);
+    short TickPerFrame();
 
 private:
     //以下都是实现切换动画所用
 
 
-    static const int TICKS_PER_FRAME = 6;
+    short TICKS_PER_FRAME = SYSTEM::durationPerFrame;
 
 
     QPixmap spriteSheet;        // 雪碧图
@@ -46,7 +45,7 @@ private:
     bool isRepeating;           // 是否重复播放
     bool willReStart;           // 播放时是否重新开始
 
-    const AnimationLoader* animation;  // 动画本尊哒
+    AnimationLoader animation;  // 动画本尊哒
 
     //下一帧
     void nextTick();

@@ -1,4 +1,4 @@
-#include "standard.h"
+﻿#include "standard.h"
 namespace PLAYER{
 const AnimationLoader idle= AnimationLoader(":/pictureResoource/Player/idle.png",
                                        48,48,4);
@@ -6,7 +6,13 @@ const AnimationLoader walking = AnimationLoader(":/pictureResoource/Player/Run.p
                                           48,48,6);
 const AnimationLoader jumping = AnimationLoader(":/pictureResoource/Player/jump.png",
                                           48,48,4);
+const int loseHPTimePeriod = 30;
+const int MaxHP = 100;
+const int Player_Width = 48;
+const int Player_Height = 60;
 
+const QString walkSoundURL = ":/sound/player/soundPlayerWalking.wav";
+const QString jumpSoundURL = ":/sound/player/soundPlayerJumping.wav";
 }
 
 namespace MONSTER {
@@ -14,13 +20,27 @@ const AnimationLoader idle= AnimationLoader(":/pictureResoource/Monster/Idle.png
                                              48,48,4);
 const AnimationLoader walking = AnimationLoader(":/pictureResoource/Monster/Walk.png",
                                                 48,48,6);
-const AnimationLoader jumping = AnimationLoader(":/pictureResoource/Monster/Jump.png",
-                                                48,48,4);
+const AnimationLoader fighting = AnimationLoader(":/pictureResoource/Monster/attack.png",
+                                                48,48,8);
+const int MaxHP = 60;
+const int loseHPTimePeriod = 30;
+const int Monster_Width = 48;
+const int Monster_Height = 60;
 }
 
 namespace BACKGROUND{
 const AnimationLoader bg1(":/pictureResoource/background/Background.png",
                           576, 324, 1);
+const AnimationLoader blood(":/pictureResoource/background/blood.png",
+                          232, 15, 1);
+const AnimationLoader plate(":/pictureResoource/background/plate.png",
+                          240, 24, 1);
+const AnimationLoader shocked_plate(":/pictureResoource/background/shocked_plate.png",
+                            240, 24, 1);
+const AnimationLoader hurting(":/pictureResoource/background/hurting.png",
+                            232, 15, 1);
+const AnimationLoader healing(":/pictureResoource/background/healing.png",
+                            232, 15, 1);
 }
 
 namespace TILES{
@@ -46,6 +66,14 @@ const AnimationLoader masuTile(":/pictureResoource/Tiles/masuTile.png",
                          32, 32, 1);
 const AnimationLoader door1(":/pictureResoource/Tiles/door.png",
                             32, 32, 8);
+const AnimationLoader money(":/pictureResoource/Tiles/Money.png",
+                            24, 24, 6);
+const AnimationLoader screen2(":/pictureResoource/Tiles/Screen2.png",
+                              32, 42, 4);
+const AnimationLoader bench(":/pictureResoource/Tiles/Bench.png",
+                              32, 32, 1);
+const AnimationLoader air(":/pictureResoource/Tiles/Bench.png",
+                          4, 4, 1);
 }
 
 namespace DRAWORRDER{
@@ -70,13 +98,20 @@ const int fpsBreathtaking = 120;
 const int windowWidth = 960;
 const int windowHeight = 576;
 const int tileSide = 48;
+const int imgSide = 32;
+const int durationPerFrame = 6;
+
+const QString bgmURL = ":/sound/system/bgm.wav";
 }
 namespace ACTIONCONST{
 const float maxSpeed = 5;
 const float gravityAcceleration = 0.5;
-const float playerMoveXSpeed = 1;
-const float playerMoveYSpeed = 1;
+const float jump_gravityAcceleration = 0.1;
+const float playerMoveXSpeed = 5;
+const float playerMoveYSpeed = -5;
 const float monsterMoveXSpeed = 1;
 const float monsterMoveYSpeed = 1;
+const int monsterIdleFrame = 90;
+
 
 }
