@@ -30,19 +30,21 @@ void TimerComponent::EndRun()
 
 void TimerComponent::Update()
 {
-//    qDebug()<<"timercomponent,update";
+    //qDebug()<<"timercomponent,update";
     if (isRun)
     {
-//        qDebug()<<"enter if";
+        //qDebug()<<"enter if";
+
         if (NowTime >= TimeWidth)
         {
-//            qDebug()<<"enter now";
-            //?????????????????
+            //qDebug()<<"enter now";
             mQTE->centralFunction();
             NowTime = 0;
         }
         else
+        {    //qDebug()<<"nowtime++";
             NowTime++;
+        }
     }
 }
 

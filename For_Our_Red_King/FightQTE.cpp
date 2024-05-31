@@ -5,24 +5,53 @@
 void FightQTE::initial()
 {
     //!<初始化hit type
-    for(int i=0;i<4;i++)
-        hit_type.at(i)=rand()%2;
-    TargetAngle=rand()%4*90;
+    state_INHIT=0;
     //!< 设置大小:
     this->mHeight=QTE::qteHeight;
     this->mWidth=QTE::qteWidth;
     //!< 设置坐标:
     this->setPosition(QTE::centralPosition);
     //! <设置不参与碰撞：
-    attendCollision=1;
+    attendCollision=0;
 	//!< 把centralfunction加到timercomponent
     timer = new TimerComponent(this,this);
-    timer->startRun();
-    sprite_Plate=new spriteComponent(this,DRAWORRDER::QTE);
-    sprite_Point=new rotationComponent(this,DRAWORRDER::QTE);
-    //!< 设置图像: 这里将几个图片大小都画成一样的 比较方便。
+    timer->EndRun();
+
+    //timer->startRun();
+    //绘画部分
+    sprite_Plate=new NewspriteComponent(this,DRAWORRDER::QTE);
+    sprite_Point=new NewspriteComponent(this,DRAWORRDER::QTE);
+    sprite_Plate->setNeedDraw(0);
+    sprite_Point->setNeedDraw(0);
+    for(int i=0;i<4;i++)
+        sprite_colors.at(i)=new NewspriteComponent(this,DRAWORRDER::QTE);
+
+    RoundInitial();
+    //设置图像
     sprite_Point->SetTexture(QTE::PointPicture);
     sprite_Plate->SetTexture(QTE::PlatePicture);
+
+    //对scale进行处理
+    // scalecnt=0;
+    // scale=1;
+
+    colorInitial=0;
+}
+void FightQTE::RoundInitial()
+{
+    sprite_Plate->setPos(this->getPosition().x()-this->mWidth/2,this->getPosition().y()-this->mHeight/2);
+    sprite_Point->setPos(this->getPosition().x(),this->getPosition().y());
+    for(int i=0;i<4;i++)
+    {
+        hit_type.at(i)=rand()%2;
+        if(hit_type.at(i))
+            sprite_colors.at(i)->SetTexture(QTE::BLUEPART);
+        else
+            sprite_colors.at(i)->SetTexture(QTE::ORANGEPART);
+        sprite_colors.at(i)->setAngle(i*90-135);
+        sprite_colors.at(i)->setNeedDraw(0);
+        sprite_colors.at(i)->setPos(this->getPosition().x(),this->getPosition().y());
+    }
 }
 FightQTE::~FightQTE(){
     delete sprite_Plate;
@@ -34,7 +63,6 @@ FightQTE::FightQTE(QObject *parent,Game* game):
 {
     initial();
 }
-
 void FightQTE::Update(){
 
     if(mState == State::EDead)
@@ -51,20 +79,17 @@ void FightQTE::Update(){
 
 void FightQTE::inputKeyPressProcess(int key)
 {
-//    qDebug()<<"input key event "<<key;
-//    qDebug()<<"now angle"<<angle;
-//    qDebug()<<"now round"<<round;
     if(!state_INHIT){
     state_INHIT=1;
 	if (round == 2)
 	{
         round2Judge(key);
     }
-    if(round==3)
+    else if(round==3)
     {
         round3Judge(key);
     }
-    state_INHIT=0;
+        state_INHIT=0;
     }
 }
 
@@ -72,42 +97,61 @@ void FightQTE::centralFunction()
 {
 
     rotation(QTE::addAngle);
-	if (round == 1)
+    if(round==1)
 	{
-        if (angle%90==0)
+        if (angle%90>=0&&angle%90<QTE::addAngle)
         {
-            //!<change color
+            //draw图画
+            sprite_colors.at(cnt)->setNeedDraw(1);
+            cnt++;
+            //写到这里
             //!<sound
             //!<draw->change
         }
 	}
     if(round==2)
-    {  
-        if (angle%90==QTE::DELTAANGLE)
+    {
+        if (angle%90>=QTE::DELTAANGLE&&angle%90<QTE::DELTAANGLE+QTE::addAngle)
         {
-            // qDebug()<<"judge 2";
             if(!isHit)
             {
-                cnt++;
-                //!< Lose 没击打
+                if(!state_INHIT)
+                {
+                    cnt++;
+                    if(cnt>=4)cnt=3;
+                }
+                lose_typeone();
             }else
                 isHit=0;
         }
     }
     if(round==3)
     {
-        if (angle-TargetAngle==QTE::DELTAANGLE)
+        if(!colorInitial)
         {
-            if(!isHit)
+            nextRound();
+        }
+        //qDebug()<<"judge 3";
+        if (angle-TargetAngle*90>=QTE::DELTAANGLE&&angle-TargetAngle*90<QTE::DELTAANGLE+QTE::addAngle)
+        {
+            if(!isHit&&!sprite_colors.at(TargetAngle)->getNeedDraw())
             {
-                //!< Lose 斩杀未击打
-//                qDebug()<<"lose";
+                lose_typeone();
             }else
                 isHit=0;
         }
     }
 }
-
+void FightQTE::nextRound(){
+    TargetAngle=rand()%4;
+    for(int i=0;i<4;i++)
+    {
+        sprite_colors.at(i)->setNeedDraw(0);
+        sprite_colors.at(i)->SetTexture(QTE::REDPART);
+    }
+    sprite_colors.at(TargetAngle)->setNeedDraw(1);
+    colorInitial=1;
+}
 void FightQTE::rotation(int addAngle)
 {
     angle = angle + addAngle;
@@ -115,39 +159,35 @@ void FightQTE::rotation(int addAngle)
     {
         angle -= 360;
     }
-    if(angle==300)
+    if(angle>=QTE::ROUNDENDANGLE&&angle<QTE::ROUNDENDANGLE+QTE::addAngle)
     {
-        round++;
+        if(roundIncre)
+            round++;
+        if(round>3)round=3;
         cnt=0;
         isHit=0;
     }
     sprite_Point->setAngle(drawAngle(angle));
 }
-
 inline int FightQTE::changeKeyToNumber(int key)
 {
 	int number;
     if (key == 'A')number = 0;
     else if (key == 'D')number = 1;
+    else if(key == ' ')number=2;
 	return number;
 }
-
 inline int FightQTE::drawAngle(int angle)
 {
     return angle-135;
 }
-
 void FightQTE::round2Judge(int key){
     bool flag=1;
     int number = changeKeyToNumber(key);
     if(isHit||number!=hit_type.at(cnt))
     {
-         qDebug()<<number;
-         qDebug()<<hit_type.at(cnt);
-         qDebug()<<isHit;
-        //!< lose 重复hit||HIT类型不对
+        lose_typetwo();
         flag=0;
-            //qDebug()<<"lose 1";
     }
 
     if(flag){
@@ -155,18 +195,15 @@ void FightQTE::round2Judge(int key){
         int currentPoint = cnt*90;
         int deltaAngle = std::abs(nowAngle-currentPoint);
         if(deltaAngle>=180)deltaAngle=360-deltaAngle;//! 特判0处左侧
-        // qDebug()<<"deltaAngle"<<deltaAngle;
-        // qDebug()<<"currentPoint"<<currentPoint;
-        // qDebug()<<"nowAngle"<<nowAngle;
-        // qDebug()<<"isHIt"<<isHit;
+
         if (deltaAngle <= QTE::DELTAANGLE)
         {
             cnt++;
             isHit=1;
+            sprite_colors.at(cnt-1)->setNeedDraw(0);
             //!<correct
             //! <sound
             //! <animation
-            //qDebug()<<"hit correct";
         }
     }
 }
@@ -174,36 +211,49 @@ void FightQTE::round3Judge(int key)
 {
     bool flag=1;
     int number = changeKeyToNumber(key);
-    if(isHit)
+    if(isHit||number!=2)
     {
         //!< lose 重复hit
+        lose_typetwo();
         cnt--;
         flag=0;
         //qDebug()<<"lose 1";
     }
     if(flag){
-
         int nowAngle=angle;
-        int deltaAngle = std::abs(nowAngle-TargetAngle);
+        int deltaAngle = std::abs(nowAngle-TargetAngle*90);
+
         if(deltaAngle>=180)deltaAngle=360-deltaAngle;//! 特判0处左侧
-        //qDebug()<<"deltaAngle"<<deltaAngle;
-        //qDebug()<<"currentPoint"<<currentPoint;
-        //qDebug()<<"nowAngle"<<nowAngle;
         if (deltaAngle <= QTE::DELTAANGLE)
         {
+//            qDebug()<<"setfalse2";
+            sprite_colors.at(TargetAngle)->setNeedDraw(0);
             isHit=1;
             //!<correct
             //! <sound
             //! <animation
-            //qDebug()<<"hit correct";
+            win();
+            if(neednextRound)
+                colorInitial=0;
         }
     }
 }
-
 void FightQTE::startQTE(){
-    //目前还没用上。
-        state_INHIT=0;
-        rotation(-angle);
-        round=1;
-        timer->startRun();
+    state_INHIT=0;
+    rotation(-angle-QTE::addAngle);
+    round=1;
+    roundIncre=1;
+    cnt=0;
+}
+void FightQTE::lose_typeone()
+{
+    qDebug()<<"type1";
+}
+void FightQTE::lose_typetwo()
+{
+    qDebug()<<"type2";
+}
+void FightQTE::win()
+{
+    qDebug()<<"win";
 }

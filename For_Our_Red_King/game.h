@@ -16,8 +16,12 @@ class GameObject;
 class spriteComponent;
 class Player;
 class myTimer;
+<<<<<<< Updated upstream
 class Monster;
 
+=======
+class FightQTE;
+>>>>>>> Stashed changes
 class Game: public QObject
 {
     Q_OBJECT
@@ -63,7 +67,7 @@ private:
 
     int timerLoop;                    //!<主循环Loop的timer ID
     myTimer* mTimer;                  //!<主循环用timer
-
+//    FightQTE* mQTE;                    //!< qte
 
 
     void Update();                       //!<更新

@@ -16,6 +16,8 @@ QT+= testlib core gui multimedia widgets
 
 # Input
 HEADERS += animationComponent.h \
+           FightQTE.h \
+           TimerComponent.h \
            animationloader.h \
            bleedingcomponent.h \
            blocks.h \
@@ -36,6 +38,7 @@ HEADERS += animationComponent.h \
            mytimer.h \
            player.h \
            playerstatesset.h \
+           rotationcomponent.h \
            spritecomponent.h \
            standard.h \
            statebase.h \
@@ -43,6 +46,8 @@ HEADERS += animationComponent.h \
            walkingstate.h
 FORMS += mainwindow.ui
 SOURCES += animationComponent.cpp \
+           FightQTE.cpp \
+           TimerComponent.cpp \
            animationloader.cpp \
            bleedingcomponent.cpp \
            blocks.cpp \
@@ -63,6 +68,7 @@ SOURCES += animationComponent.cpp \
            mytimer.cpp \
            player.cpp \
            playerstatesset.cpp \
+           rotationcomponent.cpp \
            spritecomponent.cpp \
            standard.cpp \
            statebase.cpp \

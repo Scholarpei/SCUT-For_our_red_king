@@ -20,7 +20,7 @@ spriteComponent::~spriteComponent()
 //!绘画
 void spriteComponent::Draw()
 {
-    mGameObject->mGame->mPainter->drawPixmap(mGameObject->getPosition().x(),mGameObject->getPosition().y(),mWidth * mGameObject->getScale().x(),mHeight * mGameObject->getScale().y(),QPixmap(this->imageLocation));
+    mGameObject->mGame->mWindow->mPainter->drawPixmap(mGameObject->getPosition().x(),mGameObject->getPosition().y(),mWidth * mGameObject->getScale().x(),mHeight * mGameObject->getScale().y(),QPixmap(this->imageLocation));
     //positonx positiony mwidth * Scalex mHeight*Scaley
     //考虑位置，缩放，矩阵大小
 }

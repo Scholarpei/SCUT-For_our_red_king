@@ -3,11 +3,15 @@
 #include "spritecomponent.h"
 #include "player.h"
 #include "cmath"
+<<<<<<< Updated upstream
 #include "blocks.h"
 #include"monster.h"
 #include "standard.h"
 #include <QAudioOutput>
 
+=======
+#include "FightQTE.h"
+>>>>>>> Stashed changes
 Game::Game(QObject *parent,MainWindow* window):
     QObject{parent},
     mIsRuning(true),
@@ -24,6 +28,7 @@ Game::Game(QObject *parent,MainWindow* window):
     //设置bgm
 
     mPlayer = new Player(this,this);
+//    mQTE= new FightQTE(this,this);
     createGameObject(mPlayer);
     //创建玩家对象
     mMonster = new Monster(this,this);
@@ -226,7 +231,6 @@ void Game::Shutdown()
 
 void Game::createGameObject(GameObject* gameObject)
 {
-
     qDebug("创建第%d个GameObject",mGameObjects.size());
     // 如果当前正在更新，将该对象加入等待区
     if (mIsUpdating)

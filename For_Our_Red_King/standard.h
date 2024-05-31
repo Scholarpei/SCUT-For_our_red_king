@@ -1,6 +1,7 @@
 ﻿#ifndef STANDARD_H
 #define STANDARD_H
 #include "animationloader.h"
+#include <QVector2D>
 //用于
 //参数分配：1.绝对路径 2.图片宽 3.图片长
 //4.图片帧数
@@ -95,7 +96,21 @@ extern const int monsterIdleFrame;
 
 }
 
-
+namespace QTE{
+extern const QString PointPicture;
+extern const QString PlatePicture;
+extern const int qteWidth;
+extern const int qteHeight;
+extern const QVector2D centralPosition;
+extern const int addAngle;
+extern const int DELTAANGLE;
+extern const int BEGINANGLE;
+extern const int ROUNDENDANGLE;
+extern const QString REDPART;
+extern const QString BLUEPART;
+extern const QString ORANGEPART;
+extern const int SCALETIME;
+}
 
 
 

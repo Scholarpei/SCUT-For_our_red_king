@@ -102,6 +102,7 @@ const int imgSide = 32;
 const int durationPerFrame = 6;
 
 const QString bgmURL = ":/sound/system/bgm.wav";
+const int TIMEWIDTH = 1;
 }
 namespace ACTIONCONST{
 const float maxSpeed = 5;
@@ -113,5 +114,21 @@ const float monsterMoveXSpeed = 1;
 const float monsterMoveYSpeed = 1;
 const int monsterIdleFrame = 90;
 
+
+}
+namespace QTE{
+const QString PointPicture=":/pictureResoource/QTE/QTE_Point.png";
+const QString PlatePicture=":/pictureResoource/QTE/QTE_Plate.png";
+const int qteWidth=32*16;
+const int qteHeight=32*16;
+const QVector2D centralPosition(SYSTEM::windowWidth/2,SYSTEM::windowHeight/2);
+const int addAngle=5;
+const int DELTAANGLE = 15;
+const int BEGINANGLE=0;
+const int ROUNDENDANGLE=290;
+const int SCALETIME=3;
+const QString REDPART=":/pictureResoource/QTE/QTE_red.png";
+const QString BLUEPART=":/pictureResoource/QTE/QTE_blue.png";
+const QString ORANGEPART=":/pictureResoource/QTE/QTE_orange.png";
 
 }

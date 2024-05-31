@@ -30,5 +30,10 @@
         <file>pictureResoource/background/plate.png</file>
         <file>pictureResoource/background/shocked_plate.png</file>
         <file>pictureResoource/Tiles/Bench.png</file>
+        <file>pictureResoource/QTE/QTE_Point.png</file>
+        <file>pictureResoource/QTE/QTE_Plate.png</file>
+        <file>pictureResoource/QTE/QTE_blue.png</file>
+        <file>pictureResoource/QTE/QTE_orange.png</file>
+        <file>pictureResoource/QTE/QTE_red.png</file>
     </qresource>
 </RCC>
