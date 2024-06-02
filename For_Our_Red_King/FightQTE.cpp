@@ -78,6 +78,7 @@ void FightQTE::Update()
 
 void FightQTE::inputKeyPressProcess(int key)
 {
+    //qDebug()<<"state_INHIT"<<state_INHIT<<key;
     if (!state_INHIT)
     {
         state_INHIT = 1;
@@ -147,6 +148,7 @@ void FightQTE::centralFunction()
 }
 void FightQTE::nextRound()
 {
+    //qDebug()<<"nextround";
     TargetAngle = rand() % 4;
     for (int i = 0; i < 4; i++)
     {
@@ -210,6 +212,7 @@ void FightQTE::round2Judge(int key)
         if (deltaAngle <= QTE::DELTAANGLE)
         {
             cnt++;
+            if(cnt>3)cnt=3;
             isHit = 1;
             sprite_colors.at(cnt - 1)->setNeedDraw(0);
             //!< correct
@@ -258,17 +261,17 @@ void FightQTE::startQTE()
     round = 1;
     roundIncre = 1;
     cnt = 0;
-    neednextRound=1;
+    colorInitial=0;
 }
 void FightQTE::lose_typeone()
 {
-    qDebug() << "type1";
+
 }
 void FightQTE::lose_typetwo()
 {
-    qDebug() << "type2";
+
 }
 void FightQTE::win()
 {
-    qDebug() << "win";
+
 }

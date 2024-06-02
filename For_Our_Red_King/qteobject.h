@@ -17,6 +17,7 @@ public:
     virtual void lose_typetwo();//重复击打|击打错键
 
     virtual void inputKeyPressProcess(int key);//test use;
+    //测试用 z键打开盘 x关掉盘 c从颜色开始 v暂停 m使下一轮继续出现红色
 protected:
     Monster* enermy;
 

@@ -40,16 +40,18 @@ void QTEObject::inputKeyPressProcess(int key){
         this->QTEBegin();
     if(key=='V')
         this->QTEEnd();
+    if(key=='M')
+        this->neednextRound=1;
     this->FightQTE::inputKeyPressProcess(key);
 }
 
 //自己写。
 void QTEObject::win(){
-
+    qDebug() << "win";
 }
 void QTEObject::lose_typeone(){
-
+    qDebug() << "type1";
 }
 void QTEObject::lose_typetwo(){
-
+    qDebug() << "type2";
 }
