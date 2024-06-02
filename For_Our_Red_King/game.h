@@ -18,7 +18,7 @@ class Player;
 class myTimer;
 class Monster;
 
-class FightQTE;
+class QTEObject;
 class Game: public QObject
 {
     Q_OBJECT
@@ -64,7 +64,7 @@ private:
 
     int timerLoop;                    //!<主循环Loop的timer ID
     myTimer* mTimer;                  //!<主循环用timer
-//    FightQTE* mQTE;                    //!< qte
+    QTEObject* mQTE;                    //!< qte
 
 
     void Update();                       //!<更新

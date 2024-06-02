@@ -8,7 +8,7 @@
 #include "standard.h"
 #include <QAudioOutput>
 
-#include "FightQTE.h"
+#include "qteobject.h"
 Game::Game(QObject *parent,MainWindow* window):
     QObject{parent},
     mIsRuning(true),
@@ -25,8 +25,9 @@ Game::Game(QObject *parent,MainWindow* window):
     //设置bgm
 
     mPlayer = new Player(this,this);
-//    mQTE= new FightQTE(this,this);
     createGameObject(mPlayer);
+    mQTE= new QTEObject(this,this);
+    createGameObject(mQTE);
     //创建玩家对象
     mMonster = new Monster(this,this);
     createGameObject(mMonster);

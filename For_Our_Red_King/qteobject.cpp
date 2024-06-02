@@ -40,8 +40,7 @@ void QTEObject::inputKeyPressProcess(int key){
         this->QTEBegin();
     if(key=='V')
         this->QTEEnd();
-    // FightQTE* pa=this;
-    // pa->inputKeyPressProcess(key);
+    this->FightQTE::inputKeyPressProcess(key);
 }
 
 //自己写。

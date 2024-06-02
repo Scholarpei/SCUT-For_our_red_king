@@ -13,8 +13,8 @@ public:
     void QTEshowGraph(bool isOrnot);//设置qte可以展示
     void setContinue(bool isContinue);//设置qte连击
     virtual void win();//斩杀怪物
-    virtual void lose_typeone();//重复击打|击打错键
-    virtual void lose_typetwo();//未击打
+    virtual void lose_typeone();//未击打
+    virtual void lose_typetwo();//重复击打|击打错键
 
     virtual void inputKeyPressProcess(int key);//test use;
 protected:

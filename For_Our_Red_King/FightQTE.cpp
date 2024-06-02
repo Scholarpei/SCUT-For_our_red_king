@@ -258,6 +258,7 @@ void FightQTE::startQTE()
     round = 1;
     roundIncre = 1;
     cnt = 0;
+    neednextRound=1;
 }
 void FightQTE::lose_typeone()
 {
