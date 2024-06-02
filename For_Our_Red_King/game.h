@@ -16,12 +16,9 @@ class GameObject;
 class spriteComponent;
 class Player;
 class myTimer;
-<<<<<<< Updated upstream
 class Monster;
 
-=======
 class FightQTE;
->>>>>>> Stashed changes
 class Game: public QObject
 {
     Q_OBJECT

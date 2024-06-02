@@ -3,15 +3,15 @@
 #include <QDebug>
 #include "standard.h"
 const int TIMEWIDTH = 1;
-TimerComponent::TimerComponent(GameObject* object,FightQTE* mQTE):Component(object)
+TimerComponent::TimerComponent(GameObject *object, FightQTE *mQTE) : Component(object)
 {
-//    qDebug()<<"TimerComponentconstructor";
+    //    qDebug()<<"TimerComponentconstructor";
     father_Object = object;
 
-    //?œZ???????width
+    //?Å“Z???????width
     TimeWidth = TIMEWIDTH;
     this->mQTE = mQTE;
-    isRun=true;
+    isRun = true;
 }
 
 TimerComponent::~TimerComponent()
@@ -30,19 +30,19 @@ void TimerComponent::EndRun()
 
 void TimerComponent::Update()
 {
-    //qDebug()<<"timercomponent,update";
+    // qDebug()<<"timercomponent,update";
     if (isRun)
     {
-        //qDebug()<<"enter if";
+        // qDebug()<<"enter if";
 
         if (NowTime >= TimeWidth)
         {
-            //qDebug()<<"enter now";
+            // qDebug()<<"enter now";
             mQTE->centralFunction();
             NowTime = 0;
         }
         else
-        {    //qDebug()<<"nowtime++";
+        { // qDebug()<<"nowtime++";
             NowTime++;
         }
     }
@@ -56,7 +56,7 @@ void TimerComponent::setTimeWidth(int width)
     }
 }
 
-//void TimerComponent::setFunction(fptr thisFunction)
+// void TimerComponent::setFunction(fptr thisFunction)
 //{
-//    TimeFunction = thisFunction;
-//}
+//     TimeFunction = thisFunction;
+// }

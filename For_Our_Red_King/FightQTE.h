@@ -6,30 +6,29 @@
 #include <array>
 
 class TimerComponent;
-class FightQTE :
-    public GameObject
+class FightQTE : public GameObject
 {
 public:
     void initial();
-    FightQTE(QObject *parent=nullptr,Game* game=nullptr);
+    FightQTE(QObject *parent = nullptr, Game *game = nullptr);
     ~FightQTE();
-    virtual void inputKeyPressProcess(int key)override;
+    virtual void inputKeyPressProcess(int key) override;
     void centralFunction();
-    void Update()override;
+    void Update() override;
     void rotation(int addAngle);
     void startQTE();
     void endQTE();
-    void nextRound();//¼ÌĞøµÚÈıÂÖÖ®ºóµÄÂÖÊı
+    void nextRound(); // ç»§ç»­ç¬¬ä¸‰è½®ä¹‹åçš„è½®æ•°
 
     virtual void win();
-    virtual void lose_typeone();//Î´»÷´òµÄtype
-    virtual void lose_typetwo();//´ò´í»òÕßÖØ¸´´ò
-    bool roundIncre=0;
-protected:
+    virtual void lose_typeone(); // æœªå‡»æ‰“çš„type
+    virtual void lose_typetwo(); // æ‰“é”™æˆ–è€…é‡å¤æ‰“
+    bool roundIncre = 0;
 
-    int angle;//0-360
-    int round;//Í¨¹ıroundtypeÀ´ÉèÖÃround
-    // float scale;//colorÓÃµÄËõ·Å
+protected:
+    int angle; // 0-360
+    int round; // é€šè¿‡roundtypeæ¥è®¾ç½®round
+    // float scale;//colorç”¨çš„ç¼©æ”¾
     // int scalecnt;
 
     inline int changeKeyToNumber(int key);
@@ -37,18 +36,18 @@ protected:
     void round2Judge(int key);
     void round3Judge(int key);
     void RoundInitial();
-    NewspriteComponent* sprite_Point;
-    NewspriteComponent* sprite_Plate;
-    TimerComponent* timer;
+    NewspriteComponent *sprite_Point;
+    NewspriteComponent *sprite_Plate;
+    TimerComponent *timer;
 
-    std::array<int,4> hit_type;//»÷´òµÄÀàĞÍ
-    std::array<NewspriteComponent*,4>sprite_colors;//ËÄ¸öcolor
-    int cnt=0;//µ±Ç°ÎªµÚ¼¸¸öµãĞèÒª´ò»÷
-    bool neednextRound=0;//±íÊ¾ÊÇ·ñ¼ÌĞøÕ¶É±
-    bool isHit=0;//±¾ÂÖÊÇ·ñÒÑ¾­´ò»÷¹ı
-    int TargetAngle=0;//round3µÄÄ¿±ê
-    bool state_INHIT=0;//×´Ì¬£¬±íÊ¾hitÕıÔÚÅĞ¶¨
-    bool colorInitial=0;//±íÊ¾´óÓÚµÈÓÚÈıÂÖÊÇ·ñ³õÊ¼»¯³É¹¦
+    std::array<int, 4> hit_type;                       // å‡»æ‰“çš„ç±»å‹
+    std::array<NewspriteComponent *, 4> sprite_colors; // å››ä¸ªcolor
+    int cnt = 0;                                       // å½“å‰ä¸ºç¬¬å‡ ä¸ªç‚¹éœ€è¦æ‰“å‡»
+    bool neednextRound = 0;                            // è¡¨ç¤ºæ˜¯å¦ç»§ç»­æ–©æ€
+    bool isHit = 0;                                    // æœ¬è½®æ˜¯å¦å·²ç»æ‰“å‡»è¿‡
+    int TargetAngle = 0;                               // round3çš„ç›®æ ‡
+    bool state_INHIT = 0;                              // çŠ¶æ€ï¼Œè¡¨ç¤ºhitæ­£åœ¨åˆ¤å®š
+    bool colorInitial = 0;                             // è¡¨ç¤ºå¤§äºç­‰äºä¸‰è½®æ˜¯å¦åˆå§‹åŒ–æˆåŠŸ
 };
 
 #endif

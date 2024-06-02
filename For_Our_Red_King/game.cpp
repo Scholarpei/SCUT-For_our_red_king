@@ -3,15 +3,12 @@
 #include "spritecomponent.h"
 #include "player.h"
 #include "cmath"
-<<<<<<< Updated upstream
 #include "blocks.h"
 #include"monster.h"
 #include "standard.h"
 #include <QAudioOutput>
 
-=======
 #include "FightQTE.h"
->>>>>>> Stashed changes
 Game::Game(QObject *parent,MainWindow* window):
     QObject{parent},
     mIsRuning(true),

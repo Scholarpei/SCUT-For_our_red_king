@@ -12,13 +12,6 @@ GameObject::GameObject(QObject *parent,Game *game):
 
     //注意这里默认设置了物体参与碰撞
     mGame = game;
-<<<<<<< Updated upstream
-=======
-
-    //创建qte的时候没create
-    mGame->createGameObject(this);
-
->>>>>>> Stashed changes
 }
 
 GameObject::~GameObject()

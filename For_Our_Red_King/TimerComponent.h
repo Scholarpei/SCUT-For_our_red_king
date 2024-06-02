@@ -3,32 +3,31 @@
 #include "component.h"
 #include "qtmetamacros.h"
 
-//!< ±»¸ÄµÃÃæÄ¿È«·Ç ×¨ÃÅÎªqteÓÃµÄ
-//typedef void (*fptr)();
+//!< è¢«æ”¹å¾—é¢ç›®å…¨éž ä¸“é—¨ä¸ºqteç”¨çš„
+// typedef void (*fptr)();
 class FightQTE;
-class TimerComponent 
-	:public Component
+class TimerComponent
+	: public Component
 {
 public:
-
-    TimerComponent(GameObject* object = nullptr,FightQTE* mQTE=nullptr);
+	TimerComponent(GameObject *object = nullptr, FightQTE *mQTE = nullptr);
 	~TimerComponent();
-	//startRun¿ªÊ¼Ã¿Ö¡·¢ËÍÐÅºÅ
+	// startRunå¼€å§‹æ¯å¸§å‘é€ä¿¡å·
 	void startRun();
 	void EndRun();
-	//updateÒ»´Înowtime+1
-	//nowtime=timewidth·¢ËÍÐÅºÅ
-	void Update();//¸üÐÂ
-	void setTimeWidth(int width);//ÉèÖÃÊ±¼ä¶àÉÙÊ±Ê¹ÓÃÊÂ¼þº¯Êý
-    //void setFunction(fptr = nullptr);//ÉèÖÃÑ­»·µÄÊÂ¼þº¯Êý
+	// updateä¸€æ¬¡nowtime+1
+	// nowtime=timewidthå‘é€ä¿¡å·
+	void Update();				  // æ›´æ–°
+	void setTimeWidth(int width); // è®¾ç½®æ—¶é—´å¤šå°‘æ—¶ä½¿ç”¨äº‹ä»¶å‡½æ•°
+	// void setFunction(fptr = nullptr);//è®¾ç½®å¾ªçŽ¯çš„äº‹ä»¶å‡½æ•°
 
 protected:
-//	void (*TimeFunction)();//ÐèÒªÑ­»·µÄÊÂ¼þº¯ÊýX Ê§°ÜµÄº¯ÊýÖ¸ÕëÓÃ·¨¡£
-	GameObject* father_Object;
-	int TimeWidth = 0;//ÅÜ¼¸´Î·¢ËÍÊÂ¼þ
-	bool isRun = 0;//ÊÇ·ñÆô¶¯
+	//	void (*TimeFunction)();//éœ€è¦å¾ªçŽ¯çš„äº‹ä»¶å‡½æ•°X å¤±è´¥çš„å‡½æ•°æŒ‡é’ˆç”¨æ³•ã€‚
+	GameObject *father_Object;
+	int TimeWidth = 0; // è·‘å‡ æ¬¡å‘é€äº‹ä»¶
+	bool isRun = 0;	   // æ˜¯å¦å¯åŠ¨
 	int NowTime = 0;
-	FightQTE* mQTE;
+	FightQTE *mQTE;
 
 signals:
 };
