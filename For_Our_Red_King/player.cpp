@@ -13,6 +13,7 @@ Player::Player(QObject *parent,Game* game):
     mWidth = PLAYER::Player_Width;
     mHeight = PLAYER::Player_Height;
 
+    this->setPosition(QVector2D(50,50));
     mSoundPlayer = new MusicPlayer;
 
     gameObjectType = GameObject::Type::Player;
