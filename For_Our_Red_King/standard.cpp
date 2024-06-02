@@ -76,6 +76,26 @@ const AnimationLoader air(":/pictureResoource/Tiles/Bench.png",
                           4, 4, 1);
 const AnimationLoader flag(":/pictureResoource/Tiles/Flag.png",
                           32, 64, 1);
+const AnimationLoader ladder1(":/pictureResoource/Tiles/Ladder1.png",
+                              32, 32, 1);
+const AnimationLoader ladder2(":/pictureResoource/Tiles/Ladder2.png",
+                              32, 32, 1);
+const AnimationLoader ladder3(":/pictureResoource/Tiles/Ladder3.png",
+                           32, 32, 1);
+const AnimationLoader q(":/pictureResoource/Tiles/q.png",
+                              16, 16, 1);
+const AnimationLoader u(":/pictureResoource/Tiles/u.png",
+                        16, 16, 1);
+const AnimationLoader i(":/pictureResoource/Tiles/i.png",
+                        16, 16, 1);
+const AnimationLoader t(":/pictureResoource/Tiles/t.png",
+                        16, 16, 1);
+const AnimationLoader redP1(":/pictureResoource/Tiles/redP1.png",
+                        32, 32, 1);
+const AnimationLoader redP2(":/pictureResoource/Tiles/redP2.png",
+                            32, 32, 1);
+const AnimationLoader redP3(":/pictureResoource/Tiles/redP3.png",
+                            32, 32, 1);
 }
 
 namespace DRAWORRDER{

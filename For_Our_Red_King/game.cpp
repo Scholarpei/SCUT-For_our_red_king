@@ -54,73 +54,100 @@ void Game::generateContent()
         createGameObject(highland);
         createGameObject(back);
         // 0 8 \n 9 3
+        std::vector<InterfaceBlock> blocks;
         interface.initializeRock(11,
                                  QVector2D(0, 8),
-                                 QVector2D(9, 3),
+                                 QVector2D(8, 3),
                                  1,0,1,0);
-        ground->initialize(interface);
+        blocks.push_back(interface);        // 左边大地
         interface.initializeRock(11,
                                  QVector2D(10, 0),
                                  QVector2D(1, 2),
                                  0,1,0,0);
-        cone->initialize(interface);
+        blocks.push_back(interface);        // 天上大柱子
         interface.initializeRock(11,
                                  QVector2D(10, 6),
                                  QVector2D(5, 3),
                                  1,1,1,1);
-        highland->initialize(interface);
+        blocks.push_back(interface);        // 右边大地
         interface.initializeBackGround(1);
-        back->initialize(interface);
-
-        BlockDecoration* money = new BlockDecoration(this, this);
-        BlockDecoration* screen = new BlockDecoration(this, this);
-        createGameObject(money);
-        createGameObject(screen);
+        blocks.push_back(interface);        // 背景
         interface.initializeDecoration(41,
                                        QVector2D(12, 5),
                                        0,
-                                       13);
-        money->initialize(interface);
-        interface.initializeDecoration(43,
-                                       QVector2D(8, 6),
-                                       0,
-                                       42);
-        screen->initialize(interface);
-
-        BlockBar* bar = new BlockBar(this, this);
-        createGameObject(bar);
+                                       6);
+        blocks.push_back(interface);        // 钱
         interface.initializeBar(0, QVector2D(5, 5));
-        bar->initialize(interface);
-
-        BlockDamage* damage = new BlockDamage(this, this);
-        createGameObject(damage);
+        blocks.push_back(interface);        // 血条
         interface.initializeDamage(45,
-                                   QVector2D(2, 4),
+                                   QVector2D(2, 3),
                                    2,
                                    60,
                                    5,
                                    QVector2D(1, 1));
-        damage->initialize(interface);
-
-        BlockDamage* heal = new BlockDamage(this, this);
-        createGameObject(heal);
+        blocks.push_back(interface);        // 伤害旗帜
         interface.initializeDamage(22,
                                    QVector2D(7, 2),
                                    2,
                                    60,
                                    -10,
                                    QVector2D(1, 1));
-        heal->initialize(interface);
-
-        BlockDamage* vanity = new BlockDamage(this, this);
-        createGameObject(vanity);
+        blocks.push_back(interface);        // 隐藏回血块
         interface.initializeDamage(22,
-                                   QVector2D(17, 11),
+                                   QVector2D(-4, 12),
                                    2,
                                    60,
                                    1000,
-                                   QVector2D(3, 1));
-        vanity->initialize(interface);
+                                   QVector2D(26, 1));
+        blocks.push_back(interface);        // 虚空 vanity
+        interface.initializeDecoration(23,
+                                       QVector2D(9, 7),
+                                       0,
+                                       0);
+        blocks.push_back(interface);        // q
+        interface.initializeDecoration(24,
+                                       QVector2D(9, 8),
+                                       0,
+                                       0);
+        blocks.push_back(interface);        // u
+        interface.initializeDecoration(25,
+                                       QVector2D(9, 9),
+                                       0,
+                                       0);
+        blocks.push_back(interface);        // i
+        interface.initializeDecoration(26,
+                                       QVector2D(9, 10),
+                                       0,
+                                       0);
+        blocks.push_back(interface);        // t
+        interface.initializeDecoration(48,
+                                       QVector2D(9, 10),
+                                       0,
+                                       0);
+        blocks.push_back(interface);        // 梯子头装饰
+        interface.initializeDoor(47,
+                                 QVector2D(9, 11),
+                                 2,
+                                 0);
+        blocks.push_back(interface);        // 退出
+        interface.initializeRock(12,
+                                 QVector2D(17, 4),
+                                 QVector2D(1, 0),
+                                 1,0,1,1,0);
+        blocks.push_back(interface);        // 开始平台
+        interface.initializeDoor(43,
+                                 QVector2D(18, 2),
+                                 0,
+                                 0);
+        blocks.push_back(interface);        // 开始门
+
+
+
+        for(auto block : blocks)
+        {
+            block.createBlock(this);
+        }
+
 
     }
 }

@@ -173,6 +173,15 @@ std::vector<AnimationLoader> InterfaceBlock::toAnime(short ID)
               TILES::industrialTile7,
               TILES::industrialTile8,
               TILES::industrialTile9}},
+        {12, {TILES::redP1,
+              TILES::redP2,
+              TILES::redP3,
+              TILES::redP1,
+              TILES::redP2,
+              TILES::redP3,
+              TILES::redP1,
+              TILES::redP2,
+              TILES::redP3}},
         {21, {TILES::masuTile,
               TILES::masuTile,
               TILES::masuTile,
@@ -191,11 +200,18 @@ std::vector<AnimationLoader> InterfaceBlock::toAnime(short ID)
              TILES::air,
              TILES::air,
              TILES::air}},
+        {23, {TILES::q}},
+        {24, {TILES::u}},
+        {25, {TILES::i}},
+        {26, {TILES::t}},
         {31, {TILES::door1}},
         {41, {TILES::money}},
         {43, {TILES::screen2}},
         {44, {TILES::bench}},
-        {45, {TILES::flag}}
+        {45, {TILES::flag}},
+        {46, {TILES::ladder1}},
+        {47, {TILES::ladder2}},
+        {48, {TILES::ladder3}}
     };
     return mapping[ID];
 }
@@ -264,6 +280,57 @@ void InterfaceBlock::initializeDamage(short texturID, QVector2D posi, short type
     this->status[2] = damage;
 }
 
+Block *InterfaceBlock::cateToPointer(int cate, Game *game)
+{
+    Block* block = nullptr;
+    switch (cate) {
+    case 0:
+    {
+        block = new BlockRock(game, game);
+        break;
+    }
+    case 1:
+    {
+        block = new BlockBack(game, game);
+        break;
+    }
+    case 2:
+    {
+        block = new BlockDoor(game, game);
+        break;
+    }
+    case 3:
+    {
+        block = new BlockDecoration(game, game);
+        break;
+    }
+    case 4:
+    {
+        block = new BlockBar(game, game);
+        break;
+    }
+    case 5:
+    {
+        block = new BlockDamage(game, game);
+        break;
+    }
+    default:
+    {
+        qDebug()<<"wrong category in block interface!!!!";
+        block = new BlockDecoration(game, game);
+        break;
+    }
+    }
+    return block;
+}
+
+void InterfaceBlock::createBlock(Game *game)
+{
+    Block* block = this->cateToPointer(this->category, game);
+    game->createGameObject(block);
+    block->initialize(*this);
+}
+
 BlockBack::BlockBack(QObject *parent, Game *game):
     Block(parent, game)
 {
@@ -303,7 +370,7 @@ void BlockDoor::openDoor()
 BlockDoor::BlockDoor(QObject *parent, Game *game):
     Block(parent, game)
 {
-    this->attendCollision = false;  // 是否要参与碰撞
+    this->attendCollision = true;  // 是否要参与碰撞
 }
 
 void BlockDoor::initialize(const AnimationLoader &anime, QVector2D posi, short type, short dpf)
@@ -323,6 +390,22 @@ void BlockDoor::initialize(const AnimationLoader &anime, QVector2D posi, short t
     this->bricks[0][0] = b;
 
     this->type = type;
+    switch(this->type)
+    {
+    case 1:
+    {
+        break;
+    }
+    case 2:     // 退出游戏
+    {
+        this->isOpen = true;
+        break;
+    }
+    case 3:
+    {
+        break;
+    }
+    }
 }
 
 void BlockDoor::initialize(const InterfaceBlock &interface)
@@ -337,11 +420,46 @@ void BlockDoor::initialize(const InterfaceBlock &interface)
 void BlockDoor::Update()
 {
     // TODO 检测怪物数量，检测玩家位置，发送下一关信号
+    switch(this->type)
+    {
+    case 1:
+    {
+        break;
+    }
+    case 2:
+    {
+        break;
+    }
+    case 3:
+    {
+        break;
+    }
+    }
 }
 
 void BlockDoor::beingCollide(GameObject *s)
 {
     // TODO 检测怪物数量，检测玩家位置，发送下一关信号
+    if (this->isOpen)
+    {
+        switch(this->type)
+        {
+        case 1:
+        {
+            break;
+        }
+        case 2:
+        {
+            this->mGame->mWindow->close();
+            this->isOpen = false;
+            break;
+        }
+        case 3:
+        {
+            break;
+        }
+        }
+    }
 }
 
 BlockDecoration::BlockDecoration(QObject *parent, Game *game):

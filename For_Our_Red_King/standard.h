@@ -54,6 +54,16 @@ extern const AnimationLoader screen2;
 extern const AnimationLoader bench;
 extern const AnimationLoader air;
 extern const AnimationLoader flag;
+extern const AnimationLoader ladder1;
+extern const AnimationLoader ladder2;
+extern const AnimationLoader ladder3;
+extern const AnimationLoader q;
+extern const AnimationLoader u;
+extern const AnimationLoader i;
+extern const AnimationLoader t;
+extern const AnimationLoader redP1;
+extern const AnimationLoader redP2;
+extern const AnimationLoader redP3;
 
 }
 
