@@ -9,7 +9,8 @@ AnimationComponent::AnimationComponent(GameObject *gameObject, int drawOrder):
     currentFrame(0),
     isPlaying(false),
     isRepeating(false),
-    willReStart(true)
+    willReStart(true),
+    isDisplaying(true)
 {
 
 }
@@ -21,32 +22,36 @@ AnimationComponent::~AnimationComponent()
 
 void AnimationComponent::Draw()
 {
-    QRect target1(this->mGameObject->getPosition().x(),
-                 this->mGameObject->getPosition().y(),
-                 mGameObject->mWidth * mGameObject->getScale().x(),
-                 mGameObject->mHeight * mGameObject->getScale().y());
+    if(this->isDisplaying)
+    {
+        QRect target1(this->mGameObject->getPosition().x(),
+                      this->mGameObject->getPosition().y(),
+                      mGameObject->mWidth * mGameObject->getScale().x(),
+                      mGameObject->mHeight * mGameObject->getScale().y());
 
-    QRect source(this->animation.GetpixX() * this->currentFrame,
-                 0,
-                 this->animation.GetpixX(),
-                 this->animation.GetpixY());
+        QRect source(this->animation.GetpixX() * this->currentFrame,
+                     0,
+                     this->animation.GetpixX(),
+                     this->animation.GetpixY());
 
-    QPixmap frame = this->spriteSheet.copy(source);
-    if (this->mGameObject->getDrawDirection() != 1){
-        // 创建一个水平翻转的变换矩阵
-        QTransform transform;
-        transform.scale(-1, 1);  // 水平翻转
-        frame = frame.transformed(transform);
-        QRect target2(this->mGameObject->getPosition().x()-15,
-                     this->mGameObject->getPosition().y(),
-                     mGameObject->mWidth * mGameObject->getScale().x(),
-                     mGameObject->mHeight * mGameObject->getScale().y());
-        //这里-15是因为我们的图片是有透明区域的，翻转过后人物会翻转到另一边，我们通过平移绘画位置解决这一点（经过尝试，-15是比较合理的值）
-        this->mGameObject->mGame->mWindow->mPainter->drawPixmap(target2, frame);
+        QPixmap frame = this->spriteSheet.copy(source);
+        if (this->mGameObject->getDrawDirection() != 1){
+            // 创建一个水平翻转的变换矩阵
+            QTransform transform;
+            transform.scale(-1, 1);  // 水平翻转
+            frame = frame.transformed(transform);
+            QRect target2(this->mGameObject->getPosition().x()-15,
+                          this->mGameObject->getPosition().y(),
+                          mGameObject->mWidth * mGameObject->getScale().x(),
+                          mGameObject->mHeight * mGameObject->getScale().y());
+            //这里-15是因为我们的图片是有透明区域的，翻转过后人物会翻转到另一边，我们通过平移绘画位置解决这一点（经过尝试，-15是比较合理的值）
+            this->mGameObject->mGame->mWindow->mPainter->drawPixmap(target2, frame);
+        }
+        else{
+            this->mGameObject->mGame->mWindow->mPainter->drawPixmap(target1, frame);
+        }
     }
-    else{
-    this->mGameObject->mGame->mWindow->mPainter->drawPixmap(target1, frame);
-    }
+
     if(this->isPlaying)
     {
         this->nextTick();
@@ -58,6 +63,12 @@ void AnimationComponent::resetAnimation(const AnimationLoader &animation)
     this->animation = animation;
     this->stop();
     this->spriteSheet = QPixmap(animation.GetpixAddress());
+}
+
+void AnimationComponent::show(bool do_repeat)
+{
+    this->setDisplay(true);
+    this->play(do_repeat);
 }
 
 void AnimationComponent::play(bool do_repeat)
@@ -88,6 +99,11 @@ void AnimationComponent::backToStart()
 void AnimationComponent::setRepeat(bool do_repeat)
 {
     this->isRepeating = do_repeat;
+}
+
+void AnimationComponent::setDisplay(bool do_display)
+{
+    this->isDisplaying = do_display;
 }
 
 void AnimationComponent::TickPerFrame(short durationPerFrame)

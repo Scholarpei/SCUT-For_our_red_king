@@ -74,6 +74,8 @@ const AnimationLoader bench(":/pictureResoource/Tiles/Bench.png",
                               32, 32, 1);
 const AnimationLoader air(":/pictureResoource/Tiles/Bench.png",
                           4, 4, 1);
+const AnimationLoader flag(":/pictureResoource/Tiles/Flag.png",
+                          32, 64, 1);
 }
 
 namespace DRAWORRDER{

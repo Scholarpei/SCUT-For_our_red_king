@@ -194,7 +194,8 @@ std::vector<AnimationLoader> InterfaceBlock::toAnime(short ID)
         {31, {TILES::door1}},
         {41, {TILES::money}},
         {43, {TILES::screen2}},
-        {44, {TILES::bench}}
+        {44, {TILES::bench}},
+        {45, {TILES::flag}}
     };
     return mapping[ID];
 }
