@@ -134,10 +134,9 @@ void FightQTE::centralFunction()
         {
             nextRound();
         }
-        // qDebug()<<"judge 3";
         if (angle - TargetAngle * 90 >= QTE::DELTAANGLE && angle - TargetAngle * 90 < QTE::DELTAANGLE + QTE::addAngle)
         {
-            if (!isHit && !sprite_colors.at(TargetAngle)->getNeedDraw())
+            if (!isHit && sprite_colors.at(TargetAngle)->getNeedDraw())
             {
                 lose_typeone();
             }
