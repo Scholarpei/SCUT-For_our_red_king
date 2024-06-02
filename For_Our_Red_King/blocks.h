@@ -4,6 +4,8 @@
 #include "brick.h"
 #include "bleedingcomponent.h"
 
+class Block;
+
 struct InterfaceBlock
 {
     short category = -1;
@@ -21,7 +23,8 @@ struct InterfaceBlock
     void initializeBar(short textureID, QVector2D posi);
     void initializeDamage(short texturID, QVector2D posi, short type,short interval, short damage, QVector2D size ,short durationPerFrame = 0);
 
-    void clear() = delete;
+    Block* cateToPointer(int cate, Game* game);
+    void createBlock(Game* game);
 };
 
 

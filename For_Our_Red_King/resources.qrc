@@ -1,5 +1,15 @@
 <RCC>
     <qresource prefix="/">
         <file>pictureResoource/Tiles/Flag.png</file>
+        <file>pictureResoource/Tiles/Ladder3.png</file>
+        <file>pictureResoource/Tiles/i.png</file>
+        <file>pictureResoource/Tiles/q.png</file>
+        <file>pictureResoource/Tiles/t.png</file>
+        <file>pictureResoource/Tiles/u.png</file>
+        <file>pictureResoource/Tiles/redP1.png</file>
+        <file>pictureResoource/Tiles/redP2.png</file>
+        <file>pictureResoource/Tiles/redP3.png</file>
+        <file>pictureResoource/Tiles/Ladder1.png</file>
+        <file>pictureResoource/Tiles/Ladder2.png</file>
     </qresource>
 </RCC>
