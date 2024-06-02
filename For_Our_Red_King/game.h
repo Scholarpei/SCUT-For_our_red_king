@@ -50,6 +50,8 @@ public:
 
     bool collisionDetection(GameObject* first,GameObject* second);   //!<两个对象的碰撞检测判定
 
+    void generateContent();//!<临时生成关卡信息的函数
+
 protected:
     virtual void timerEvent(QTimerEvent *event);    //!<定时器事件
 

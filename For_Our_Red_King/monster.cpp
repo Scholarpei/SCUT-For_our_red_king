@@ -96,9 +96,11 @@ void Monster::fallcollideOthers(GameObject* d,QVector2D& lastposition)
         this->mGame->mPlayer->loseHPEvent(5);        //玩家掉血，在Player类中实现
     }
 
+    this->initialGroundFlag = true;//已经落地的flag要设置为true
+
     this->setPosition(lastposition);
     //若发生碰撞，让移动不执行
-    this->mSpeedY = 0;
+    this->mSpeedY = 4;
 }
 
 //!<被碰撞后发生的事件处理(s是碰撞this的GameObject)
@@ -128,7 +130,9 @@ void Monster::fallnotCollide(QVector2D& lastposition)
 {
     //说明要脱离平台、地面了，阻止发生
     this->setPosition(lastposition);
-    this->mSpeedY = 0;
+    // qDebug("%d",this->initialGroundFlag);
+    if(this->initialGroundFlag)
+        this->moveDirection = - this->moveDirection;
 }
 
 int Monster::getDrawDirection()

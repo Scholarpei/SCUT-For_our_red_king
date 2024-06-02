@@ -42,6 +42,7 @@ public:
     int changeTheFightingAnimation;              //是否对打玩家图片特殊处理
 
 private:
+    bool initialGroundFlag = false;  //!<刚开始怪物用于落地用的flag
     int moveDirection;     //!< 运动方向 1为右，-1为左
     int HP = MONSTER::MaxHP;                //!< 血量
     long long loseHP_timeCount;  //!< 距离上一次扣血已经经过的时间

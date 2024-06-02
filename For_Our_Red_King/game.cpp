@@ -25,6 +25,14 @@ Game::Game(QObject *parent,MainWindow* window):
     mMusicPlayer->play(SYSTEM::bgmURL,true);
     //设置bgm
 
+    generateContent();//临时生成关卡信息（为了使构造函数看起来更好看）
+
+    Initialize();
+
+}
+
+void Game::generateContent()
+{
     mPlayer = new Player(this,this);
     createGameObject(mPlayer);
     mQTE= new QTEObject(this,this);
@@ -45,6 +53,7 @@ Game::Game(QObject *parent,MainWindow* window):
         createGameObject(cone);
         createGameObject(highland);
         createGameObject(back);
+        // 0 8 \n 9 3
         interface.initializeRock(11,
                                  QVector2D(0, 8),
                                  QVector2D(9, 3),
@@ -114,9 +123,6 @@ Game::Game(QObject *parent,MainWindow* window):
         vanity->initialize(interface);
 
     }
-
-    Initialize();
-
 }
 
 Game::~Game()
@@ -369,7 +375,6 @@ void Game::unloadData()
     // {
     //     delete mSprites.back();
     // }
-    // 上面的这些注释掉了就不会出现关掉窗口崩溃了
 }
 
 void Game::keyPressInput(int e)
