@@ -12,5 +12,5 @@ myTimer::myTimer(QObject *parent,Game* game)
 
 myTimer::~myTimer()
 {
-    mGame->removeMyTimer(this);
+    delete recordTime;
 }

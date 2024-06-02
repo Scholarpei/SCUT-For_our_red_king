@@ -14,23 +14,6 @@ Block::Block(QObject *parent, Game *game):
     // 有什么需要的component吗
 }
 
-Block::~Block()
-{
-    mGame->removeGameObject(this);
-    while (!mComponents.empty())
-    {
-        delete mComponents.back();
-    }
-
-    // for(const std::vector<Brick*> &bs: this->bricks)
-    // {
-    //     for (Brick* b : bs)
-    //     {
-    //         delete b;
-    //     }
-    // }
-}
-
 void Block::Update()
 {
 

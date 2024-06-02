@@ -34,7 +34,6 @@ protected:
 
 public:
     explicit Block(QObject *parent = nullptr,class Game* game = nullptr);
-    virtual ~Block();
 
     // void initialize();
     virtual void initialize(const InterfaceBlock& interface) = 0;
