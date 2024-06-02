@@ -84,7 +84,7 @@ Game::Game(QObject *parent,MainWindow* window):
 
         BlockDamage* damage = new BlockDamage(this, this);
         createGameObject(damage);
-        interface.initializeDamage(44,
+        interface.initializeDamage(45,
                                    QVector2D(2, 4),
                                    2,
                                    60,

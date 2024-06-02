@@ -53,6 +53,7 @@ extern const AnimationLoader money;
 extern const AnimationLoader screen2;
 extern const AnimationLoader bench;
 extern const AnimationLoader air;
+extern const AnimationLoader flag;
 
 }
 

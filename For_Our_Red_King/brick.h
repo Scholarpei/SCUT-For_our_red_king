@@ -29,8 +29,6 @@ public:
     int getWidth();
     int getHeight();
 
-
-
 };
 
 

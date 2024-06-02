@@ -17,6 +17,8 @@ public:
     // 重置并传入动画雪碧图。调用后会自动停止播放！如有需要请再次调用 play
     virtual void resetAnimation(const AnimationLoader& animation);
 
+    // 开始显示并播放动图，参数设置是否重复播放。若只想显示不想播放，请调用 setDisplay
+    void show(bool do_repeat);
     // 开始播放动图，第一次播放前确保已设置 AnimationLoader
     void play(bool do_repeat);
     // 停止动图在这一帧，但是下次播放会从头开始！
@@ -27,9 +29,13 @@ public:
     void backToStart();
     // 设置是否重复动画
     void setRepeat(bool do_repeat);
+    // 设置是否显示
+    void setDisplay(bool do_display);
     // 多少刻切换一帧动画
     void TickPerFrame(short durationPerFrame);
     short TickPerFrame();
+
+
 
 private:
     //以下都是实现切换动画所用
@@ -44,6 +50,7 @@ private:
     bool isPlaying;             // 是否继续播放
     bool isRepeating;           // 是否重复播放
     bool willReStart;           // 播放时是否重新开始
+    bool isDisplaying;          // 图片是否显示
 
     AnimationLoader animation;  // 动画本尊哒
 
