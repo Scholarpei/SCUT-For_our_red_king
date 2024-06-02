@@ -40,13 +40,14 @@ public:
     MoveComponent * moveCom;        //移动组件
     AnimationComponent* animation;           //动画组件
     int changeTheFightingAnimation;              //是否对打玩家图片特殊处理
-    bool changeTheFightSpecial;
 
 private:
     int moveDirection;     //!< 运动方向 1为右，-1为左
     int HP = MONSTER::MaxHP;                //!< 血量
     long long loseHP_timeCount;  //!< 距离上一次扣血已经经过的时间
     float mSpeedX ,mSpeedY;     //!< 移动速度 X横,Y竖
+
+    bool setQteFlag;         //!<是否以及设置可进行qte表示图标的flag
 };
 
 #endif // MONSTER_H

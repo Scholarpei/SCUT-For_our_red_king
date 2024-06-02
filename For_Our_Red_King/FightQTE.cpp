@@ -264,11 +264,11 @@ void FightQTE::startQTE()
 }
 void FightQTE::lose_typeone()
 {
-
+    qDebug()<<"lose type one";
 }
 void FightQTE::lose_typetwo()
 {
-
+    qDebug()<<"lose type two";
 }
 void FightQTE::win()
 {

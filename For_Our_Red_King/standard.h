@@ -110,6 +110,8 @@ extern const QString REDPART;
 extern const QString BLUEPART;
 extern const QString ORANGEPART;
 extern const int SCALETIME;
+
+extern const float leastQTEDistance;  //最小可qte距离
 }
 
 

@@ -23,7 +23,7 @@ const AnimationLoader walking = AnimationLoader(":/pictureResoource/Monster/Walk
 const AnimationLoader fighting = AnimationLoader(":/pictureResoource/Monster/attack.png",
                                                 48,48,8);
 const int MaxHP = 60;
-const int loseHPTimePeriod = 30;
+const int loseHPTimePeriod = 15;
 const int Monster_Width = 48;
 const int Monster_Height = 60;
 }
@@ -130,5 +130,7 @@ const int SCALETIME=3;
 const QString REDPART=":/pictureResoource/QTE/QTE_red.png";
 const QString BLUEPART=":/pictureResoource/QTE/QTE_blue.png";
 const QString ORANGEPART=":/pictureResoource/QTE/QTE_orange.png";
+
+const float leastQTEDistance = 200;
 
 }

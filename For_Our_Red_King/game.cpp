@@ -13,6 +13,7 @@ Game::Game(QObject *parent,MainWindow* window):
     QObject{parent},
     mIsRuning(true),
     mIsUpdating(false),
+    mIsLooping(false),
     mPlayer(nullptr),
     mMonster(nullptr)
 {
@@ -159,6 +160,11 @@ bool Game::collisionDetection(GameObject* first,GameObject* second)
         f_Width *= 0.55;
         f_Height *= 0.85;
     }
+    if(second->gameObjectType == GameObject::Type::Monster){
+        s_pos = getCollidePosition(s_pos,second);
+        s_Width *= 0.55;
+        s_Height *= 0.85;
+    }
 
 
     auto getMiddlePoint = [](QVector2D pos,float width,float height) -> QVector2D{
@@ -263,6 +269,8 @@ void Game::removeGameObject(GameObject* gameObject)
 void Game::Event()
 {
     //to be written需要做的事件操作
+
+    //判定玩家跟各个object距离
 }
 
 void Game::Update()
