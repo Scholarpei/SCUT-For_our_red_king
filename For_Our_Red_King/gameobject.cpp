@@ -16,11 +16,13 @@ GameObject::GameObject(QObject *parent,Game *game):
 
 GameObject::~GameObject()
 {
-    mGame->removeGameObject(this);
+    this->mState = State::EDead;
     while (!mComponents.empty())
     {
-        delete mComponents.back();
+        this->removeComponent(mComponents.back());
+        // mComponents.pop_back();
     }
+    mGame->removeGameObject(this);
 }
 
 void GameObject::Update()

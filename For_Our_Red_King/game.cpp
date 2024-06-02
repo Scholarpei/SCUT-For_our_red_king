@@ -336,7 +336,8 @@ void Game::createSprite(spriteComponent* sprite)
 void Game::removeSprite(spriteComponent* sprite)
 {
     std::vector<spriteComponent*>::iterator iter = std::find(mSprites.begin(), mSprites.end(), sprite);
-    mSprites.erase(iter);
+    if(iter!= mSprites.end())
+        mSprites.erase(iter);
 }
 
 //!移除自定义myTimer
