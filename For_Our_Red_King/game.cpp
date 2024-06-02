@@ -60,11 +60,6 @@ Game::Game(QObject *parent,MainWindow* window):
                                        0,
                                        6);
         blocks.push_back(interface);        // 钱
-        interface.initializeDecoration(43,
-                                       QVector2D(8, 6),
-                                       0,
-                                       42);
-        blocks.push_back(interface);        // 屏幕
         interface.initializeBar(0, QVector2D(5, 5));
         blocks.push_back(interface);        // 血条
         interface.initializeDamage(45,
@@ -115,7 +110,7 @@ Game::Game(QObject *parent,MainWindow* window):
         blocks.push_back(interface);        // 梯子头装饰
         interface.initializeDoor(47,
                                  QVector2D(9, 11),
-                                 0,
+                                 2,
                                  0);
         blocks.push_back(interface);        // 退出
         interface.initializeRock(12,

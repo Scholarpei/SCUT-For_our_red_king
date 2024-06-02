@@ -390,6 +390,22 @@ void BlockDoor::initialize(const AnimationLoader &anime, QVector2D posi, short t
     this->bricks[0][0] = b;
 
     this->type = type;
+    switch(this->type)
+    {
+    case 1:
+    {
+        break;
+    }
+    case 2:     // 退出游戏
+    {
+        this->isOpen = true;
+        break;
+    }
+    case 3:
+    {
+        break;
+    }
+    }
 }
 
 void BlockDoor::initialize(const InterfaceBlock &interface)
@@ -434,6 +450,8 @@ void BlockDoor::beingCollide(GameObject *s)
         }
         case 2:
         {
+            this->mGame->mWindow->close();
+            this->isOpen = false;
             break;
         }
         case 3:
