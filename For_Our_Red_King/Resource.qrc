@@ -37,5 +37,6 @@
         <file>pictureResoource/QTE/QTE_red.png</file>
         <file>pictureResoource/icon.ico</file>
         <file>pictureResoource/QTE/exclamation.png</file>
+        <file>pictureResoource/background/exitGameFilter.jpg</file>
     </qresource>
 </RCC>

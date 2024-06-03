@@ -27,6 +27,7 @@ HEADERS += animationComponent.h \
            gameobject.h \
            idlestate.h \
            interactivebuttonbase.h \
+           interface.h \
            jumpcomponent.h \
            jumpingstate.h \
            mainwindow.h \
@@ -60,6 +61,7 @@ SOURCES += animationComponent.cpp \
            gameobject.cpp \
            idlestate.cpp \
            interactivebuttonbase.cpp \
+           interface.cpp \
            jumpingstate.cpp \
            main.cpp \
            mainwindow.cpp \

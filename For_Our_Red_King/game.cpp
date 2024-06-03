@@ -43,15 +43,7 @@ void Game::generateContent()
         // 测试用创建砖块
         // 注释掉所有和 masu 有关的来去掉玩家脚下的 〼　砖块
         InterfaceBlock interface;
-        BlockRock* ground = new BlockRock(this, this);
-        BlockRock* highland = new BlockRock(this, this);
-        BlockRock* cone = new BlockRock(this, this);
-        BlockBack* back = new BlockBack(this, this);
-        createGameObject(ground);
-        createGameObject(cone);
-        createGameObject(highland);
-        createGameObject(back);
-        // 0 8 \n 9 3
+
         std::vector<InterfaceBlock> blocks;
         interface.initializeRock(11,
                                  QVector2D(0, 8),

@@ -7,7 +7,7 @@
 class spriteComponent : public Component
 {
 public:
-    explicit spriteComponent(class GameObject* gameObject=nullptr,int drawOrder=100);//100order为最底层
+    explicit spriteComponent(class GameObject* gameObject=nullptr,int drawOrder=200);//100order为最底层
     ~spriteComponent();
 
     //! 绘制函数

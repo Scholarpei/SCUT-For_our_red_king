@@ -16,7 +16,10 @@ NewAnimationComponent::~NewAnimationComponent()
 
 void NewAnimationComponent::Update()
 {
-    setOpacity((double)this->getCurrentFrame()/(this->animation.GetpixFrame()-1));
+    if(this->transformDirection)
+        setOpacity((double)this->getCurrentFrame()/(this->animation.GetpixFrame()-1));
+    else
+        setOpacity(1-((double)this->getCurrentFrame()/(this->animation.GetpixFrame()-1)));
     //设置透明度
 }
 
@@ -69,6 +72,11 @@ void NewAnimationComponent::Draw()
     {
         this->nextTick();
     }
+}
+
+void NewAnimationComponent::setTransformDirection(bool dir)
+{
+    this->transformDirection = dir;
 }
 
 

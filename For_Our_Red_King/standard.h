@@ -78,6 +78,7 @@ extern const AnimationLoader redP3;
 namespace DRAWORRDER{
 //值从低到高，绘制从下往上
 extern const int backGround;//背景
+extern const int backGroundfilter;//背景的滤镜
 extern const int ground;//地面
 extern const int door;//游戏结束的门
 extern const int platForm;//平台
@@ -132,6 +133,11 @@ extern const QString ORANGEPART;
 
 extern const int TIMEWIDTH;
 extern const float leastQTEDistance;  //最小可qte距离
+}
+
+namespace FILTER{
+//滤镜、特效
+extern const AnimationLoader ExitGameFilter;//退出游戏渐变黑色处理
 }
 
 

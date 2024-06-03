@@ -6,7 +6,7 @@
 class NewspriteComponent : public spriteComponent
 {
 public:
-    NewspriteComponent(GameObject *gameObject, int drawOrder);
+    NewspriteComponent(GameObject *gameObject = nullptr, int drawOrder = 200);
     void Draw()override;
     void setAngle(int angle);
     void setScale(float scale);

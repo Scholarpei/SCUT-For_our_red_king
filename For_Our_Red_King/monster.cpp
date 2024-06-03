@@ -90,7 +90,8 @@ void Monster::movecollideOthers(GameObject* d,QVector2D& lastposition)
 
     this->setPosition(lastposition);
     //若发生碰撞，让移动不执行并切换运动方向
-    this->moveDirection = -this->moveDirection;
+    if(d->gameObjectType != GameObject::Type::Player)
+        this->moveDirection = -this->moveDirection;
 }
 
 //!碰撞其他gameobject的事件处理(d是this碰撞到的GameObject)

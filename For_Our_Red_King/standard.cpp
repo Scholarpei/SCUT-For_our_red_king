@@ -108,6 +108,7 @@ const AnimationLoader redP3(":/pictureResoource/Tiles/redP3.png",
 namespace DRAWORRDER{
 //值从低到高，绘制从下往上
 const int backGround = 1;//背景
+const int backGroundfilter = 125;//背景滤镜（这个数值取决于你想不想要让其他Object染上滤镜效果）
 const int ground = 8;//地面
 const int door = 40;//游戏结束的门
 const int platForm = 42;//平台
@@ -134,6 +135,11 @@ const int durationPerFrame = 6;
 const QString bgmURL = ":/sound/system/bgm.wav";
 const QString icon=":/pictureResoource/icon.ico";
 }
+
+namespace FILTER {
+const AnimationLoader ExitGameFilter(":/pictureResoource/background/exitGameFilter.jpg",1920,1280,10);
+}
+
 namespace ACTIONCONST{
 const float maxSpeed = 5;
 const float gravityAcceleration = 0.5;

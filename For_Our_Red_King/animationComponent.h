@@ -9,7 +9,7 @@
 class AnimationComponent: public spriteComponent
 {
 public:
-    explicit AnimationComponent(class GameObject* gameObject=nullptr,int drawOrder=100);
+    explicit AnimationComponent(class GameObject* gameObject=nullptr,int drawOrder=200);
     ~AnimationComponent();
 
     // 绘制函数
