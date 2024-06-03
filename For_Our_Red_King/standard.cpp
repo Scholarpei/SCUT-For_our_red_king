@@ -23,7 +23,7 @@ const AnimationLoader walking = AnimationLoader(":/pictureResoource/Monster/Walk
 const AnimationLoader fighting = AnimationLoader(":/pictureResoource/Monster/attack.png",
                                                 48,48,8);
 const AnimationLoader exclamation = AnimationLoader(":/pictureResoource/QTE/exclamation.png",
-                                                    256,226,5);
+                                                    256,226,3);
 const int MaxHP = 60;
 const int loseHPTimePeriod = 15;
 const int Monster_Width = 48;

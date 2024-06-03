@@ -1,4 +1,4 @@
-#ifndef PLAYER_H
+﻿#ifndef PLAYER_H
 #define PLAYER_H
 #include "game.h"
 #include "gameobject.h"
@@ -13,12 +13,14 @@ class GameObject;
 struct InterfacePlayer
 {
     float x,y;    //坐标
+    int HP;         //存档时的血量
     InterfacePlayer(){
         //空的构造函数
     }
-    InterfacePlayer(float x,float y){
+    InterfacePlayer(float x,float y,int HP){
         this->x = x;
         this->y = y;
+        this->HP = HP;
     }
 };
 

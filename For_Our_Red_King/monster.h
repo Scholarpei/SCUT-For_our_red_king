@@ -8,6 +8,20 @@
 #include<QDebug>
 #include"standard.h"
 #include "newanimationcomponent.h"
+
+struct InterfaceMonster
+{
+    float x,y;    //坐标
+    InterfaceMonster(){
+        //空的构造函数
+    }
+    InterfaceMonster(float x,float y){
+        this->x = x;
+        this->y = y;
+    }
+};
+
+
 class GameObject;
 class Monster : public GameObject
 {
@@ -19,6 +33,7 @@ public:
     enum class MonsterState{WALKING,FIGHTING,IDLE};//!怪物状态集合（判断,怪物应该只存在walking跟fighting的两种状态）
     MonsterState mMonsterState;
     virtual void changeMonsterState(MonsterState state);//!改变怪物状态
+    InterfaceMonster intoInterface();        //!<从player转为Interface函数
 
     void Update()override;                          //!<每帧更新
 

@@ -24,11 +24,13 @@ Monster::Monster(QObject *parent,Game* game):
     this-> moveCom = new MoveComponent(this);
     this-> fallCom = new FallComponent(this);
     this->animation= new AnimationComponent(this, DRAWORRDER::Monster);
+
     this->exclamationAnimation = new NewAnimationComponent(this,DRAWORRDER::Exclamation);
     exclamationAnimation->resetAnimation(MONSTER::exclamation);
     exclamationAnimation->setDisplay(false);    //感叹号flag要设置刚开始不可见
     exclamationAnimation->setOffset(MONSTER::exclamationXOffset,MONSTER::exclamationYOffset);
     exclamationAnimation->setRect(MONSTER::ExclamationWidth,MONSTER::ExclamationHeight);
+
     this->mSpeedX = ACTIONCONST::monsterMoveXSpeed;
         //设置player精灵drawOrder = standard常量
 
@@ -40,6 +42,11 @@ Monster::Monster(QObject *parent,Game* game):
     this->addComponent(animation);
     this->addComponent(exclamationAnimation);
     //添加组件到组件数组中
+}
+
+InterfaceMonster Monster::intoInterface()
+{
+    return InterfaceMonster(this->getPosition().x(),this->getPosition().y());
 }
 
 void Monster::Update(){
@@ -56,6 +63,7 @@ void Monster::Update(){
         //在可进行qte的范围之内
         if(!setQteFlag){
             setQteFlag = true;
+            this->exclamationAnimation->setTransformDirection(1);
             this->exclamationAnimation->show(false);
             //生成
         }
@@ -64,7 +72,9 @@ void Monster::Update(){
         //超出可进行qte的范围之外
         if(setQteFlag){
             setQteFlag = false;
-            this->exclamationAnimation->setDisplay(false);
+            this->exclamationAnimation->setTransformDirection(0);
+            this->exclamationAnimation->show(false);
+            // this->exclamationAnimation->setDisplay(false);
         }
     }
     //判断怪物跟玩家距离并以此为依据决定是否可以进行qte
@@ -75,6 +85,7 @@ void Monster::Update(){
     //按照组件数组更新
 }
 
+
 //!碰撞其他gameobject的事件处理(d是this碰撞到的GameObject)
 void Monster::movecollideOthers(GameObject* d,QVector2D& lastposition)
 {
@@ -83,7 +94,7 @@ void Monster::movecollideOthers(GameObject* d,QVector2D& lastposition)
         //玩家碰到怪物
         Player* PlayerPtr = dynamic_cast<Player*>(d);
         changeTheFightingAnimation =0;
-        this->moveDirection =  -(PlayerPtr->getDirection());    //让怪物朝向人物，发动攻击
+        this->moveDirection = (PlayerPtr->getPosition().x()-this->getPosition().x()<0)?-1:1;    //让怪物朝向人物，发动攻击
         changeMonsterState(MonsterState::FIGHTING);
         this->mGame->mPlayer->loseHPEvent(5);        //玩家掉血，在Player类中实现
     }
@@ -101,7 +112,7 @@ void Monster::fallcollideOthers(GameObject* d,QVector2D& lastposition)
     if(d->gameObjectType == GameObject::Type::Player){
         //玩家碰到怪物
         Player* PlayerPtr = dynamic_cast<Player*>(d);
-        this->mGame->mPlayer->loseHPEvent(5);        //玩家掉血，在Player类中实现
+        this->mGame->mPlayer->loseHPEvent(5);        //玩家掉血
     }
 
     this->initialGroundFlag = true;//已经落地的flag要设置为true
@@ -118,9 +129,10 @@ void Monster::beingCollide(GameObject* s)
     if(s->gameObjectType == GameObject::Type::Player){
         //玩家碰到怪物
         Player* PlayerPtr = dynamic_cast<Player*>(s);
-        this->moveDirection =  -(PlayerPtr->getDirection());    //让怪物朝向人物，发动攻击
+        changeTheFightingAnimation =0;
+        this->moveDirection = (PlayerPtr->getPosition().x()-this->getPosition().x()<0)?-1:1;    //让怪物朝向人物，发动攻击
         changeMonsterState(MonsterState::FIGHTING);
-        //loseHPEvent();                                //玩家掉血，在Player类中实现
+        this->mGame->mPlayer->loseHPEvent(5);        //玩家掉血
     }
 }
 

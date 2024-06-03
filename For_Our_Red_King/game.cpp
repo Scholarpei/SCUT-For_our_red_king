@@ -12,9 +12,6 @@
 #include "qteobject.h"
 Game::Game(QObject *parent,MainWindow* window):
     QObject{parent},
-    mIsRuning(true),
-    mIsUpdating(false),
-    mIsLooping(false),
     mPlayer(nullptr)
 {
     qDebug()<<"到达Game对象构造函数处";
@@ -26,13 +23,41 @@ Game::Game(QObject *parent,MainWindow* window):
     //设置bgm
 
     generateContent();//临时生成关卡信息（为了使构造函数看起来更好看）
+    //在制作好关卡后，就是先loadData(关卡字符串资源url) 到 Game中的mInterface中，再调用changeLevel(mInterface)来切换关卡了
 
     Initialize();
 
 }
 
+void Game::ExitGame()
+{
+    //这里要制作退出游戏的缓冲动画
+    GameObject* tempObject = new GameObject(this,this);
+    this->createGameObject(tempObject);
+    NewAnimationComponent* overGameAnimation = new NewAnimationComponent(tempObject,DRAWORRDER::backGroundfilter,this);
+    overGameAnimation->resetAnimation(FILTER::ExitGameFilter);
+    overGameAnimation->setRect(SYSTEM::windowWidth,SYSTEM::windowHeight);
+    overGameAnimation->play(false);
+    tempObject->addComponent(overGameAnimation);
+
+    QTimer::singleShot(1000,this,[=](){
+        unloadData();//先清除数据
+        this->removeGameObject(tempObject);
+        mIsRuning = false;  //游戏结束标记flag
+        this->mWindow->close();
+    });//退出游戏
+}
+
+//!释放数据
+void Game::unloadData()
+{
+    //清除上一关的GameObject、Sprites、Timers或者结束游戏
+
+}
+
 void Game::generateContent()
 {
+
     mPlayer = new Player(this,this);
     mQTE= new QTEObject(this,this);
     Monster* mMonster = new Monster(this,this);
@@ -140,14 +165,12 @@ void Game::generateContent()
         {
             block.createBlock(this);
         }
-
-
     }
 }
 
 Game::~Game()
 {
-    unloadData();
+
 }
 
 //!初始化
@@ -215,7 +238,6 @@ void Game::timerEvent(QTimerEvent *event)
 {
 
     if(event->timerId() == timerLoop){
-
         Loop();
         //主循环
     }
@@ -386,23 +408,6 @@ void Game::removeSprite(spriteComponent* sprite)
 void Game::removeMyTimer(myTimer* timer)
 {
     delete timer;
-}
-
-//!释放数据
-void Game::unloadData()
-{
-    // while (!mGameObjects.empty())
-    // {
-    //     delete mGameObjects.back();
-    // }
-    // while (!mPendingObjects.empty())
-    // {
-    //     delete mPendingObjects.back();
-    // }
-    // while(!mSprites.empty())
-    // {
-    //     delete mSprites.back();
-    // }
 }
 
 void Game::keyPressInput(int e)
