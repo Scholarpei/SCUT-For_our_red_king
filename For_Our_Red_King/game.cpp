@@ -7,7 +7,6 @@
 #include"monster.h"
 #include "standard.h"
 #include <QAudioOutput>
-
 #include "qteobject.h"
 Game::Game(QObject *parent,MainWindow* window):
     QObject{parent},
@@ -334,11 +333,13 @@ void Game::Update()
         if (deadObject->getState() == GameObject::State::EDead)
         {
             deadObjects.emplace_back(deadObject);
+            qDebug()<<"删除死亡物体";
         }
     }
     // 释放掉所有死亡区的物体
     for (auto deadObject : deadObjects)
     {
+        this->removeGameObject(deadObject);
         delete deadObject;
     }
 
