@@ -1,4 +1,4 @@
-#include "player.h"
+﻿#include "player.h"
 #include "movecomponent.h"
 #include "game.h"
 #include "gameobject.h"
@@ -67,7 +67,7 @@ Player::Player(QObject *parent,Game* game):
 
 InterfacePlayer Player::intoInterface()
 {
-    return InterfacePlayer(this->getPosition().x(),this->getPosition().y());
+    return InterfacePlayer(this->getPosition().x(),this->getPosition().y(),this->getHP());
 }
 
 void Player::Update(){
