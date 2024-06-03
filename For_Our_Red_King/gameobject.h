@@ -8,6 +8,7 @@
 #include <QEvent>
 #include "statebase.h"
 #include  <QDebug>
+#include <QMouseEvent>
 class GameObject : public QObject
 {
     Q_OBJECT
@@ -35,7 +36,8 @@ public:
 
     virtual void inputKeyPressProcess(int key);   //处理键盘输入按下
     virtual void inputKeyReleaseProcess(int key);   //处理键盘输入松开
-    virtual void inputMousePressProcess(int key);   //处理鼠标按下
+    virtual void inputMousePressProcess(QMouseEvent * key);   //处理鼠标按下
+    virtual void inputMouseReleaseProcess(QMouseEvent * key); //处理鼠标松开
 
     QVector2D getScale();
     QVector2D getPosition();

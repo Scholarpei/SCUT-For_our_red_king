@@ -29,7 +29,7 @@ GameObject::~GameObject()
 
 void GameObject::Update()
 {
-    qDebug()<<"大基类的Update()实际上不应该运行到这里";
+    // qDebug()<<"大基类的Update()实际上不应该运行到这里";
     if(mState == State::EActive){
         for(auto component:mComponents){
             component->Update();
@@ -103,7 +103,11 @@ void GameObject::inputKeyReleaseProcess(int key){
     //不需要键盘事件的Object执行这个空函数
 }
 
-void GameObject::inputMousePressProcess(int key)
+void GameObject::inputMousePressProcess(QMouseEvent * key)
+{
+    //不需要鼠标事件的Object执行这个空函数
+}
+void GameObject::inputMouseReleaseProcess(QMouseEvent * key)
 {
     //不需要鼠标事件的Object执行这个空函数
 }
@@ -122,7 +126,7 @@ float GameObject::getHeight()
 int GameObject::getDirection()
 {
     qDebug()<<"调用了getDirection来自GameObject基类的函数，发生错误！\n";
-    return -1;
+    return 1;
 }
 
 void GameObject::setMoveDirection(int dir)

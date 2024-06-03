@@ -451,10 +451,7 @@ void BlockDoor::beingCollide(GameObject *s)
         case 2:
         {
             this->isOpen = false;
-
-            QTimer::singleShot(500,this,[=](){
-                this->mGame->mWindow->close();
-            });
+            this->mGame->ExitGame();//退出游戏
             break;
         }
         case 3:

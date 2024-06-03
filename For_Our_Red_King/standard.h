@@ -88,7 +88,7 @@ extern const int Player;//玩家
 extern const int QTE;//即时战斗模式
 extern const int specialEffect;//特效
 extern const int Exclamation;//敌人上的感叹号
-
+extern const int stopButton;
 }
 
 namespace SYSTEM{
@@ -140,6 +140,15 @@ namespace FILTER{
 extern const AnimationLoader ExitGameFilter;//退出游戏渐变黑色处理
 }
 
+namespace BUTTONS{
+extern const QVector2D stopButtonPOS;
+extern const int stopButtonWIDTH;
+extern const int stopButtonHEIGHT;
+extern const QString stopButtonTYPE1;
+extern const QString stopButtonTYPE2;
+extern const QString stopButtonTYPE3;
+extern const QString stopButtonTYPE4;
 
+}
 
 #endif // STANDARD_H

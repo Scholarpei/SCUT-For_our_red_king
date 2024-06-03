@@ -76,19 +76,20 @@ void FightQTE::Update()
     // 按照组件数组更新
 }
 
-void FightQTE::inputMousePressProcess(int e)
+void FightQTE::inputMousePressProcess(QMouseEvent * e)
 {
     //qDebug()<<"state_INHIT"<<state_INHIT<<key;
+    int key=e->button();
     if (!state_INHIT)
     {
         state_INHIT = 1;
         if (round == 2)
         {
-            round2Judge(e);
+            round2Judge(key);
         }
         else if (round == 3)
         {
-            round3Judge(e);
+            round3Judge(key);
         }
         state_INHIT = 0;
     }

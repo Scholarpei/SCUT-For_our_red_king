@@ -12,7 +12,7 @@ public:
     void initial();
     FightQTE(QObject *parent = nullptr, Game *game = nullptr);
     ~FightQTE();
-    virtual void inputMousePressProcess(int key) override;
+    virtual void inputMousePressProcess(QMouseEvent * key) override;
     void centralFunction();
     void Update() override;
     void rotation(int addAngle);

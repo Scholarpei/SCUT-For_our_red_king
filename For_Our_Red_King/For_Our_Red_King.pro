@@ -20,6 +20,7 @@ HEADERS += animationComponent.h \
            bleedingcomponent.h \
            blocks.h \
            brick.h \
+           buttons.h \
            component.h \
            fallcomponent.h \
            FightQTE.h \
@@ -45,6 +46,7 @@ HEADERS += animationComponent.h \
            spritecomponent.h \
            standard.h \
            statebase.h \
+           stopbutton.h \
            threedimenbutton.h \
            TimerComponent.h \
            walkingstate.h
@@ -54,6 +56,7 @@ SOURCES += animationComponent.cpp \
            bleedingcomponent.cpp \
            blocks.cpp \
            brick.cpp \
+           buttons.cpp \
            component.cpp \
            fallcomponent.cpp \
            FightQTE.cpp \
@@ -79,6 +82,7 @@ SOURCES += animationComponent.cpp \
            spritecomponent.cpp \
            standard.cpp \
            statebase.cpp \
+           stopbutton.cpp \
            threedimenbutton.cpp \
            TimerComponent.cpp \
            walkingstate.cpp

@@ -23,7 +23,7 @@ const AnimationLoader walking = AnimationLoader(":/pictureResoource/Monster/Walk
 const AnimationLoader fighting = AnimationLoader(":/pictureResoource/Monster/attack.png",
                                                 48,48,8);
 const AnimationLoader exclamation = AnimationLoader(":/pictureResoource/QTE/exclamation.png",
-                                                    256,226,5);
+                                                    256,226,3);
 const int MaxHP = 60;
 const int loseHPTimePeriod = 15;
 const int Monster_Width = 48;
@@ -118,7 +118,7 @@ const int Player = 110;//玩家
 const int   QTE = 120;//即时战斗模式
 const int specialEffect = 135;//特效
 const int Exclamation = 80;//敌人上的感叹号
-
+const int stopButton=120;//停止按钮
 }
 
 namespace SYSTEM{
@@ -169,4 +169,13 @@ const QString ORANGEPART=":/pictureResoource/QTE/QTE_orange.png";
 const int TIMEWIDTH = 1;
 const float leastQTEDistance = 200;
 
+}
+namespace BUTTONS{
+const QVector2D stopButtonPOS(SYSTEM::windowWidth-32,32);
+const int stopButtonWIDTH=32;
+const int stopButtonHEIGHT=32;
+const QString stopButtonTYPE1=":/pictureResoource/button/stopbutton_type1.png";
+const QString stopButtonTYPE2=":/pictureResoource/button/stopbutton_type2.png";
+const QString stopButtonTYPE3=":/pictureResoource/button/stopbutton_type3.png";
+const QString stopButtonTYPE4=":/pictureResoource/button/stopbutton_type4.png";
 }
