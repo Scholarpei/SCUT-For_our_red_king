@@ -31,6 +31,8 @@ public:
     void setRepeat(bool do_repeat);
     // 设置是否显示
     void setDisplay(bool do_display);
+    // 设置不透明度
+    void setOpacity(bool opa);
     // 多少刻切换一帧动画
     void TickPerFrame(short durationPerFrame);
     short TickPerFrame();
@@ -51,6 +53,7 @@ private:
     bool isRepeating;           // 是否重复播放
     bool willReStart;           // 播放时是否重新开始
     bool isDisplaying;          // 图片是否显示
+    double opacity;             // 不透明度
 
     AnimationLoader animation;  // 动画本尊哒
 

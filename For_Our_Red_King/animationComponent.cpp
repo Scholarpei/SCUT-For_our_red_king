@@ -10,7 +10,8 @@ AnimationComponent::AnimationComponent(GameObject *gameObject, int drawOrder):
     isPlaying(false),
     isRepeating(false),
     willReStart(true),
-    isDisplaying(true)
+    isDisplaying(true),
+    opacity(1.0)
 {
 
 }
@@ -24,6 +25,7 @@ void AnimationComponent::Draw()
 {
     if(this->isDisplaying)
     {
+        this->mGameObject->mGame->mWindow->mPainter->setOpacity(this->opacity);
         QRect target1(this->mGameObject->getPosition().x(),
                       this->mGameObject->getPosition().y(),
                       mGameObject->mWidth * mGameObject->getScale().x(),
@@ -104,6 +106,11 @@ void AnimationComponent::setRepeat(bool do_repeat)
 void AnimationComponent::setDisplay(bool do_display)
 {
     this->isDisplaying = do_display;
+}
+
+void AnimationComponent::setOpacity(bool opa)
+{
+    this->opacity = opa;
 }
 
 void AnimationComponent::TickPerFrame(short durationPerFrame)
