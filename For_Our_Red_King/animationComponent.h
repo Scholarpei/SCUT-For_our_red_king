@@ -37,13 +37,17 @@ public:
     void TickPerFrame(short durationPerFrame);
     short TickPerFrame();
 
+    //下面为令子类访问数据的辅助函数
+    void setCurrentTick(int val);//用来子类设置CurrentTick
+    int getCurrentTick();//子类获取CurrentTick
+    int getCurrentFrame();//子类获取
+    bool getIsRepeating();//子类获取
+    void setCurrentFrame(int val);//子类设置
 
-
-private:
+protected:
     //以下都是实现切换动画所用
-
-
     short TICKS_PER_FRAME = SYSTEM::durationPerFrame;
+    AnimationLoader animation;  // 动画本尊哒
 
 
     QPixmap spriteSheet;        // 雪碧图
@@ -55,10 +59,11 @@ private:
     bool isDisplaying;          // 图片是否显示
     double opacity;             // 不透明度
 
-    AnimationLoader animation;  // 动画本尊哒
-
     //下一帧
     void nextTick();
+
+private:
+
 
 };
 

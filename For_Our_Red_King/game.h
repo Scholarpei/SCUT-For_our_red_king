@@ -23,8 +23,10 @@ class Game: public QObject
 {
     Q_OBJECT
 public:
+
+    bool isQTE = false;      //!<正在QTE中
+
     Player* mPlayer;                  //!<    玩家角色
-    Monster* mMonster;                  //!<  怪物角色
     std::vector<GameObject*> mGameObjects;        //!<    游戏物体容器
     std::vector<spriteComponent*>mSprites;          //!<   精灵容器
     MainWindow* mWindow;                          //!<  主界面

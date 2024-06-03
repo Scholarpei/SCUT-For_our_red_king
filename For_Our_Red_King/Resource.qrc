@@ -36,5 +36,6 @@
         <file>pictureResoource/QTE/QTE_orange.png</file>
         <file>pictureResoource/QTE/QTE_red.png</file>
         <file>pictureResoource/icon.ico</file>
+        <file>pictureResoource/QTE/exclamation.png</file>
     </qresource>
 </RCC>

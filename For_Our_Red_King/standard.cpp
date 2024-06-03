@@ -22,10 +22,17 @@ const AnimationLoader walking = AnimationLoader(":/pictureResoource/Monster/Walk
                                                 48,48,6);
 const AnimationLoader fighting = AnimationLoader(":/pictureResoource/Monster/attack.png",
                                                 48,48,8);
+const AnimationLoader exclamation = AnimationLoader(":/pictureResoource/QTE/exclamation.png",
+                                                    256,226,1);
 const int MaxHP = 60;
 const int loseHPTimePeriod = 15;
 const int Monster_Width = 48;
 const int Monster_Height = 60;
+
+const float exclamationXOffset = 7;//感叹号相比于monster的x上的偏移量
+const float exclamationYOffset = -10;//感叹号相比于monster的y上的偏移量
+const int ExclamationWidth = 32;
+const int ExclamationHeight = 32;
 }
 
 namespace BACKGROUND{
@@ -109,6 +116,7 @@ const int Monster = 90;//敌人
 const int Player = 110;//玩家
 const int   QTE = 120;//即时战斗模式
 const int specialEffect = 135;//特效
+const int Exclamation = 80;//敌人上的感叹号
 
 }
 
@@ -144,7 +152,7 @@ const QString PlatePicture=":/pictureResoource/QTE/QTE_Plate.png";
 const int qteWidth=32*12;
 const int qteHeight=32*12;
 const QVector2D centralPosition(SYSTEM::windowWidth/2,SYSTEM::windowHeight/2);
-const int addAngle=5;
+const int addAngle=7;
 const int DELTAANGLE = 15;
 const int BEGINANGLE=0;
 const int ROUNDENDANGLE=290;

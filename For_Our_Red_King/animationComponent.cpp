@@ -140,5 +140,29 @@ void AnimationComponent::nextTick()
     }
 }
 
+int AnimationComponent::getCurrentTick()
+{
+    return this->currentTick;
+}
+
+void AnimationComponent::setCurrentTick(int val)
+{
+    this->currentTick = val;
+}
+
+int AnimationComponent::getCurrentFrame()
+{
+    return this->currentFrame;
+}
+void AnimationComponent::setCurrentFrame(int val)
+{
+    this->currentFrame = val;
+}
+
+bool AnimationComponent::getIsRepeating()
+{
+    return this->isRepeating;
+}
+
 
 

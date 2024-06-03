@@ -22,10 +22,17 @@ namespace MONSTER {
     extern const AnimationLoader idle;
     extern const AnimationLoader walking;
     extern const AnimationLoader fighting;
+    extern const AnimationLoader exclamation;
     extern const int MaxHP;
     extern const int loseHPTimePeriod;
     extern const int Monster_Width;
     extern const int Monster_Height;
+
+    extern const float exclamationXOffset;//感叹号相比于monster的x上的偏移量
+    extern const float exclamationYOffset;//感叹号相比于monster的y上的偏移量
+    extern const int ExclamationWidth;
+    extern const int ExclamationHeight;
+
 }
 
 namespace BACKGROUND{
@@ -79,6 +86,7 @@ extern const int Monster;//敌人
 extern const int Player;//玩家
 extern const int QTE;//即时战斗模式
 extern const int specialEffect;//特效
+extern const int Exclamation;//敌人上的感叹号
 
 }
 

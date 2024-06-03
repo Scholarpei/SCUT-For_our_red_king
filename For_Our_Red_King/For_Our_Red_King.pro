@@ -35,6 +35,7 @@ HEADERS += animationComponent.h \
            movecomponent.h \
            musicplayer.h \
            mytimer.h \
+           newanimationcomponent.h \
            newspritecomponent.h \
            player.h \
            playerstatesset.h \
@@ -67,6 +68,7 @@ SOURCES += animationComponent.cpp \
            movecomponent.cpp \
            musicplayer.cpp \
            mytimer.cpp \
+           newanimationcomponent.cpp \
            newspritecomponent.cpp \
            player.cpp \
            playerstatesset.cpp \

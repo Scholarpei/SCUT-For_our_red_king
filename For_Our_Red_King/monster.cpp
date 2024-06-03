@@ -24,6 +24,11 @@ Monster::Monster(QObject *parent,Game* game):
     this-> moveCom = new MoveComponent(this);
     this-> fallCom = new FallComponent(this);
     this->animation= new AnimationComponent(this, DRAWORRDER::Monster);
+    this->exclamationAnimation = new NewAnimationComponent(this,DRAWORRDER::Exclamation);
+    exclamationAnimation->resetAnimation(MONSTER::exclamation);
+    exclamationAnimation->setDisplay(false);    //感叹号flag要设置刚开始不可见
+    exclamationAnimation->setOffset(MONSTER::exclamationXOffset,MONSTER::exclamationYOffset);
+    exclamationAnimation->setRect(MONSTER::ExclamationWidth,MONSTER::ExclamationHeight);
     this->mSpeedX = ACTIONCONST::monsterMoveXSpeed;
         //设置player精灵drawOrder = standard常量
 
@@ -33,6 +38,7 @@ Monster::Monster(QObject *parent,Game* game):
     this->addComponent(moveCom);
     this->addComponent(fallCom);
     this->addComponent(animation);
+    this->addComponent(exclamationAnimation);
     //添加组件到组件数组中
 }
 
@@ -50,6 +56,7 @@ void Monster::Update(){
         //在可进行qte的范围之内
         if(!setQteFlag){
             setQteFlag = true;
+            this->exclamationAnimation->show(false);
             //生成
         }
     }
@@ -57,7 +64,7 @@ void Monster::Update(){
         //超出可进行qte的范围之外
         if(setQteFlag){
             setQteFlag = false;
-
+            this->exclamationAnimation->setDisplay(false);
         }
     }
     //判断怪物跟玩家距离并以此为依据决定是否可以进行qte

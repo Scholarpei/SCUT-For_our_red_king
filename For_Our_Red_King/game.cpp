@@ -14,8 +14,7 @@ Game::Game(QObject *parent,MainWindow* window):
     mIsRuning(true),
     mIsUpdating(false),
     mIsLooping(false),
-    mPlayer(nullptr),
-    mMonster(nullptr)
+    mPlayer(nullptr)
 {
     qDebug()<<"到达Game对象构造函数处";
     mWindow = window;
@@ -34,11 +33,10 @@ Game::Game(QObject *parent,MainWindow* window):
 void Game::generateContent()
 {
     mPlayer = new Player(this,this);
-    createGameObject(mPlayer);
     mQTE= new QTEObject(this,this);
+    Monster* mMonster = new Monster(this,this);
+    createGameObject(mPlayer);
     createGameObject(mQTE);
-    //创建玩家对象
-    mMonster = new Monster(this,this);
     createGameObject(mMonster);
 
     {
@@ -302,7 +300,15 @@ void Game::removeGameObject(GameObject* gameObject)
 void Game::Event()
 {
     //to be written需要做的事件操作
+    // QVector2D playerPos = mPlayer->getPosition();
+    // QVector2D monsterPos;
+    // float dis;
+    // for(auto t_gameObject : mGameObjects)
+    //     if(t_gameObject->gameObjectType == GameObject::Type::Monster){
+    //         monsterPos = t_gameObject->getPosition();
+    //         dis = std::sqrt(pow(playerPos.x()-monsterPos.x(),2) + pow(playerPos.y()-monsterPos.y(),2));
 
+    //     }
     //判定玩家跟各个object距离
 }
 

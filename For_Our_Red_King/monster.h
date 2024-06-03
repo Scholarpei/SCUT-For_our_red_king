@@ -7,6 +7,7 @@
 #include"animationComponent.h"
 #include<QDebug>
 #include"standard.h"
+#include "newanimationcomponent.h"
 class GameObject;
 class Monster : public GameObject
 {
@@ -39,7 +40,10 @@ public:
     FallComponent * fallCom;       //掉落组件
     MoveComponent * moveCom;        //移动组件
     AnimationComponent* animation;           //动画组件
+
     int changeTheFightingAnimation;              //是否对打玩家图片特殊处理
+
+    NewAnimationComponent* exclamationAnimation;   //感叹号的动画组件
 
 private:
     bool initialGroundFlag = false;  //!<刚开始怪物用于落地用的flag
