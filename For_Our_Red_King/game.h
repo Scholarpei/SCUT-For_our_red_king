@@ -11,6 +11,7 @@
 #include <QPainter>
 #include "mainwindow.h"
 #include "musicplayer.h"
+#include "interface.h"
 
 class GameObject;
 class spriteComponent;
@@ -54,17 +55,21 @@ public:
 
     void generateContent();//!<临时生成关卡信息的函数
 
+    void changeLevel(Interface i);   //!<改变关卡、回到主界面函数
+    void loadData(QString target);   //!<加载数据
+    void unloadData();               //!<释放数据
+    void ExitGame();                 //!<游戏结束函数
+    bool mIsRuning = true;                      //!<    运行状态
+
 protected:
     virtual void timerEvent(QTimerEvent *event);    //!<定时器事件
-
 
 private:
     MusicPlayer * mMusicPlayer ;                    //!<音乐播放player
     std::vector<GameObject*> mPendingObjects;        //!<    等待状态的游戏物体容器
 
-    bool    mIsUpdating;                    //!<    是否在更新状态
-    bool    mIsRuning;                      //!<    运行状态
-    bool    mIsLooping;                     //!<    是否在循环中
+    bool    mIsUpdating = false;                    //!<    是否在更新状态
+    bool    mIsLooping = false;                     //!<    是否在循环中
 
     int timerLoop;                    //!<主循环Loop的timer ID
     myTimer* mTimer;                  //!<主循环用timer
@@ -74,8 +79,6 @@ private:
     void Update();                       //!<更新
     void Draw();                         //!<绘制
     void Tick(int fps);                  //!<设置帧率
-    void loadData();                     //!<加载数据
-    void unloadData();                   //!<释放数据
 
 signals:
 };

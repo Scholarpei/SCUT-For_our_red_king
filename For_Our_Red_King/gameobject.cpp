@@ -27,7 +27,7 @@ GameObject::~GameObject()
 
 void GameObject::Update()
 {
-    qDebug()<<"大基类的Update()实际上不应该运行到这里";
+    // qDebug()<<"大基类的Update()实际上不应该运行到这里";
     if(mState == State::EActive){
         for(auto component:mComponents){
             component->Update();
@@ -120,7 +120,7 @@ float GameObject::getHeight()
 int GameObject::getDirection()
 {
     qDebug()<<"调用了getDirection来自GameObject基类的函数，发生错误！\n";
-    return -1;
+    return 1;
 }
 
 void GameObject::setMoveDirection(int dir)

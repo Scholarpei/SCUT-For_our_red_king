@@ -52,3 +52,11 @@ void MainWindow::mousePressEvent(QMouseEvent * e)
 {
     mGame->mousePressInput(e->button());
 }
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    qDebug()<<"关闭游戏event";
+    if(mGame->mIsRuning)
+        this->mGame->ExitGame(),event->ignore();//如果从右上角退出不会清除数据，因此执行ExitGame函数
+    else event->accept();
+}
