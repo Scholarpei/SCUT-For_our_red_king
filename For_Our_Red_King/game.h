@@ -11,19 +11,19 @@
 #include <QPainter>
 #include "mainwindow.h"
 #include "musicplayer.h"
-
+#include "stopbutton.h"
 class GameObject;
 class spriteComponent;
 class Player;
 class myTimer;
 class Monster;
-
+class StopButton;
 class QTEObject;
 class Game: public QObject
 {
     Q_OBJECT
 public:
-
+    bool stop=false;
     bool isQTE = false;      //!<正在QTE中
 
     Player* mPlayer;                  //!<    玩家角色
@@ -41,8 +41,8 @@ public:
 
     void keyPressInput(int event);  //!<按下按键event
     void keyReleaseInput(int event); //!<松开按键event
-    void mousePressInput(int event); //!<按下鼠标按键event
-
+    void mousePressInput(QMouseEvent * event); //!<按下鼠标按键event
+    void mouseReleaseInput(QMouseEvent *  event);
 
     void createGameObject(GameObject*);  //!<创建gameObject
     void removeGameObject(GameObject*);  //!<移除gameObject
@@ -69,7 +69,7 @@ private:
     int timerLoop;                    //!<主循环Loop的timer ID
     myTimer* mTimer;                  //!<主循环用timer
     QTEObject* mQTE;                    //!< qte
-
+    StopButton* stopbutton;
 
     void Update();                       //!<更新
     void Draw();                         //!<绘制

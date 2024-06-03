@@ -50,5 +50,9 @@ void MainWindow::keyReleaseEvent(QKeyEvent* event)
 
 void MainWindow::mousePressEvent(QMouseEvent * e)
 {
-    mGame->mousePressInput(e->button());
+    mGame->mousePressInput(e);
+}
+void MainWindow::mouseReleaseEvent(QMouseEvent * e)
+{
+    mGame->mouseReleaseInput(e);
 }

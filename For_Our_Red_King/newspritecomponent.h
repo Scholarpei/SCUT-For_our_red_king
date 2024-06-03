@@ -12,6 +12,7 @@ public:
     void setScale(float scale);
     void setPos(int x,int y);
     void setNeedDraw(bool yesOrno);
+    void reload();
     bool getNeedDraw()const;
     ~NewspriteComponent();
     // void setAlpha(int alpha);

@@ -38,5 +38,9 @@
         <file>pictureResoource/icon.ico</file>
         <file>pictureResoource/QTE/exclamation.png</file>
         <file>pictureResoource/background/exitGameFilter.jpg</file>
+        <file>pictureResoource/button/stopbutton_type1.png</file>
+        <file>pictureResoource/button/stopbutton_type2.png</file>
+        <file>pictureResoource/button/stopbutton_type3.png</file>
+        <file>pictureResoource/button/stopbutton_type4.png</file>
     </qresource>
 </RCC>

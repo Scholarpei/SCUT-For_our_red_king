@@ -101,7 +101,11 @@ void GameObject::inputKeyReleaseProcess(int key){
     //不需要键盘事件的Object执行这个空函数
 }
 
-void GameObject::inputMousePressProcess(int key)
+void GameObject::inputMousePressProcess(QMouseEvent * key)
+{
+    //不需要鼠标事件的Object执行这个空函数
+}
+void GameObject::inputMouseReleaseProcess(QMouseEvent * key)
 {
     //不需要鼠标事件的Object执行这个空函数
 }

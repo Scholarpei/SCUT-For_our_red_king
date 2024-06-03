@@ -36,7 +36,7 @@ void QTEObject::startQTEfrom3(){
 void QTEObject::setContinue(bool isContinue){
     neednextRound=isContinue;
 }
-void QTEObject::inputMousePressProcess(int e){
+void QTEObject::inputMousePressProcess(QMouseEvent * e){
     this->FightQTE::inputMousePressProcess(e);
 }
 void QTEObject::inputKeyPressProcess(int key){

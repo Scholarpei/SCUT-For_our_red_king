@@ -7,6 +7,7 @@
 #include"monster.h"
 #include "standard.h"
 #include <QAudioOutput>
+#include "stopbutton.h"
 
 #include "qteobject.h"
 Game::Game(QObject *parent,MainWindow* window):
@@ -35,9 +36,11 @@ void Game::generateContent()
     mPlayer = new Player(this,this);
     mQTE= new QTEObject(this,this);
     Monster* mMonster = new Monster(this,this);
+    stopbutton=new StopButton(this,this);
     createGameObject(mPlayer);
     createGameObject(mQTE);
     createGameObject(mMonster);
+    createGameObject(stopbutton);
 
     {
         // 测试用创建砖块
@@ -225,8 +228,8 @@ void Game::Loop()
     {
         mIsLooping = true;
         Event();
+        if(!stop)
         Update();
-
         mWindow->update();
         // Draw();
 
@@ -418,10 +421,18 @@ void Game::keyReleaseInput(int e)
     }
 }
 
-void Game::mousePressInput(int e)
+void Game::mousePressInput(QMouseEvent * e)
 {
     if(this->mIsRuning){
         for(auto gameObject:mGameObjects)
             gameObject->inputMousePressProcess(e);
+    }
+}
+
+void Game::mouseReleaseInput(QMouseEvent * e)
+{
+    if(this->mIsRuning){
+        for(auto gameObject:mGameObjects)
+            gameObject->inputMouseReleaseProcess(e);
     }
 }
