@@ -52,6 +52,8 @@ void AnimationComponent::Draw()
         else{
             this->mGameObject->mGame->mWindow->mPainter->drawPixmap(target1, frame);
         }
+        this->mGameObject->mGame->mWindow->mPainter->setOpacity(1.0);
+
     }
 
     if(this->isPlaying)
