@@ -64,8 +64,8 @@ private:
     bool initialGroundFlag = false;  //!<刚开始怪物用于落地用的flag
     int moveDirection;     //!< 运动方向 1为右，-1为左
     int HP = MONSTER::MaxHP;                //!< 血量
-    long long loseHP_timeCount;  //!< 距离上一次扣血已经经过的时间
-    float mSpeedX ,mSpeedY;     //!< 移动速度 X横,Y竖
+    long long loseHP_timeCount = 0;  //!< 距离上一次扣血已经经过的时间
+    float mSpeedX = 0 ,mSpeedY =  0;     //!< 移动速度 X横,Y竖
 
     bool setQteFlag;         //!<是否以及设置可进行qte表示图标的flag
 };
