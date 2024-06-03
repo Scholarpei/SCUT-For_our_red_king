@@ -28,8 +28,16 @@ void QTEObject::QTEshowGraph(bool isOrnot){
     }
 }
 
+void QTEObject::startQTEfrom3(){
+    this->neednextRound=1;
+    this->QTEBegin();
+    this->round=3;
+}
 void QTEObject::setContinue(bool isContinue){
     neednextRound=isContinue;
+}
+void QTEObject::inputMousePressProcess(int e){
+    this->FightQTE::inputMousePressProcess(e);
 }
 void QTEObject::inputKeyPressProcess(int key){
     if(key=='Z')
@@ -42,6 +50,8 @@ void QTEObject::inputKeyPressProcess(int key){
         this->QTEEnd();
     if(key=='M')
         this->neednextRound=1;
+    if(key=='N')
+        this->startQTEfrom3();
     this->FightQTE::inputKeyPressProcess(key);
 }
 

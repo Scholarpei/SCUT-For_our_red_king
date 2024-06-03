@@ -76,7 +76,7 @@ void FightQTE::Update()
     // 按照组件数组更新
 }
 
-void FightQTE::inputKeyPressProcess(int key)
+void FightQTE::inputMousePressProcess(int e)
 {
     //qDebug()<<"state_INHIT"<<state_INHIT<<key;
     if (!state_INHIT)
@@ -84,11 +84,11 @@ void FightQTE::inputKeyPressProcess(int key)
         state_INHIT = 1;
         if (round == 2)
         {
-            round2Judge(key);
+            round2Judge(e);
         }
         else if (round == 3)
         {
-            round3Judge(key);
+            round3Judge(e);
         }
         state_INHIT = 0;
     }
@@ -170,19 +170,23 @@ void FightQTE::rotation(int addAngle)
             round++;
         if (round > 3)
             round = 3;
+        if(round==3)
+            sprite_colors.at(TargetAngle)->setNeedDraw(1);
+        if (neednextRound)
+            colorInitial = 0;
         cnt = 0;
         isHit = 0;
     }
     sprite_Point->setAngle(drawAngle(angle));
 }
-inline int FightQTE::changeKeyToNumber(int key)
+inline int FightQTE::changeKeyToNumber(int e)
 {
     int number;
-    if (key == 'A')
+    if (e == Qt::LeftButton)
         number = 0;
-    else if (key == 'D')
+    else if (e == Qt::RightButton)
         number = 1;
-    else if (key == ' ')
+    else if (e == Qt::MiddleButton)
         number = 2;
     return number;
 }
@@ -214,6 +218,7 @@ void FightQTE::round2Judge(int key)
             if(cnt>3)cnt=3;
             isHit = 1;
             sprite_colors.at(cnt - 1)->setNeedDraw(0);
+
             //!< correct
             //! <sound
             //! <animation
@@ -248,15 +253,13 @@ void FightQTE::round3Judge(int key)
             //! <sound
             //! <animation
             win();
-            if (neednextRound)
-                colorInitial = 0;
         }
     }
 }
 void FightQTE::startQTE()
 {
     state_INHIT = 0;
-    rotation(-angle - QTE::addAngle);
+    rotation(-angle+QTE::ROUNDENDANGLE);
     round = 1;
     roundIncre = 1;
     cnt = 0;

@@ -94,6 +94,7 @@ namespace SYSTEM{
     extern const int durationPerFrame;
 
     extern const QString bgmURL;
+    extern const QString icon;
 }
 namespace ACTIONCONST{
 extern const float maxSpeed;
@@ -120,8 +121,8 @@ extern const int ROUNDENDANGLE;
 extern const QString REDPART;
 extern const QString BLUEPART;
 extern const QString ORANGEPART;
-extern const int SCALETIME;
 
+extern const int TIMEWIDTH;
 extern const float leastQTEDistance;  //最小可qte距离
 }
 

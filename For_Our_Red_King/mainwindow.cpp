@@ -12,9 +12,9 @@ MainWindow::MainWindow(QWidget *parent):
     ui->setupUi(this);//设置主菜单ui界面
     this->setWindowTitle(QString("为了红王"));
     this->setFocusPolicy(Qt::StrongFocus);     //对主窗口进行强关注
+    this->setWindowIcon(QIcon(SYSTEM::icon));
     this->setFixedSize(SYSTEM::windowWidth,SYSTEM::windowHeight);             //!<设置分辨率为1960*1080
     mPainter = new QPainter(this);
-
     // QPainter mPainter(this);
     // mPainter.drawPixmap(0,0,QPixmap(":/pictureResoource/Player/idle.png"));
 
