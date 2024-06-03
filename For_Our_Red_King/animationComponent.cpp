@@ -108,7 +108,7 @@ void AnimationComponent::setDisplay(bool do_display)
     this->isDisplaying = do_display;
 }
 
-void AnimationComponent::setOpacity(bool opa)
+void AnimationComponent::setOpacity(double opa)
 {
     this->opacity = opa;
 }

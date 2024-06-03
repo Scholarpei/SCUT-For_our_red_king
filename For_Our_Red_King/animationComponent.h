@@ -32,7 +32,7 @@ public:
     // 设置是否显示
     void setDisplay(bool do_display);
     // 设置不透明度
-    void setOpacity(bool opa);
+    void setOpacity(double opa);
     // 多少刻切换一帧动画
     void TickPerFrame(short durationPerFrame);
     short TickPerFrame();

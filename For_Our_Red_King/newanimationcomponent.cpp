@@ -16,6 +16,7 @@ NewAnimationComponent::~NewAnimationComponent()
 
 void NewAnimationComponent::Update()
 {
+    setOpacity((double)this->getCurrentFrame()/(this->animation.GetpixFrame()-1));
     //设置透明度
 }
 
@@ -35,12 +36,13 @@ void NewAnimationComponent::Draw()
 {
     if(this->isDisplaying)
     {
+        this->mGameObject->mGame->mWindow->mPainter->setOpacity(this->opacity);
         QRect target1(this->mGameObject->getPosition().x() + this->xOffset,
                       this->mGameObject->getPosition().y()+this->yOffset,
                       this->mWidth,
                       this->mHeight);
 
-        QRect source(this->animation.GetpixX() * this->currentFrame,
+        QRect source(0,
                      0,
                      this->animation.GetpixX(),
                      this->animation.GetpixY());
