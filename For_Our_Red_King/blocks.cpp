@@ -646,6 +646,10 @@ void BlockDamage::Update()
 
 void BlockDamage::beingCollide(GameObject *s)
 {
+    if(s->gameObjectType != GameObject::Type::Player)
+    {
+        return;
+    }
     if(this->current_tick == 0)
     {
         this->mGame->mPlayer->loseHPEvent(this->damage);
