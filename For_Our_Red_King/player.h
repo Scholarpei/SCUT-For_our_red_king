@@ -32,7 +32,7 @@ public:
     // explicit Player(QObject *parent = nullptr,class Game* game = nullptr,InterfacePlayer i = InterfacePlayer ());
 
     class PlayerStatesSet* _playerStateSet;    //!<玩家状态集合
-    enum class playerState{IDLE,JUMPING,WALKING};//!玩家状态集合（判断）
+    enum class playerState{IDLE,JUMPING,WALKING,DYING};//!玩家状态集合（判断）
     bool jumpFinalStateDecision =  1;   //!<决定跳跃后落地是walking还是idle
     playerState mPlayerState;
     virtual void changePlayerState(playerState state);//!改变玩家状态
