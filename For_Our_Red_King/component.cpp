@@ -1,4 +1,4 @@
-#include "component.h"
+﻿#include "component.h"
 #include "gameobject.h"
 #include<QDebug>
 Component::Component(GameObject* gameObject):
@@ -10,6 +10,7 @@ Component::Component(GameObject* gameObject):
 
 Component::~Component()
 {
+    qDebug("component base des");
     mGameObject->removeComponent(this);
 }
 

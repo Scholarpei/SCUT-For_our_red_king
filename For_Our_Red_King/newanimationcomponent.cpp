@@ -1,4 +1,4 @@
-#include "newanimationcomponent.h"
+﻿#include "newanimationcomponent.h"
 #include "gameobject.h"
 #include "game.h"
 
@@ -13,6 +13,7 @@ NewAnimationComponent::NewAnimationComponent(GameObject * gameObject,int drawOrd
 NewAnimationComponent::~NewAnimationComponent()
 {
     //执行父类的即可
+    qDebug("new destr");
 }
 
 void NewAnimationComponent::Update()

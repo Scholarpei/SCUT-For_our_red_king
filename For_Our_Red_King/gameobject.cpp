@@ -1,4 +1,4 @@
-#include "gameobject.h"
+﻿#include "gameobject.h"
 #include "game.h"
 #include "component.h"
 
@@ -16,13 +16,15 @@ GameObject::GameObject(QObject *parent,Game *game):
 
 GameObject::~GameObject()
 {
-    this->mState = State::EDead;
+    // this->mState = State::EDead;
+    qDebug("gameobject destructor");
     while (!mComponents.empty())
     {
+        Component* tmp = mComponents.back();
+        delete tmp;
         this->removeComponent(mComponents.back());
         // mComponents.pop_back();
     }
-    mGame->removeGameObject(this);
 }
 
 void GameObject::Update()
