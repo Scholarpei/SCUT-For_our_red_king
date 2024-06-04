@@ -14,7 +14,7 @@ class GameObject : public QObject
     Q_OBJECT
 public:
 
-    bool attendCollision;    //!<gameObject对象是否参与碰撞
+    bool attendCollision = 1;    //!<gameObject对象是否参与碰撞
     float mWidth;         //!<贴图宽度
     float mHeight;        //!<贴图高度
 
@@ -83,7 +83,7 @@ public:
 
 private:
     QVector2D mPosition;   //!<当前位置坐标
-    QVector2D mScale;      //!<缩放    注意：第一维x.()是宽度,第二维y.()是高度
+    QVector2D mScale = QVector2D(1.0,1.0);      //!<缩放    注意：第一维x.()是宽度,第二维y.()是高度
 protected:
     std::vector<class Component*> mComponents;    //组件数组
 

@@ -25,9 +25,12 @@ public:
     virtual void lose_typetwo(); // 打错或者重复打
     bool roundIncre = 0;
 
+    MusicPlayer* mbgmPlayer;//播放鼓点音乐的
+    MusicPlayer*mSoundPlayer;//播放音效的
+
 protected:
-    int angle; // 0-360
-    int round; // 通过roundtype来设置round
+    int angle = QTE::BEGINANGLE; // 0-360
+    int round = 0; // 通过roundtype来设置round
     // float scale;//color用的缩放
     // int scalecnt;
 

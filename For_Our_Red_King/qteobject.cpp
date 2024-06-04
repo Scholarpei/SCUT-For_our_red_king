@@ -7,6 +7,10 @@ QTEObject::QTEObject(QObject *parent,Game* game,Monster* enermy)
     this->enermy=enermy;
     QTEshowGraph(0);
 }
+QTEObject::~QTEObject()
+{
+
+}
 void QTEObject::setMonster(Monster* monster){
     this->enermy=monster;
 }
@@ -57,11 +61,28 @@ void QTEObject::inputKeyPressProcess(int key){
 
 //自己写。
 void QTEObject::win(){
+    this->QTEEnd();
     qDebug() << "win";
+    this->QTEshowGraph(false);
+    this->mGame->qteWinPeriodFlag = true;  //设置追击flag
+    this->mGame->qteWintimer = 0;   //追击计时器归零
+    enermy->changeMonsterState(Monster::MonsterState::DYING);//改变为死亡状态
 }
 void QTEObject::lose_typeone(){
+    this->QTEEnd();
     qDebug() << "type1";
+    this->QTEshowGraph(false);
+    this->mGame->mPlayer->loseHPEvent(this->enermy->getMonsterATK());//减怪物的攻击力的血量
+    this->mGame->mSoundPlayer->stop();//停止鼓点
+    this->mGame->mMusicPlayer->setVolumeProportion(0.8f);//设置背景音乐恢复音量
+    this->mGame->nowIsQTE = false;//结束qte,flag设置为false
 }
 void QTEObject::lose_typetwo(){
+    this->QTEEnd();
     qDebug() << "type2";
+    this->QTEshowGraph(false);
+    this->mGame->mPlayer->loseHPEvent(this->enermy->getMonsterATK());//减怪物的攻击力的血量
+    this->mGame->mSoundPlayer->stop();//停止鼓点
+    this->mGame->mMusicPlayer->setVolumeProportion(0.8f);//设置背景音乐恢复音量
+    this->mGame->nowIsQTE = false;//结束qte,flag设置为false
 }

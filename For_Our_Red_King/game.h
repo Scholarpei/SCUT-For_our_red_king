@@ -28,7 +28,6 @@ class Game: public QObject
     Q_OBJECT
 public:
     bool stop=false;
-    bool isQTE = false;      //!<正在QTE中
 
     Player* mPlayer;                  //!<    玩家角色
     std::vector<GameObject*> mGameObjects;        //!<    游戏物体容器
@@ -68,11 +67,13 @@ public:
     bool qteWinPeriodFlag = false;   //!<qte结束后需要追击的flag
     int qteWintimer = 0;             //!<qte结束后等待时间的计时器
 
+    MusicPlayer* mSoundPlayer;  //!音效播放player
+    MusicPlayer * mMusicPlayer ; //!<音乐播放player
+
 protected:
     virtual void timerEvent(QTimerEvent *event);    //!<定时器事件
 
 private:
-    MusicPlayer * mMusicPlayer ;                    //!<音乐播放player
     std::vector<GameObject*> mPendingObjects;        //!<    等待状态的游戏物体容器
 
     bool    mIsUpdating = false;                    //!<    是否在更新状态
@@ -84,7 +85,6 @@ private:
     StopButton* stopbutton;
     ReturnMainButton* returnmainbutton;
     Interface* mInterface;            //!<关卡data的Interface
-
 
     void Update();                       //!<更新
     void Draw();                         //!<绘制

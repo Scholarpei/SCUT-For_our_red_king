@@ -3,5 +3,11 @@
         <file>sound/player/soundPlayerWalking.wav</file>
         <file>sound/system/bgm.wav</file>
         <file>sound/player/soundPlayerJumping.wav</file>
+        <file>sound/qte/firstStartQTE.wav</file>
+        <file>sound/qte/hit1.wav</file>
+        <file>sound/qte/hit2.wav</file>
+        <file>sound/qte/hit3.wav</file>
+        <file>sound/qte/QTEContinue.wav</file>
+        <file>sound/monster/monsterBeingDestroyed.wav</file>
     </qresource>
 </RCC>
