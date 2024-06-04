@@ -29,6 +29,12 @@ Game::Game(QObject *parent,MainWindow* window):
 
 }
 
+void loadData(QString target)
+{
+
+}
+
+//!退出游戏就调用这个函数
 void Game::ExitGame()
 {
     //这里要制作退出游戏的缓冲动画
@@ -42,7 +48,6 @@ void Game::ExitGame()
 
     QTimer::singleShot(1000,this,[=](){
         unloadData();//先清除数据
-        this->removeGameObject(tempObject);
         mIsRuning = false;  //游戏结束标记flag
         this->mWindow->close();
     });//退出游戏
@@ -52,7 +57,10 @@ void Game::ExitGame()
 void Game::unloadData()
 {
     //清除上一关的GameObject、Sprites、Timers或者结束游戏
-
+    while(!mGameObjects.empty())
+        this->removeGameObject(mGameObjects[0]);
+    while(!mSprites.empty())
+        this->removeSprite(mSprites[0]);
 }
 
 void Game::generateContent()
@@ -290,7 +298,6 @@ void Game::Loop()
     {
         mIsLooping = true;
         Event();
-        if(!stop)
         Update();
         mWindow->update();
         // Draw();
@@ -357,22 +364,65 @@ void Game::removeGameObject(GameObject* gameObject)
 void Game::Event()
 {
     //to be written需要做的事件操作
-    // QVector2D playerPos = mPlayer->getPosition();
-    // QVector2D monsterPos;
-    // float dis;
-    // for(auto t_gameObject : mGameObjects)
-    //     if(t_gameObject->gameObjectType == GameObject::Type::Monster){
-    //         monsterPos = t_gameObject->getPosition();
-    //         dis = std::sqrt(pow(playerPos.x()-monsterPos.x(),2) + pow(playerPos.y()-monsterPos.y(),2));
 
-    //     }
-    //判定玩家跟各个object距离
+    //qte win后的动画等待事件开始
+    if(this->qteWinPeriodFlag){
+        this->qteWintimer++;
+        if(qteWintimer > QTE::QteWinWaitingTime){//win的动画效果结束，开始自动寻找追击对象
+            this->qteWinPeriodFlag = false;  //要设置为false
+            Monster* sourceMonsterPtr = nullptr;
+            float dis;
+            for(auto object:mGameObjects)
+                if(object->gameObjectType == GameObject::Type::Monster){
+                    //怪物才追击
+                    dis = std::sqrt(std::pow(object->getPosition().x() - mPlayer->getPosition().x(),2) + std::pow(object->getPosition().y() - mPlayer->getPosition().y(),2));
+                    if(dis < QTE::leastQTEDistance){
+                        //小于追击范围，锁定目标
+                        sourceMonsterPtr = dynamic_cast<Monster*>(object);
+                        break;
+                    }
+                }
+            //结束搜索
+            if(sourceMonsterPtr != nullptr){
+                mQTE->setMonster(sourceMonsterPtr);
+                mQTE->QTEshowGraph(true);
+                mQTE->QTEBegin();
+            }
+            else{
+                this->nowIsQTE = false;//结束qte了， component正常运作
+            }
+        }
+    }
+    //qte win后的动画等待事件结束
+}
+
+void Game::TryQTE()
+{
+    Monster* sourceMonsterPtr = nullptr;
+    float dis;
+    for(auto object:mGameObjects)
+        if(object->gameObjectType == GameObject::Type::Monster){
+            //怪物才追击
+            dis = std::sqrt(std::pow(object->getPosition().x() - mPlayer->getPosition().x(),2) + std::pow(object->getPosition().y() - mPlayer->getPosition().y(),2));
+            if(dis < QTE::leastQTEDistance){
+                //小于追击范围，锁定目标
+                sourceMonsterPtr = dynamic_cast<Monster*>(object);
+                break;
+            }
+        }
+    if(sourceMonsterPtr != nullptr){
+        //已获取
+        this->isQTE = true;
+    }
 }
 
 void Game::Update()
 {
     //设置帧率
     Tick(60);
+
+    if(stop)
+        return ;
 
     // 更新开始
     mIsUpdating = true;
@@ -455,8 +505,13 @@ void Game::removeMyTimer(myTimer* timer)
 void Game::keyPressInput(int e)
 {
     if(this->mIsRuning){
-        for(auto gameObject:mGameObjects)
-            gameObject->inputKeyPressProcess(e);
+        if(e == Qt::Key_E){
+            //按下qte检测的E键单独处理
+            TryQTE();
+        }
+        else
+            for(auto gameObject:mGameObjects)
+                gameObject->inputKeyPressProcess(e);
     }
 }
 

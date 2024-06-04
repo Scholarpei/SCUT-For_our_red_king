@@ -146,6 +146,7 @@ extern const QString ORANGEPART;
 
 extern const int TIMEWIDTH;
 extern const float leastQTEDistance;  //最小可qte距离
+extern const int QteWinWaitingTime;   //qte结束后等待的动画时间
 }
 
 namespace FILTER{

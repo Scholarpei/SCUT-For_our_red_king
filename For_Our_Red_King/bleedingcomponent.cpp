@@ -18,7 +18,8 @@ BleedingComponent::BleedingComponent(GameObject *gameObject, int drawOrder):
 
 BleedingComponent::~BleedingComponent()
 {
-    mGameObject->getGame()->removeSprite(this);
+    //父类执行removesprite即可
+    // mGameObject->getGame()->removeSprite(this);
 }
 
 void BleedingComponent::setTecture(AnimationLoader plate, AnimationLoader blood, AnimationLoader hurting, AnimationLoader healing, AnimationLoader shocked_plate)

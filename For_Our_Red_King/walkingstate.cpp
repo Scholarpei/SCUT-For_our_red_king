@@ -48,12 +48,21 @@ void WalkingState::onKeyUp(int key,GameObject* gameObject)
             playerPtr->setSpeedX(0);
             playerPtr->changePlayerState(Player::playerState::IDLE);//停止
             break;
+        case Qt::Key_D:
+            // qDebug()<<"向右停止";
+            playerPtr->setSpeedX(0);
+            playerPtr->changePlayerState(Player::playerState::IDLE);//停止
+            break;
         case Qt::Key_Left:
             // qDebug()<<"向左停止";
             playerPtr->setSpeedX(0);
             playerPtr->changePlayerState(Player::playerState::IDLE);//停止
             break;
-
+        case Qt::Key_A:
+            // qDebug()<<"向左停止";
+            playerPtr->setSpeedX(0);
+            playerPtr->changePlayerState(Player::playerState::IDLE);//停止
+            break;
         }
     }
 

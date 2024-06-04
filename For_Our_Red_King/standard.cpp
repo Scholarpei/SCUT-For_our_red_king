@@ -195,6 +195,7 @@ const QString BLUEPART=":/pictureResoource/QTE/QTE_blue.png";
 const QString ORANGEPART=":/pictureResoource/QTE/QTE_orange.png";
 const int TIMEWIDTH = 1;
 const float leastQTEDistance = 200;
+const int QteWinWaitingTime = SYSTEM::fpsNormal;   //qte结束后等待的动画时间
 
 }
 namespace BUTTONS{

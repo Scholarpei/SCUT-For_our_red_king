@@ -18,7 +18,7 @@ AnimationComponent::AnimationComponent(GameObject *gameObject, int drawOrder):
 
 AnimationComponent::~AnimationComponent()
 {
-    // mGameObject->getGame()->removeSprite(this);
+    // 父类执行即可
 }
 
 void AnimationComponent::Draw()

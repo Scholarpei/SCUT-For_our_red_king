@@ -64,6 +64,10 @@ public:
     void ExitGame();                 //!<游戏结束函数
     bool mIsRuning = true;                      //!<    运行状态
 
+    bool nowIsQTE = false;           //!<判断当前是否正在qte
+    bool qteWinPeriodFlag = false;   //!<qte结束后需要追击的flag
+    int qteWintimer = 0;             //!<qte结束后等待时间的计时器
+
 protected:
     virtual void timerEvent(QTimerEvent *event);    //!<定时器事件
 
@@ -79,10 +83,14 @@ private:
     QTEObject* mQTE;                    //!< qte
     StopButton* stopbutton;
     ReturnMainButton* returnmainbutton;
+    Interface* mInterface;            //!<关卡data的Interface
+
 
     void Update();                       //!<更新
     void Draw();                         //!<绘制
     void Tick(int fps);                  //!<设置帧率
+
+    void TryQTE();                       //!<按下E键后试图寻找Monster的函数
 
 signals:
 };

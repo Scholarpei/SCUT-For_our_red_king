@@ -13,7 +13,7 @@ NewAnimationComponent::NewAnimationComponent(GameObject * gameObject,int drawOrd
 NewAnimationComponent::~NewAnimationComponent()
 {
     //执行父类的即可
-    qDebug("new destr");
+    // qDebug("new destr");
 }
 
 void NewAnimationComponent::Update()

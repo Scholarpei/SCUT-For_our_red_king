@@ -17,7 +17,7 @@ GameObject::GameObject(QObject *parent,Game *game):
 GameObject::~GameObject()
 {
     // this->mState = State::EDead;
-    qDebug("gameobject destructor");
+    // qDebug("gameobject destructor");
     while (!mComponents.empty())
     {
         Component* tmp = mComponents.back();

@@ -26,7 +26,19 @@ void IdleState::onKeyDown(int key,GameObject* gameObject)
                 playerPtr->setSpeedX(ACTIONCONST::playerMoveXSpeed);
                 playerPtr->changePlayerState(Player::playerState::WALKING);
                 break;
+            case Qt::Key_D:
+                // qDebug()<<"向右";
+                playerPtr->setMoveDirection(1);//设置向右
+                playerPtr->setSpeedX(ACTIONCONST::playerMoveXSpeed);
+                playerPtr->changePlayerState(Player::playerState::WALKING);
+                break;
             case Qt::Key_Left:
+                // qDebug()<<"向左";
+                playerPtr->setMoveDirection(-1);//设置向左
+                playerPtr->setSpeedX(ACTIONCONST::playerMoveXSpeed);
+                playerPtr->changePlayerState(Player::playerState::WALKING);
+                break;
+            case Qt::Key_A:
                 // qDebug()<<"向左";
                 playerPtr->setMoveDirection(-1);//设置向左
                 playerPtr->setSpeedX(ACTIONCONST::playerMoveXSpeed);

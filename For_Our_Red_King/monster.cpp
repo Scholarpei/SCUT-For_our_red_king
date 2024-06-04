@@ -51,6 +51,7 @@ InterfaceMonster Monster::intoInterface()
 
 void Monster::Update(){
     loseHP_timeCount ++;  //扣血限制计时器更新
+    // loseHPEvent(5);
     if(this->mMonsterState == MonsterState::FIGHTING)
         changeTheFightingAnimation++;      //对是否战斗播放做特判
     if(mState == State::EDead)
@@ -148,11 +149,12 @@ void Monster::movenotCollide(QVector2D& lastposition)
 //!碰撞其他gameobject的事件fallcomponent处理(d是this碰撞到的GameObject)
 void Monster::fallnotCollide(QVector2D& lastposition)
 {
+
     //说明要脱离平台、地面了，阻止发生
-    this->setPosition(lastposition);
-    // qDebug("%d",this->initialGroundFlag);
-    if(this->initialGroundFlag)
+    if(this->initialGroundFlag){
+        this->setPosition(lastposition);
         this->moveDirection = - this->moveDirection;
+    }
 }
 
 int Monster::getDrawDirection()
@@ -212,6 +214,7 @@ void Monster::loseHPEvent(int num)
     if (this->HP <= num)
     {
         HP = 0;
+        this->mState = State::EDead;//这里是标记怪物object死亡而不是状态死亡，可能需要更改
         qDebug()<<"怪物死亡";
         // 触发Monster死亡
     }

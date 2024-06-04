@@ -10,7 +10,7 @@ Component::Component(GameObject* gameObject):
 
 Component::~Component()
 {
-    qDebug("component base des");
+    // qDebug("component base des");
     mGameObject->removeComponent(this);
 }
 

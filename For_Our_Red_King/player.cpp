@@ -194,7 +194,7 @@ void Player::changePlayerState(playerState state)
         }
         else if(mPlayerState == playerState::DYING){
             animation->resetAnimation(PLAYER::dead);
-            animation->play(true);
+            animation->play(false);
             }
         //动画播放内容根据当前状态决定
 }
