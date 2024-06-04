@@ -86,3 +86,8 @@ void QTEObject::lose_typetwo(){
     this->mGame->mMusicPlayer->setVolumeProportion(0.8f);//设置背景音乐恢复音量
     this->mGame->nowIsQTE = false;//结束qte,flag设置为false
 }
+
+Monster* QTEObject::getEnermy()
+{
+    return this->enermy;
+}

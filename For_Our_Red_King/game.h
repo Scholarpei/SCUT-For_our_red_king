@@ -30,6 +30,7 @@ public:
     bool stop=false;
 
     Player* mPlayer;                  //!<    玩家角色
+    QTEObject* mQTE;                    //!< qte Object
     std::vector<GameObject*> mGameObjects;        //!<    游戏物体容器
     std::vector<spriteComponent*>mSprites;          //!<   精灵容器
     MainWindow* mWindow;                          //!<  主界面
@@ -81,7 +82,6 @@ private:
 
     int timerLoop;                    //!<主循环Loop的timer ID
     myTimer* mTimer;                  //!<主循环用timer
-    QTEObject* mQTE;                    //!< qte
     StopButton* stopbutton;
     ReturnMainButton* returnmainbutton;
     Interface* mInterface;            //!<关卡data的Interface

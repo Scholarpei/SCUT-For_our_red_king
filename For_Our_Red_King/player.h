@@ -39,7 +39,7 @@ public:
 
     InterfacePlayer intoInterface();        //!<从player转为Interface函数
 
-    void Update()override;                          //!<每帧更新
+    void Update()override;                  //!<每帧更新
 
     void inputKeyPressProcess(int key)override;   //!<处理键盘输入按下
     void inputKeyReleaseProcess(int key)override;   //!<处理键盘输入松开

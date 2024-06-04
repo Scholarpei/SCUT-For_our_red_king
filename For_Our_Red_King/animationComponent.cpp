@@ -1,6 +1,7 @@
 ﻿#include "animationComponent.h"
 #include "gameobject.h"
 #include "game.h"
+#include "qteobject.h"
 #include <QTransform>
 
 AnimationComponent::AnimationComponent(GameObject *gameObject, int drawOrder):
@@ -26,6 +27,13 @@ void AnimationComponent::Draw()
     if(this->isDisplaying)
     {
         this->mGameObject->mGame->mWindow->mPainter->setOpacity(this->opacity);
+
+        if(this->mGameObject->mGame->nowIsQTE && this->mGameObject->gameObjectType == GameObject::Type::Monster){
+            if(this->mGameObject != this->mGameObject->mGame->mQTE->getEnermy())
+                this->mGameObject->mGame->mWindow->mPainter->setOpacity(0.3);//其他的Monster设置为0.7不透明度
+        }
+        //为了制作出qte选中角色的效果，突出选中monster的透明度
+
         QRect target1(this->mGameObject->getPosition().x(),
                       this->mGameObject->getPosition().y(),
                       mGameObject->mWidth * mGameObject->getScale().x(),

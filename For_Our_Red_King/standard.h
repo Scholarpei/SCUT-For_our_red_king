@@ -165,6 +165,7 @@ extern const QString ORANGEPART;
 
 extern const int TIMEWIDTH;
 extern const float leastQTEDistance;  //最小可qte距离
+extern const float leastQTEAppendDistance;  //追击时的最小可自动qte距离
 extern const int QteWinWaitingTime;   //qte结束后等待的动画时间
 
 extern const QString firstStartQTEURL;   //开启qte的音效

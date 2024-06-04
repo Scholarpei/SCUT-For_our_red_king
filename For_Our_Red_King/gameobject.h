@@ -20,7 +20,7 @@ public:
 
 
     enum class State{EActive,EDead};   //!物体状态
-    enum class Type{Player,Monster,Building}; //!gameObject的类型
+    enum class Type{Player,Monster,Building,SpecialEffect}; //!gameObject的类型
 
     class Game* mGame;   //!<从属Game类
     State mState;        //!<当前状态(已消亡、仍存在)
