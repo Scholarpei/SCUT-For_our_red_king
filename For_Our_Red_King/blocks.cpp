@@ -280,6 +280,18 @@ void InterfaceBlock::initializeDamage(short texturID, QVector2D posi, short type
     this->status[2] = damage;
 }
 
+void InterfaceBlock::initializeLine(short id, QVector2D posi, bool isHorizontal, bool attendCollision, short scale, short dpf)
+{
+    this->category = 6;
+    this->textureID = id;
+    this->position[0] = posi.x();
+    this->position[1] = posi.y();
+    this->status[0] = isHorizontal;
+    this->status[1] = attendCollision;
+    this->status[2] = scale;
+    this->durationPerFrame = dpf;
+}
+
 Block *InterfaceBlock::cateToPointer(int cate, Game *game)
 {
     Block* block = nullptr;
@@ -312,6 +324,11 @@ Block *InterfaceBlock::cateToPointer(int cate, Game *game)
     case 5:
     {
         block = new BlockDamage(game, game);
+        break;
+    }
+    case 6:
+    {
+        block = new BlockLine(game, game);
         break;
     }
     default:
@@ -628,3 +645,76 @@ void BlockDamage::beingCollide(GameObject *s)
     }
 }
 
+
+BlockLine::BlockLine(QObject *parent, Game *game):
+    Block(parent, game)
+{
+
+}
+
+void BlockLine::initialize(short id, QVector2D posi, bool isHorizontal, bool attendCollision, short dpf, short scale)
+{
+    this->attendCollision = attendCollision;
+    std::vector<AnimationLoader> animes = this->getAnime(id);
+    short length = animes.size();
+
+    short i,j;
+
+    this->gridPosition = posi;
+    this->setPosition(QVector2D(this->getX(), this->getY()));
+
+    if (isHorizontal)
+    {
+        this->gridSize = QVector2D(length * scale,
+                                   1 * scale);
+        j = 0;
+        i = scale;
+    }
+    else
+    {
+        this->gridSize = QVector2D(1 * scale,
+                                   length * scale);
+        i = 0;
+        j = scale;
+    }
+    this->mWidth = this->getWidth();
+    this->mHeight = this->getHeight();
+
+    this->bricks.resize(1, std::vector<Brick*>(length));
+
+    for (int var = 0; var < length; ++var)
+    {
+        Brick* b = new Brick(this, mGame, DRAWORRDER::item);
+        b->initialize(animes[var],
+                      QVector2D(posi.x() + var * i,
+                                posi.y() + var * j),
+                      QVector2D(scale, scale));
+        b->setDurationPerFrame(dpf);
+
+        this->bricks[0][var] = b;
+    }
+}
+
+void BlockLine::initialize(const InterfaceBlock &interface)
+{
+    this->initialize(interface.textureID,
+                     QVector2D(interface.position[0],
+                               interface.position[1]),
+                     interface.status[0],
+                     interface.status[1],
+                     interface.durationPerFrame,
+                     interface.status[2]);
+}
+
+std::vector<AnimationLoader> BlockLine::getAnime(short id)
+{
+    std::map<short, std::vector<AnimationLoader>> mapping =
+    {
+        {1, {TILES::q,
+             TILES::u,
+             TILES::i,
+             TILES::t}}
+    };
+
+    return mapping[id];
+}

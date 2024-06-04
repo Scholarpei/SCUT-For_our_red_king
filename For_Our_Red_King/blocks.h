@@ -22,6 +22,7 @@ struct InterfaceBlock
     void initializeDecoration(short texturID, QVector2D posi, short type, short durationPerFrame = 0);
     void initializeBar(short textureID, QVector2D posi);
     void initializeDamage(short texturID, QVector2D posi, short type,short interval, short damage, QVector2D size ,short durationPerFrame = 0);
+    void initializeLine(short id, QVector2D posi, bool isHorizontal, bool attendCollision, short scale, short dpf = 0);
 
     Block* cateToPointer(int cate, Game* game);
     void createBlock(Game* game);
@@ -171,5 +172,15 @@ protected:
     int hp = PLAYER::MaxHP;
 };
 
+class BlockLine : public Block
+{
+public:
+    explicit BlockLine(QObject *parent = nullptr,class Game* game = nullptr);
+
+    void initialize(short id, QVector2D posi, bool isHorizontal, bool attendCollision, short dpf, short scale=1);
+    virtual void initialize(const InterfaceBlock& interface);
+
+    std::vector<AnimationLoader> getAnime(short id);
+};
 
 #endif // BLOCKS_H

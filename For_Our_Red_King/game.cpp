@@ -119,26 +119,14 @@ void Game::generateContent()
                                    1000,
                                    QVector2D(26, 1));
         blocks.push_back(interface);        // 虚空 vanity
-        interface.initializeDecoration(23,
-                                       QVector2D(9, 7),
-                                       0,
-                                       0);
-        blocks.push_back(interface);        // q
-        interface.initializeDecoration(24,
-                                       QVector2D(9, 8),
-                                       0,
-                                       0);
-        blocks.push_back(interface);        // u
-        interface.initializeDecoration(25,
-                                       QVector2D(9, 9),
-                                       0,
-                                       0);
-        blocks.push_back(interface);        // i
-        interface.initializeDecoration(26,
-                                       QVector2D(9, 10),
-                                       0,
-                                       0);
-        blocks.push_back(interface);        // t
+
+        interface.initializeLine(1,
+                                 QVector2D(9, 7),
+                                 false,
+                                 false,
+                                 1,
+                                 0);
+        blocks.push_back(interface);        // quit
         interface.initializeDecoration(48,
                                        QVector2D(9, 10),
                                        0,
