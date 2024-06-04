@@ -71,7 +71,14 @@ extern const AnimationLoader t;
 extern const AnimationLoader redP1;
 extern const AnimationLoader redP2;
 extern const AnimationLoader redP3;
-
+extern const AnimationLoader f;
+extern const AnimationLoader o;
+extern const AnimationLoader r;
+extern const AnimationLoader e;
+extern const AnimationLoader d;
+extern const AnimationLoader k;
+extern const AnimationLoader n;
+extern const AnimationLoader g;
 }
 
 

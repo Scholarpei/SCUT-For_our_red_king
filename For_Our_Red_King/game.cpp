@@ -71,7 +71,6 @@ void Game::generateContent()
 
     {
         // 测试用创建砖块
-        // 注释掉所有和 masu 有关的来去掉玩家脚下的 〼　砖块
         InterfaceBlock interface;
 
         std::vector<InterfaceBlock> blocks;
@@ -113,7 +112,7 @@ void Game::generateContent()
                                    -10,
                                    QVector2D(1, 1));
         blocks.push_back(interface);        // 隐藏回血块
-        interface.initializeDamage(22,
+        interface.initializeDamage(21,
                                    QVector2D(-4, 12),
                                    2,
                                    60,

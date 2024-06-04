@@ -103,6 +103,22 @@ const AnimationLoader redP2(":/pictureResoource/Tiles/redP2.png",
                             32, 32, 1);
 const AnimationLoader redP3(":/pictureResoource/Tiles/redP3.png",
                             32, 32, 1);
+const AnimationLoader f(":/pictureResoource/Tiles/f.png",
+                        16, 16, 1);
+const AnimationLoader o(":/pictureResoource/Tiles/o.png",
+                        16, 16, 1);
+const AnimationLoader r(":/pictureResoource/Tiles/r.png",
+                        16, 16, 1);
+const AnimationLoader e(":/pictureResoource/Tiles/e.png",
+                        16, 16, 1);
+const AnimationLoader d(":/pictureResoource/Tiles/d.png",
+                        16, 16, 1);
+const AnimationLoader k(":/pictureResoource/Tiles/k.png",
+                        16, 16, 1);
+const AnimationLoader n(":/pictureResoource/Tiles/n.png",
+                        16, 16, 1);
+const AnimationLoader g(":/pictureResoource/Tiles/g.png",
+                        16, 16, 1);
 }
 
 namespace DRAWORRDER{
@@ -126,8 +142,8 @@ const int fpsNormal = 60;
 const int fpsExciting = 90;
 const int fpsBreathtaking = 120;
 //fps
-const int windowWidth = 960;
-const int windowHeight = 576;
+const int windowWidth = 1200;
+const int windowHeight = 864;
 const int tileSide = 48;
 const int imgSide = 32;
 const int durationPerFrame = 6;
