@@ -175,6 +175,9 @@ void Player::changePlayerState(playerState state)
             this->mSoundPlayer->play(PLAYER::walkSoundURL,true);
             this->mPlayerState = playerState::WALKING;
             break;
+        case playerState::DYING:
+            //还需插入音效
+            this->mPlayerState = playerState::DYING;
     }
 
         if(mPlayerState == playerState::IDLE){
@@ -189,6 +192,10 @@ void Player::changePlayerState(playerState state)
             animation->resetAnimation(PLAYER::walking);
             animation->play(true);
         }
+        else if(mPlayerState == playerState::DYING){
+            animation->resetAnimation(PLAYER::dead);
+            animation->play(true);
+            }
         //动画播放内容根据当前状态决定
 }
 
@@ -203,7 +210,10 @@ void Player::loseHPEvent(int num)
     if (this->HP <= num)
     {
         HP = 0;
-
+        if(mPlayerState == playerState::DYING){
+            return;
+        }
+        changePlayerState(playerState::DYING);
         // 触发Player死亡
     }
     else if(this->HP - num > PLAYER::MaxHP)
