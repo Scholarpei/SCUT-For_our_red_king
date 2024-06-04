@@ -33,5 +33,9 @@
         <file>pictureResoource/Tiles/o.png</file>
         <file>pictureResoource/Tiles/r.png</file>
         <file>pictureResoource/Tiles/Screen2.png</file>
+        <file>pictureResoource/Tiles/pftTile.png</file>
+        <file>pictureResoource/Tiles/Barrel1-export.png</file>
+        <file>pictureResoource/Tiles/broken.png</file>
+        <file>pictureResoource/Tiles/plate1.png</file>
     </qresource>
 </RCC>

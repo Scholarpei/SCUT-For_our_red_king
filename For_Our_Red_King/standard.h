@@ -55,12 +55,16 @@ extern const AnimationLoader industrialTile7;
 extern const AnimationLoader industrialTile8;
 extern const AnimationLoader industrialTile9;
 extern const AnimationLoader masuTile;
+extern const AnimationLoader pftTile;
 extern const AnimationLoader door1;
 extern const AnimationLoader money;
 extern const AnimationLoader screen2;
 extern const AnimationLoader bench;
 extern const AnimationLoader air;
 extern const AnimationLoader flag;
+extern const AnimationLoader barrel;
+extern const AnimationLoader broken;
+extern const AnimationLoader plate1;
 extern const AnimationLoader ladder1;
 extern const AnimationLoader ladder2;
 extern const AnimationLoader ladder3;
@@ -86,6 +90,7 @@ namespace DRAWORRDER{
 //值从低到高，绘制从下往上
 extern const int backGround;//背景
 extern const int backGroundfilter;//背景的滤镜
+extern const int backFroundTile;//背景砖块
 extern const int ground;//地面
 extern const int door;//游戏结束的门
 extern const int platForm;//平台

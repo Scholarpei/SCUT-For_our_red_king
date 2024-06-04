@@ -200,18 +200,26 @@ std::vector<AnimationLoader> InterfaceBlock::toAnime(short ID)
              TILES::air,
              TILES::air,
              TILES::air}},
-        {23, {TILES::q}},
-        {24, {TILES::u}},
-        {25, {TILES::i}},
-        {26, {TILES::t}},
+        {23, {TILES::pftTile,
+              TILES::pftTile,
+              TILES::pftTile,
+              TILES::pftTile,
+              TILES::pftTile,
+              TILES::pftTile,
+              TILES::pftTile,
+              TILES::pftTile,
+              TILES::pftTile}},
         {31, {TILES::door1}},
         {41, {TILES::money}},
+        {42, {TILES::broken}},
         {43, {TILES::screen2}},
         {44, {TILES::bench}},
         {45, {TILES::flag}},
         {46, {TILES::ladder1}},
         {47, {TILES::ladder2}},
-        {48, {TILES::ladder3}}
+        {48, {TILES::ladder3}},
+        {49, {TILES::barrel}},
+        {50, {TILES::plate1}}
     };
     return mapping[ID];
 }
@@ -713,7 +721,20 @@ std::vector<AnimationLoader> BlockLine::getAnime(short id)
         {1, {TILES::q,
              TILES::u,
              TILES::i,
-             TILES::t}}
+             TILES::t}},
+        {2, {TILES::f,
+             TILES::o,
+             TILES::r}},
+        {3, {TILES::o,
+             TILES::u,
+             TILES::r}},
+        {4, {TILES::r,
+             TILES::e,
+             TILES::d}},
+        {5, {TILES::k,
+             TILES::i,
+             TILES::n,
+             TILES::g}}
     };
 
     return mapping[id];
