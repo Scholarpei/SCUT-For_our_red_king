@@ -62,10 +62,12 @@ void Game::generateContent()
     mQTE= new QTEObject(this,this);
     Monster* mMonster = new Monster(this,this);
     stopbutton=new StopButton(this,this);
+    returnmainbutton=new ReturnMainButton(this,this);
     createGameObject(mPlayer);
     createGameObject(mQTE);
     createGameObject(mMonster);
     createGameObject(stopbutton);
+    createGameObject(returnmainbutton);
 
     {
         // 测试用创建砖块

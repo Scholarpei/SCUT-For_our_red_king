@@ -1,12 +1,15 @@
 #include "buttons.h"
 #include <QMouseEvent>
 #include <cmath>
+#include "standard.h"
 Buttons::Buttons(QObject *parent,Game* game,int draworder)
     : GameObject{parent,game}
 {
     isButtonOn=0;
     isPressed=0;
     attendCollision = 0;
+    this->mWidth=BUTTONS::ButtonWIDTH;
+    this->mHeight=BUTTONS::ButtonHEIGHT;
     sprite=new NewspriteComponent(this,draworder);
     sprite->setNeedDraw(1);
 }

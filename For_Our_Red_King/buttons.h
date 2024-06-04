@@ -3,11 +3,12 @@
 
 #include "gameobject.h"
 #include "newspritecomponent.h"
+#include "standard.h"
 #include <QString>
 class Buttons : public GameObject
 {
 public:
-    explicit Buttons(QObject *parent = nullptr,class Game* game = nullptr,int draworder=110);
+    explicit Buttons(QObject *parent = nullptr,class Game* game = nullptr,int draworder=DRAWORRDER::Button);
     virtual void buttonFunction();
     void inputMousePressProcess(QMouseEvent * event);
     void inputMouseReleaseProcess(QMouseEvent * event);

@@ -2,10 +2,8 @@
 #include "standard.h"
 #include "game.h"
 StopButton::StopButton(QObject *parent,Game* game)
-    : Buttons{parent,game,DRAWORRDER::stopButton}
+    : Buttons{parent,game}
 {
-    this->mWidth=BUTTONS::stopButtonWIDTH;
-    this->mHeight=BUTTONS::stopButtonHEIGHT;
     this->setPosition(BUTTONS::stopButtonPOS);
     this->setOffPicture(BUTTONS::stopButtonTYPE1);
     this->setOnPicture(BUTTONS::stopButtonTYPE2);

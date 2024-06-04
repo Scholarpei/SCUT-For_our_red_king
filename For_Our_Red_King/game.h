@@ -12,6 +12,7 @@
 #include "mainwindow.h"
 #include "musicplayer.h"
 #include "stopbutton.h"
+#include "returnmainbutton.h"
 #include "interface.h"
 
 class GameObject;
@@ -20,6 +21,7 @@ class Player;
 class myTimer;
 class Monster;
 class StopButton;
+class ReturnMainButton;
 class QTEObject;
 class Game: public QObject
 {
@@ -76,6 +78,7 @@ private:
     myTimer* mTimer;                  //!<主循环用timer
     QTEObject* mQTE;                    //!< qte
     StopButton* stopbutton;
+    ReturnMainButton* returnmainbutton;
 
     void Update();                       //!<更新
     void Draw();                         //!<绘制

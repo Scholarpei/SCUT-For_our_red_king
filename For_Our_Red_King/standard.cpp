@@ -118,7 +118,7 @@ const int Player = 110;//玩家
 const int   QTE = 120;//即时战斗模式
 const int specialEffect = 135;//特效
 const int Exclamation = 80;//敌人上的感叹号
-const int stopButton=120;//停止按钮
+const int Button=120;//按钮 如停止按钮
 }
 
 namespace SYSTEM{
@@ -171,11 +171,16 @@ const float leastQTEDistance = 200;
 
 }
 namespace BUTTONS{
+const int ButtonWIDTH=32;
+const int ButtonHEIGHT=32;
+
 const QVector2D stopButtonPOS(SYSTEM::windowWidth-32,32);
-const int stopButtonWIDTH=32;
-const int stopButtonHEIGHT=32;
 const QString stopButtonTYPE1=":/pictureResoource/button/stopbutton_type1.png";
 const QString stopButtonTYPE2=":/pictureResoource/button/stopbutton_type2.png";
 const QString stopButtonTYPE3=":/pictureResoource/button/stopbutton_type3.png";
 const QString stopButtonTYPE4=":/pictureResoource/button/stopbutton_type4.png";
+
+const QVector2D returnMainButtonPOS(SYSTEM::windowWidth-64,32);
+const QString returnMainButtonTYPE1=":/pictureResoource/button/returnmainbutton_type1.png";
+const QString returnMainButtonTYPE2=":/pictureResoource/button/returnmainbutton_type2.png";
 }

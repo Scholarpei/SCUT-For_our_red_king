@@ -42,6 +42,7 @@ HEADERS += animationComponent.h \
            player.h \
            playerstatesset.h \
            qteobject.h \
+           returnmainbutton.h \
            rotationcomponent.h \
            spritecomponent.h \
            standard.h \
@@ -78,6 +79,7 @@ SOURCES += animationComponent.cpp \
            player.cpp \
            playerstatesset.cpp \
            qteobject.cpp \
+           returnmainbutton.cpp \
            rotationcomponent.cpp \
            spritecomponent.cpp \
            standard.cpp \
