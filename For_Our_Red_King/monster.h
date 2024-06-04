@@ -30,9 +30,12 @@ public:
     explicit Monster(QObject *parent = nullptr,class Game* game = nullptr);
 
     class MonsterStateSet* _monsterStateSet;     //!<怪物状态集合
-    enum class MonsterState{WALKING,FIGHTING,IDLE};//!怪物状态集合（判断,怪物应该只存在walking跟fighting的两种状态）
+    enum class MonsterState{WALKING,FIGHTING,IDLE,DYING};//!怪物状态集合（判断,怪物应该只存在walking跟fighting的两种状态）
     MonsterState mMonsterState;
     virtual void changeMonsterState(MonsterState state);//!改变怪物状态
+
+    enum class MonsterType{Cyborg,Biker,Batman,Robot};
+    MonsterType mMonsterType = MonsterType::Biker;
     InterfaceMonster intoInterface();        //!<从player转为Interface函数
 
     void Update()override;                          //!<每帧更新
@@ -52,11 +55,14 @@ public:
     void fallnotCollide(QVector2D& lastposition)override;        //!<如果fallcomponent没有发生碰撞后该Object的处理(用于monster)
 
     void loseHPEvent(int HPlost);       //掉血量事件，传入的是每帧扣的血量
+    void chooseAnimation(MonsterType type,MonsterState state);
+
     FallComponent * fallCom;       //掉落组件
     MoveComponent * moveCom;        //移动组件
     AnimationComponent* animation;           //动画组件
 
     int changeTheFightingAnimation;              //是否对打玩家图片特殊处理
+    int deathFrime = 0;                         //死亡特殊处理
 
     NewAnimationComponent* exclamationAnimation;   //感叹号的动画组件
 
@@ -68,6 +74,7 @@ private:
     float mSpeedX = 0 ,mSpeedY =  0;     //!< 移动速度 X横,Y竖
 
     bool setQteFlag;         //!<是否以及设置可进行qte表示图标的flag
+
 };
 
 #endif // MONSTER_H

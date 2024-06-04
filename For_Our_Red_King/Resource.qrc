@@ -18,12 +18,8 @@
         <file>pictureResoource/Tiles/masuTile.png</file>
         <file>pictureResoource/background/Background.png</file>
         <file>pictureResoource/Tiles/door1.png</file>
-        <file>pictureResoource/Monster/Idle.png</file>
-        <file>pictureResoource/Monster/Walk.png</file>
-        <file>pictureResoource/Monster/Jump.png</file>
         <file>pictureResoource/Tiles/Money.png</file>
         <file>pictureResoource/Tiles/Screen2.png</file>
-        <file>pictureResoource/Monster/attack.png</file>
         <file>pictureResoource/background/blood.png</file>
         <file>pictureResoource/background/healing.png</file>
         <file>pictureResoource/background/hurting.png</file>
@@ -44,5 +40,22 @@
         <file>pictureResoource/button/stopbutton_type4.png</file>
         <file>pictureResoource/button/returnmainbutton_type1.png</file>
         <file>pictureResoource/button/returnmainbutton_type2.png</file>
+        <file>pictureResoource/Monster/Batman/attack.png</file>
+        <file>pictureResoource/Monster/Batman/death.png</file>
+        <file>pictureResoource/Monster/Batman/idle.png</file>
+        <file>pictureResoource/Monster/Batman/walk.png</file>
+        <file>pictureResoource/Monster/Biker/attack.png</file>
+        <file>pictureResoource/Monster/Biker/death.png</file>
+        <file>pictureResoource/Monster/Biker/Idle.png</file>
+        <file>pictureResoource/Monster/Biker/Jump.png</file>
+        <file>pictureResoource/Monster/Biker/Walk.png</file>
+        <file>pictureResoource/Monster/Cyborg/attack.png</file>
+        <file>pictureResoource/Monster/Cyborg/death.png</file>
+        <file>pictureResoource/Monster/Cyborg/idle.png</file>
+        <file>pictureResoource/Monster/Cyborg/run.png</file>
+        <file>pictureResoource/Monster/Robot/attack.png</file>
+        <file>pictureResoource/Monster/Robot/death.png</file>
+        <file>pictureResoource/Monster/Robot/idle.png</file>
+        <file>pictureResoource/Monster/Robot/walk.png</file>
     </qresource>
 </RCC>

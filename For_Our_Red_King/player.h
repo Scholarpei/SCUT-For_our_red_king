@@ -65,8 +65,8 @@ public:
     MoveComponent * moveCom;        //移动组件
     AnimationComponent* animation;           //动画组件
 
-
 private:
+    int deathFrime = 0;
     MusicPlayer* mSoundPlayer; //!< 音效播放
     int moveDirection = 1;     //!< 运动方向 1为右，-1为左
     int HP = PLAYER::MaxHP;                //!< 血量

@@ -20,9 +20,26 @@ namespace PLAYER{
 }
 
 namespace MONSTER {
-    extern const AnimationLoader idle;
-    extern const AnimationLoader walking;
-    extern const AnimationLoader fighting;
+    extern const AnimationLoader Bikeridle;
+    extern const AnimationLoader Bikerwalking;
+    extern const AnimationLoader Bikerfighting;
+    extern const AnimationLoader Bikerdead;
+
+    extern const AnimationLoader Batmanidle;
+    extern const AnimationLoader Batmanwalking;
+    extern const AnimationLoader Batmanfighting;
+    extern const AnimationLoader Batmandead;
+
+    extern const AnimationLoader Cyborgidle;
+    extern const AnimationLoader Cyborgwalking;
+    extern const AnimationLoader Cyborgfighting;
+    extern const AnimationLoader Cyborgdead;
+
+    extern const AnimationLoader Robotidle;
+    extern const AnimationLoader Robotwalking;
+    extern const AnimationLoader Robotfighting;
+    extern const AnimationLoader Robotdead;
+
     extern const AnimationLoader exclamation;
     extern const int MaxHP;
     extern const int loseHPTimePeriod;

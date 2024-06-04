@@ -12,6 +12,7 @@ Player::Player(QObject *parent,Game* game):
 
     mWidth = PLAYER::Player_Width;
     mHeight = PLAYER::Player_Height;
+    deathFrime = 0;
 
     this->setPosition(QVector2D(50,50));
     mSoundPlayer = new MusicPlayer;
@@ -73,6 +74,12 @@ InterfacePlayer Player::intoInterface()
 void Player::Update(){
 
     loseHP_timeCount ++ ;   //扣血限制计时器更新
+    if(mPlayerState == playerState::DYING){
+    deathFrime++;
+    if(deathFrime == 30){
+        this->mState = State::EDead;                //优化人物死亡不再攻击，将player移除
+    }
+    }
     if(mState == State::EDead)
         return;
     //物体标定为消亡就不再更新了

@@ -18,8 +18,9 @@ Monster::Monster(QObject *parent,Game* game):
     mWidth = MONSTER::Monster_Width;
     mHeight = MONSTER::Monster_Height;
     this->setPosition(QVector2D(100,320));   //怪物位置也需要确定好
+    mMonsterType = MonsterType::Cyborg;      //注意怪物类型
     changeTheFightingAnimation = 0;
-
+    deathFrime = 0;
 
     this-> moveCom = new MoveComponent(this);
     this-> fallCom = new FallComponent(this);
@@ -34,8 +35,7 @@ Monster::Monster(QObject *parent,Game* game):
     this->mSpeedX = ACTIONCONST::monsterMoveXSpeed;
         //设置player精灵drawOrder = standard常量
 
-    animation->resetAnimation(MONSTER::walking);    //预设播放器图片为行走
-    animation->play(true);
+    this->chooseAnimation(mMonsterType,mMonsterState);       //预设播放器图片为行走
 
     this->addComponent(moveCom);
     this->addComponent(fallCom);
@@ -51,7 +51,12 @@ InterfaceMonster Monster::intoInterface()
 
 void Monster::Update(){
     loseHP_timeCount ++;  //扣血限制计时器更新
-    // loseHPEvent(5);
+    if(mMonsterState == MonsterState::DYING){
+        deathFrime++;
+        if(deathFrime == 30){
+            this->mState = State::EDead;                //优化人物死亡不再攻击，将player移除
+        }
+    }
     if(this->mMonsterState == MonsterState::FIGHTING)
         changeTheFightingAnimation++;      //对是否战斗播放做特判
     if(mState == State::EDead)
@@ -186,18 +191,17 @@ void Monster::changeMonsterState(MonsterState state)
     if(mMonsterState == MonsterState::WALKING){
         changeTheFightingAnimation = 0;
         this->setSpeedX(ACTIONCONST::monsterMoveXSpeed);
-        animation->resetAnimation(MONSTER::walking);
-        animation->play(true);
+        this->chooseAnimation(mMonsterType,mMonsterState);
     }
     else if(mMonsterState == MonsterState::FIGHTING){
         this->setSpeedX(0);
-        animation->resetAnimation((MONSTER::fighting));
-        animation->pause();
-        animation->play(true);
+        this->chooseAnimation(mMonsterType,mMonsterState);
     }
     else if(mMonsterState == MonsterState::IDLE){
-        animation->resetAnimation((MONSTER::idle));
-        animation->play(true);
+        this->chooseAnimation(mMonsterType,mMonsterState);
+    }
+    else if(mMonsterState == MonsterState::DYING){
+        this->chooseAnimation(mMonsterType,mMonsterState);
     }
     //动画播放内容根据当前状态决定
 }
@@ -214,8 +218,10 @@ void Monster::loseHPEvent(int num)
     if (this->HP <= num)
     {
         HP = 0;
-        this->mState = State::EDead;//这里是标记怪物object死亡而不是状态死亡，可能需要更改
-        qDebug()<<"怪物死亡";
+        if(mMonsterState == MonsterState::DYING){
+            return;
+        }
+        changeMonsterState(MonsterState::DYING);
         // 触发Monster死亡
     }
     else if(this->HP - num > MONSTER::MaxHP)
@@ -225,6 +231,92 @@ void Monster::loseHPEvent(int num)
     else
     {
         this->HP -= num;
+    }
+}
+
+void Monster:: chooseAnimation(MonsterType type,MonsterState state){
+    switch(type)
+    {
+    case MonsterType::Biker:
+
+        if(mMonsterState == MonsterState::IDLE){
+        animation->resetAnimation(MONSTER::Bikeridle);
+        animation->play(true);
+        }
+        else if(mMonsterState == MonsterState::WALKING){
+            animation->resetAnimation(MONSTER::Bikerwalking);
+            animation->play(true);
+        }
+        else if(mMonsterState == MonsterState::FIGHTING){
+            animation->resetAnimation((MONSTER::Bikerfighting));
+            animation->pause();
+            animation->play(true);
+        }
+        else if(mMonsterState == MonsterState::DYING){
+            animation->resetAnimation(MONSTER::Bikerdead);
+            animation->play(false);
+        }
+        break;
+    case MonsterType::Batman:
+
+        if(mMonsterState == MonsterState::IDLE){
+            animation->resetAnimation(MONSTER::Batmanidle);
+            animation->play(true);
+        }
+        else if(mMonsterState == MonsterState::WALKING){
+            animation->resetAnimation(MONSTER::Batmanwalking);
+            animation->play(true);
+        }
+        else if(mMonsterState == MonsterState::FIGHTING){
+            animation->resetAnimation(MONSTER::Batmanfighting);
+            animation->pause();
+            animation->play(true);
+        }
+        else if(mMonsterState == MonsterState::DYING){
+            animation->resetAnimation(MONSTER::Batmandead);
+            animation->play(false);
+        }
+        break;
+    case MonsterType::Cyborg:
+
+        if(mMonsterState == MonsterState::IDLE){
+            animation->resetAnimation(MONSTER::Cyborgidle);
+            animation->play(true);
+        }
+        else if(mMonsterState == MonsterState::WALKING){
+            animation->resetAnimation(MONSTER::Cyborgwalking);
+            animation->play(true);
+        }
+        else if(mMonsterState == MonsterState::FIGHTING){
+            animation->resetAnimation(MONSTER::Cyborgfighting);
+            animation->pause();
+            animation->play(true);
+        }
+        else if(mMonsterState == MonsterState::DYING){
+            animation->resetAnimation(MONSTER::Cyborgdead);
+            animation->play(false);
+        }
+        break;
+    case MonsterType::Robot:
+        if(mMonsterState == MonsterState::IDLE){
+            animation->resetAnimation(MONSTER::Robotidle);
+            animation->play(true);
+        }
+        else if(mMonsterState == MonsterState::WALKING){
+            animation->resetAnimation(MONSTER::Robotwalking);
+            animation->play(true);
+        }
+        else if(mMonsterState == MonsterState::FIGHTING){
+            animation->resetAnimation(MONSTER::Robotfighting);
+            animation->pause();
+            animation->play(true);
+        }
+        else if(mMonsterState == MonsterState::DYING){
+            animation->resetAnimation(MONSTER::Robotdead);
+            animation->play(false);
+        }
+        break;
+
     }
 }
 
