@@ -49,7 +49,6 @@ InterfaceMonster Monster::intoInterface()
 
 void Monster::Update(){
     loseHP_timeCount ++;  //扣血限制计时器更新
-    loseHPEvent(5);
     if(this->mMonsterState == MonsterState::FIGHTING)
         changeTheFightingAnimation++;      //对是否战斗播放做特判
     if(mState == State::EDead)
@@ -208,7 +207,6 @@ void Monster::loseHPEvent(int num)
     if (this->HP <= num)
     {
         HP = 0;
-        this->mState = State::EDead;
         qDebug()<<"怪物死亡";
         // 触发Monster死亡
     }
