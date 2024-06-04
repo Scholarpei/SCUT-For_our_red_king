@@ -20,11 +20,11 @@ public:
 
 
     enum class State{EActive,EDead};   //!物体状态
-    enum class Type{Player,Monster,Building,SpecialEffect}; //!gameObject的类型
+    enum class Type{Player,Monster,Building,SpecialEffect,VOID}; //!gameObject的类型
 
     class Game* mGame;   //!<从属Game类
     State mState;        //!<当前状态(已消亡、仍存在)
-    Type gameObjectType; //!<当前gameObject的类型(怪物、player...)
+    Type gameObjectType = Type::VOID; //!<当前gameObject的类型(怪物、player...)
 
     explicit GameObject(QObject *parent = nullptr,class Game* game = nullptr);
     virtual ~GameObject();

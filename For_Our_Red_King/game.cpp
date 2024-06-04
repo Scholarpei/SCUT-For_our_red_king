@@ -26,15 +26,61 @@ Game::Game(QObject *parent,MainWindow* window):
 
     generateContent();//临时生成关卡信息（为了使构造函数看起来更好看）
     //在制作好关卡后，就是先loadData(关卡字符串资源url) 到 Game中的mInterface中，再调用changeLevel(mInterface)来切换关卡了
-
+    //示例：loadData("mainLevel.data"); changeLevel(mInterface)
     Initialize();
 
 }
 
-void loadData(QString target)
+void Game::loadData(QString target)
 {
-
+    //载入target为名字的Interface数据，存储在mInterface中
+    //类似于mInterface = read()....
 }
+
+void Game::generateLevelData()
+{
+    Interface i;//空的关卡data
+    //下面为示例写法
+    /*
+     * PlayerInterface Playertmp;
+     * MonsterInterface Monstertmp;
+     for(auto gameObject:mGameObject)
+        {
+            switch(gameObject->gameObjectType){
+                //根据不同的gameobject的类型选择对应的类的函数
+                case GameObject::Type::Player :
+                    Playertmp.initialize(gameObject);
+                    i.playerinterface = Playertmp;
+                    break;
+                case GameObject::Type::Monster :
+                    Monstertmp.initialize(gameObject);
+                    i.Monsterinterface[++sizeMonster] = Monstertmp;
+                    break;
+            }
+        }
+     */
+}
+
+void Game::changeLevel(Interface& i)
+{
+    unloadData();//先清除之前的数据
+    //根据mInterface的内容初始化数据   意思是把数据关卡信息导入到游戏中
+
+    //示例
+    /*
+    mPlayer = new Player(this,this);
+    mPlayer->Initialize(i.playerinterface)
+    this->createGameObject(mPlayer);
+
+    for(int i=0;i<i.sizeMonster;i++){
+        Monster* monster = new Monster(this,this);  //实例化默认Monster
+        monster->Initialize(i.monsterInterface_array[i]);  //根据monsterinterface信息初始化当前的Monster
+        this->createGameObject(monster);//放入mGameObject中
+    }
+    */
+}
+
+
 
 //!退出游戏就调用这个函数
 void Game::ExitGame()
