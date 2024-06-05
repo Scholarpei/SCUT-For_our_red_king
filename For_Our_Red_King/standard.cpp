@@ -183,7 +183,7 @@ const QString icon=":/pictureResoource/icon.ico";
 }
 
 namespace FILTER {
-const AnimationLoader ExitGameFilter(":/pictureResoource/background/exitGameFilter.png",1200,864,10);
+const AnimationLoader ExitGameFilter(":/pictureResoource/background/exitGameFilter.jpg",1200,864,10);
 }
 
 namespace ACTIONCONST{
