@@ -8,7 +8,7 @@
 #include "standard.h"
 #include <QAudioOutput>
 #include "stopbutton.h"
-
+#include "qteplayer.h"
 #include "qteobject.h"
 Game::Game(QObject *parent,MainWindow* window):
     QObject{parent},
@@ -23,7 +23,7 @@ Game::Game(QObject *parent,MainWindow* window):
     //设置bgm
 
     mSoundPlayer = new MusicPlayer;//初始化音效player
-
+    qDebug()<<"这里测试player game26";
     generateContent();//临时生成关卡信息（为了使构造函数看起来更好看）
     //在制作好关卡后，就是先loadData(关卡字符串资源url) 到 Game中的mInterface中，再调用changeLevel(mInterface)来切换关卡了
     //示例：loadData("mainLevel.data"); changeLevel(mInterface)
@@ -148,12 +148,16 @@ void Game::generateContent()
     twoMonster->setPosition(QVector2D(150,160));
     stopbutton=new StopButton(this,this);
     returnmainbutton=new ReturnMainButton(this,this);
+
     createGameObject(mPlayer);
     createGameObject(mQTE);
     createGameObject(mMonster);
     createGameObject(twoMonster);
     createGameObject(stopbutton);
     createGameObject(returnmainbutton);
+    createGameObject(mQTE->object_Enermy);
+    createGameObject(mQTE->object_Player);
+
 
     {
         // 测试用创建砖块
@@ -350,6 +354,8 @@ void Game::Event()
             }
             else{
                 this->nowIsQTE = false;//结束qte了， component正常运作
+                this->mQTE->object_Enermy->setNeedDraw(0);
+                this->mQTE->object_Player->setNeedDraw(0);
                 this->mMusicPlayer->setVolumeProportion(0.8f);//设置背景音乐恢复音量
                 mQTE->mbgmPlayer->stop();//停止播放鼓点
             }

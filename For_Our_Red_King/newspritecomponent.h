@@ -14,6 +14,8 @@ public:
     void setNeedDraw(bool yesOrno);
     void reload();
     bool getNeedDraw()const;
+    void setWidth(int width);
+    void setHeight(int height);
     ~NewspriteComponent();
     // void setAlpha(int alpha);
 protected:

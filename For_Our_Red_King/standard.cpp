@@ -8,6 +8,12 @@ const AnimationLoader jumping = AnimationLoader(":/pictureResoource/Player/jump.
                                           48,48,4);
 const AnimationLoader dead = AnimationLoader(":/pictureResoource/Player/death.png",
                                              48,48,6);
+const AnimationLoader attack1=AnimationLoader(":/pictureResoource/Player/attack1.png",
+                                                48,48,6);
+const AnimationLoader attack2=AnimationLoader(":/pictureResoource/Player/attack2.png",
+                                                48,48,6);
+const AnimationLoader attack3=AnimationLoader(":/pictureResoource/Player/attack3.png",
+                                                48,48,8);
 const AnimationLoader attack = AnimationLoader(":/pictureResoource/Player/attack3.png",48,48,8);
 const int loseHPTimePeriod = 30;
 const int MaxHP = 100;
@@ -204,15 +210,27 @@ const QString PlatePicture=":/pictureResoource/QTE/QTE_Plate.png";
 const int qteWidth=32*12;
 const int qteHeight=32*12;
 const QVector2D centralPosition(SYSTEM::windowWidth/2,SYSTEM::windowHeight/2);
-const int addAngle=7;
+const int addAngle=5;//增加难度请调timewidth（system） 不要改这个吧
+const int TIMEWIDTH = 2;
 const int DELTAANGLE = 15;
 const int BEGINANGLE=0;
 const int ROUNDENDANGLE=290;
 
+const int mouseWidth=qteWidth/8;
+const int mouseHeight=mouseWidth*3;
+const QVector2D mousePosition(SYSTEM::windowWidth/2-256,SYSTEM::windowHeight/2-qteHeight-16);
+const QString MOUSEPICTURE=":/pictureResoource/QTE/mouses.png";
+const int playerWidth=32*12*3;
+const int playerHeight=32*12*3;
+const QVector2D playerPosistion(SYSTEM::windowWidth/2-qteWidth/2,SYSTEM::windowHeight/2-16);
+const int enermyWidth=32*12*3;
+const int enermyHeight=32*12*3;
+const QVector2D enermyPosition(SYSTEM::windowWidth/2+qteWidth/2,SYSTEM::windowHeight/2-16);
+
 const QString REDPART=":/pictureResoource/QTE/QTE_red.png";
 const QString BLUEPART=":/pictureResoource/QTE/QTE_blue.png";
 const QString ORANGEPART=":/pictureResoource/QTE/QTE_orange.png";
-const int TIMEWIDTH = 1;
+
 const float leastQTEDistance = 200;
 const float leastQTEAppendDistance = leastQTEDistance * 1.8;  //追击时的最小可自动qte距离
 const int QteWinWaitingTime = SYSTEM::fpsNormal;   //qte结束后等待的动画时间

@@ -53,3 +53,9 @@ NewspriteComponent::~NewspriteComponent()
 bool NewspriteComponent::getNeedDraw()const{
     return needDraw;
 }
+void NewspriteComponent::setWidth(int width){
+    this->mWidth=width;
+}
+void NewspriteComponent::setHeight(int height){
+    this->mHeight=height;
+}

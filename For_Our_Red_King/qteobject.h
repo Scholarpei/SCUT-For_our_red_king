@@ -3,6 +3,7 @@
 #include "FightQTE.h"
 #include "gameobject.h"
 #include "monster.h"
+#include "qteplayer.h"
 class QTEObject:public FightQTE
 {
 public:
@@ -25,7 +26,7 @@ public:
 
 protected:
     Monster* enermy;
-
+    QTEPlayer* playerPic;//testnow
 };
 
 #endif // QTEOBJECT_H

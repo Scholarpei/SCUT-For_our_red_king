@@ -55,6 +55,8 @@
         <file>pictureResoource/Monster/Robot/death.png</file>
         <file>pictureResoource/Monster/Robot/idle.png</file>
         <file>pictureResoource/Monster/Robot/walk.png</file>
+        <file>pictureResoource/QTE/mouses.png</file>
+        <file>pictureResoource/Player/attack2.png</file>
         <file>pictureResoource/background/exitGameFilter.jpg</file>
         <file>pictureResoource/Monster/Batman/Special.png</file>
     </qresource>

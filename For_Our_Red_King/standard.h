@@ -10,6 +10,9 @@ namespace PLAYER{
     extern const AnimationLoader walking;
     extern const AnimationLoader jumping;
     extern const AnimationLoader dead;
+    extern const AnimationLoader attack1;
+    extern const AnimationLoader attack2;
+    extern const AnimationLoader attack3;
     extern const AnimationLoader attack;
     extern const int loseHPTimePeriod;
     extern const int MaxHP;
@@ -165,7 +168,16 @@ extern const int ROUNDENDANGLE;
 extern const QString REDPART;
 extern const QString BLUEPART;
 extern const QString ORANGEPART;
-
+extern const QString MOUSEPICTURE;
+extern const int mouseWidth;
+extern const int mouseHeight;
+extern const QVector2D mousePosition;
+extern const int playerWidth;
+extern const int playerHeight;
+extern const QVector2D playerPosistion;
+extern const int enermyWidth;
+extern const int enermyHeight;
+extern const QVector2D enermyPosition;
 extern const int TIMEWIDTH;
 extern const float leastQTEDistance;  //最小可qte距离
 extern const float leastQTEAppendDistance;  //追击时的最小可自动qte距离

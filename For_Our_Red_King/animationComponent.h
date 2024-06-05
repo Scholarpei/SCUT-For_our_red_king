@@ -44,6 +44,7 @@ public:
     bool getIsRepeating();//子类获取
     void setCurrentFrame(int val);//子类设置
 
+    bool isPlaying;             // 是否继续播放
 protected:
     //以下都是实现切换动画所用
     short TICKS_PER_FRAME = SYSTEM::durationPerFrame;
@@ -53,7 +54,7 @@ protected:
     QPixmap spriteSheet;        // 雪碧图
     int currentTick;            // 积累到切换下一帧动图的帧数
     int currentFrame;           // 当前在第几帧
-    bool isPlaying;             // 是否继续播放
+
     bool isRepeating;           // 是否重复播放
     bool willReStart;           // 播放时是否重新开始
     bool isDisplaying;          // 图片是否显示

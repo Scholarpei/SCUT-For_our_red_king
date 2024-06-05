@@ -23,6 +23,7 @@ class Monster;
 class StopButton;
 class ReturnMainButton;
 class QTEObject;
+class QTEPlayer;
 class Game: public QObject
 {
     Q_OBJECT

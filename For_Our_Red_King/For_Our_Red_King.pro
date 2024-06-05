@@ -41,11 +41,14 @@ HEADERS += animationComponent.h \
            newspritecomponent.h \
            player.h \
            playerstatesset.h \
+           qteenermy.h \
            playerteleportationcomponent.h \
            qteobject.h \
+           qteplayer.h \
            returnmainbutton.h \
            rotationcomponent.h \
            spritecomponent.h \
+           spriteobject.h \
            standard.h \
            statebase.h \
            stopbutton.h \
@@ -79,11 +82,14 @@ SOURCES += animationComponent.cpp \
            newspritecomponent.cpp \
            player.cpp \
            playerstatesset.cpp \
+           qteenermy.cpp \
            playerteleportationcomponent.cpp \
            qteobject.cpp \
+           qteplayer.cpp \
            returnmainbutton.cpp \
            rotationcomponent.cpp \
            spritecomponent.cpp \
+           spriteobject.cpp \
            standard.cpp \
            statebase.cpp \
            stopbutton.cpp \

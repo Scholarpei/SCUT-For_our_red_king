@@ -2,6 +2,9 @@
 #include <qdebug.h>
 #include <standard.h>
 #include <cmath>
+#include "qteplayer.h"
+#include "qteenermy.h"
+#include "monster.h"
 void FightQTE::initial()
 {
     //!< 初始化hit type
@@ -22,7 +25,17 @@ void FightQTE::initial()
     mSoundPlayer = new MusicPlayer;
 
     // timer->startRun();
-    // 绘画部分
+    // 绘画部分-鼠标
+    mouses=new NewspriteComponent(this,DRAWORRDER::QTE);
+    mouses->setWidth(QTE::mouseWidth);
+    mouses->setHeight(QTE::mouseHeight);
+    mouses->setPos(QTE::mousePosition.x(),QTE::mousePosition.y());
+    mouses->SetTexture(QTE::MOUSEPICTURE);
+    mouses->setNeedDraw(0);
+    //绘画部分-动画 使用gameobject
+    object_Player=new QTEPlayer(this,this->getGame());
+    object_Enermy=new QTEEnermy(this,this->getGame());
+    //绘画部分-qte图
     sprite_Plate = new NewspriteComponent(this, DRAWORRDER::QTE);
     sprite_Point = new NewspriteComponent(this, DRAWORRDER::QTE);
     sprite_Plate->setNeedDraw(0);
@@ -111,6 +124,7 @@ void FightQTE::centralFunction()
         {
             // draw图画
             sprite_colors.at(cnt)->setNeedDraw(1);
+            object_Enermy->attack();
             cnt++;
             // 写到这里
             //!< sound
@@ -225,9 +239,15 @@ void FightQTE::round2Judge(int key)
         if (deltaAngle <= QTE::DELTAANGLE)
         {
             if(hit_type.at(cnt) == 1)
+            {
                 this->mSoundPlayer->play(QTE::qteHit1URL,false);
+                this->object_Player->attack1();
+            }
             else
+            {
                 this->mSoundPlayer->play(QTE::qteHit2URL,false);
+                this->object_Player->attack2();
+            }
             //播放不同hit音效
             cnt++;
             if(cnt>3)cnt=3;
@@ -266,6 +286,7 @@ void FightQTE::round3Judge(int key)
             sprite_colors.at(TargetAngle)->setNeedDraw(0);
             isHit = 1;
             this->mSoundPlayer->play(QTE::qteHit3URL,false);//红色
+            this->object_Player->attack3();
             //!< correct
             //! <sound
             //! <animation
@@ -281,6 +302,9 @@ void FightQTE::startQTE()
     roundIncre = 1;
     cnt = 0;
     colorInitial=0;
+}
+int FightQTE::getDrawDirection(){
+    return drawDirection;
 }
 void FightQTE::lose_typeone()
 {

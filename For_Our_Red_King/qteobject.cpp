@@ -3,6 +3,9 @@
 #include "playerteleportationcomponent.h"
 //QTEObject::QTEObject() {}
 #include "game.h"
+#include "spriteobject.h"
+#include "qteplayer.h"
+
 QTEObject::QTEObject(QObject *parent,Game* game,Monster* enermy)
     :FightQTE(parent,game){
     this->enermy=enermy;
@@ -14,6 +17,7 @@ QTEObject::~QTEObject()
 }
 void QTEObject::setMonster(Monster* monster){
     this->enermy=monster;
+    this->object_Enermy->kindOfenermy=monster->mMonsterType;
 }
 void QTEObject::QTEBegin(){
     this->startQTE();
@@ -26,6 +30,11 @@ void QTEObject::QTEEnd(){
 void QTEObject::QTEshowGraph(bool isOrnot){
     this->sprite_Plate->setNeedDraw(isOrnot);
     this->sprite_Point->setNeedDraw(isOrnot);
+    this->mouses->setNeedDraw(isOrnot);
+    if(isOrnot){
+    this->object_Player->setNeedDraw(isOrnot);
+    this->object_Enermy->setNeedDraw(isOrnot);
+    }
     if(!isOrnot)
     {
         for(auto i:this->sprite_colors)
@@ -45,18 +54,18 @@ void QTEObject::inputMousePressProcess(QMouseEvent * e){
     this->FightQTE::inputMousePressProcess(e);
 }
 void QTEObject::inputKeyPressProcess(int key){
-    if(key=='Z')
-        this->QTEshowGraph(1);
-    if(key=='X')
-        this->QTEshowGraph(0);
-    if(key=='C')
-        this->QTEBegin();
-    if(key=='V')
-        this->QTEEnd();
-    if(key=='M')
-        this->neednextRound=1;
-    if(key=='N')
-        this->startQTEfrom3();
+    // if(key=='Z')
+    //     this->QTEshowGraph(1);
+    // if(key=='X')
+    //     this->QTEshowGraph(0);
+    // if(key=='C')
+    //     this->QTEBegin();
+    // if(key=='V')
+    //     this->QTEEnd();
+    // if(key=='M')
+    //     this->neednextRound=1;
+    // if(key=='N')
+    //     this->startQTEfrom3();
     this->FightQTE::inputKeyPressProcess(key);
 }
 
@@ -68,6 +77,7 @@ void QTEObject::win(){
     this->mGame->qteWinPeriodFlag = true;  //设置追击flag
     this->mGame->qteWintimer = 0;   //追击计时器归零
     enermy->changeMonsterState(Monster::MonsterState::DYING);//改变为死亡状态
+    this->object_Enermy->dead();
 
     //瞬移动画
 
@@ -87,6 +97,7 @@ void QTEObject::lose_typeone(){
     mbgmPlayer->stop();//停止鼓点
     this->mGame->mMusicPlayer->setVolumeProportion(0.8f);//设置背景音乐恢复音量
     this->mGame->nowIsQTE = false;//结束qte,flag设置为false
+    qDebug()<<angle;
 }
 void QTEObject::lose_typetwo(){
     this->QTEEnd();
