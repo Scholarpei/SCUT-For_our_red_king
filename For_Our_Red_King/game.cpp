@@ -31,7 +31,7 @@ Game::Game(QObject *parent,MainWindow* window):
 
     #ifdef GENERATE_DATA_MODE
         generateContent();//临时生成关卡信息（为了使构造函数看起来更好看）
-        generateLevelData();
+        generateLevelData("mainLevel");
     #endif
 
     //上面这两行是用来生成关卡数据用的，下面的是载入数据用的
@@ -61,7 +61,7 @@ void Game::loadData(QString target)
     file.read((char *)&mInterface,sizeof(Interface));//读取数据到Interface
 }
 
-void Game::generateLevelData()
+void Game::generateLevelData(QString filename)
 {
     Interface i;//空的关卡data
     //下面为示例写法
@@ -95,7 +95,7 @@ void Game::generateLevelData()
             i.blockInterfaceArray[i.BlockSize++] = block;
         }
 
-    QString fileName = "..\\..\\Data\\levelData\\mainLevel";    //mainLevel名字即为存在本地的名字
+    QString fileName = "..\\..\\Data\\levelData\\" + filename;    //mainLevel名字即为存在本地的名字
     QFile file(fileName);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate))
     {

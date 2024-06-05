@@ -60,7 +60,7 @@ public:
     void generateContent();//!<临时生成关卡信息的函数
 
     void changeLevel(Interface i);   //!<改变关卡、回到主界面函数
-    void generateLevelData();         //!<根据现有的GameObject制作关卡信息
+    void generateLevelData(QString filename);         //!<根据现有的GameObject制作关卡信息
     void loadData(QString target);   //!<加载数据
     void unloadData();               //!<释放数据
     void ExitGame();                 //!<游戏结束函数
