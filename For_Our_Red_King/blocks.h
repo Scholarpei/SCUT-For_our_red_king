@@ -183,4 +183,12 @@ public:
     std::vector<AnimationLoader> getAnime(short id);
 };
 
+
+
+
+namespace VANITY{
+
+std::vector<InterfaceBlock> unlimited_block_works(short id);
+}
+
 #endif // BLOCKS_H

@@ -2,6 +2,7 @@
 #define INTERFACE_H
 class Player;
 class Monster;
+#include "blocks.h"
 struct InterfacePlayer
 {
     float x,y;    //坐标
@@ -27,8 +28,11 @@ public:
      InterfacePlayer playerinterface;
      InterfaceMonster monsterinterface;
 
-     int Monstersize = -1;
+     int Monstersize = 0;
      InterfaceMonster monsterinterfacearray[20];                //monsterinterface数组
+
+     int BlockSize = 0;
+     InterfaceBlock blockInterfaceArray[100];
 
 
 
