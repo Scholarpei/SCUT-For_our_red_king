@@ -37,7 +37,7 @@ Game::Game(QObject *parent,MainWindow* window):
     //上面这两行是用来生成关卡数据用的，下面的是载入数据用的
 
     #ifdef LOAD_DATA_MODE
-        loadData("..\\..\\Data\\levelData\\mainLevel");//这里更改路径可以生成数据
+        loadData(DATA::MainLevelDataURL);//这里更改路径可以生成数据
         changeLevel(mInterface);
     #endif
 

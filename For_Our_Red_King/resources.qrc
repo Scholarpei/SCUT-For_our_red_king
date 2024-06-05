@@ -37,5 +37,6 @@
         <file>pictureResoource/Tiles/Barrel1-export.png</file>
         <file>pictureResoource/Tiles/broken.png</file>
         <file>pictureResoource/Tiles/plate1.png</file>
+        <file>Data/levelData/mainLevel</file>
     </qresource>
 </RCC>

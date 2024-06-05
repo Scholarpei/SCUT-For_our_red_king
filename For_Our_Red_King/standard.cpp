@@ -257,3 +257,11 @@ const QVector2D returnMainButtonPOS(SYSTEM::windowWidth-64,32);
 const QString returnMainButtonTYPE1=":/pictureResoource/button/returnmainbutton_type1.png";
 const QString returnMainButtonTYPE2=":/pictureResoource/button/returnmainbutton_type2.png";
 }
+
+namespace DATA{
+extern const QString MainLevelDataURL =  ":/Data/levelData/mainLevel";
+extern const QString Level1DataURL;
+extern const QString Level2DataURL;
+extern const QString Level3DataURL;
+
+}
