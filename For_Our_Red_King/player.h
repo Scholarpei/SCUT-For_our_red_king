@@ -11,23 +11,23 @@
 #include "playerteleportationcomponent.h"
 class GameObject;
 
-struct InterfacePlayer
-{
-    float x,y;    //坐标
-    int HP;         //存档时的血量
-    InterfacePlayer(){
-        //空的构造函数
-    }
-    InterfacePlayer(float x,float y,int HP){
-        this->x = x;
-        this->y = y;
-        this->HP = HP;
-    }
-};
-
 class Player : public GameObject
 {
 public:
+
+    struct InterfacePlayer
+    {
+        float x,y;    //坐标
+        int HP;         //存档时的血量
+        InterfacePlayer(){
+            //空的构造函数
+        }
+        void interfaceInitialization(class Player* playerP){
+            this->x = playerP->getPosition().x();
+            this->y = playerP->getPosition().y();
+            this->HP = playerP->getHP();
+        }
+    };
 
     explicit Player(QObject *parent = nullptr,class Game* game = nullptr);
     // explicit Player(QObject *parent = nullptr,class Game* game = nullptr,InterfacePlayer i = InterfacePlayer ());
@@ -52,6 +52,7 @@ public:
     void setMoveDirection(int dir)override;    //!<设置运动方向
     void setSpeedX(float s)override;   //!<设置X速度
     void setSpeedY(float s)override;   //!<设置Y速度
+    void setHP(int hp);                 //设置hp
     int getDrawDirection()override;    //!<获得绘画方向(正常1、镜像-1)
 
     void movecollideOthers(GameObject* d,QVector2D& lastposition)override;        //!<碰撞其他gameobject的事件处理(d是this碰撞到的GameObject)
@@ -59,6 +60,8 @@ public:
     void beingCollide(GameObject* s)override;         //!<被碰撞后发生的事件处理(s是碰撞this的GameObject)
     void movenotCollide(QVector2D& lastposition)override;                        //!<如果movecomponent没有发生碰撞后该Object的处理
     void fallnotCollide(QVector2D& lastposition)override;                        //!<如果fallcomponent没有发生碰撞后该Object的处理
+
+    void initialByInterface(InterfacePlayer mplayer);                           //通过interface初始化
 
     void loseHPEvent(int num);                        //!Player扣血事件
 

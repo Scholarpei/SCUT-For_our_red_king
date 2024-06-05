@@ -1,3 +1,6 @@
-#include "interface.h"
+﻿#include "interface.h"
 
-Interface::Interface() {}
+Interface::Interface() {
+
+
+}
