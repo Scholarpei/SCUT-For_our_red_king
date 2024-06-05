@@ -1,4 +1,4 @@
-﻿#include "monster.h"
+#include "monster.h"
 #include "spritecomponent.h"
 #include "movecomponent.h"
 #include "game.h"
@@ -37,10 +37,10 @@ Monster::Monster(QObject *parent,Game* game):
 
 }
 
-InterfaceMonster Monster::intoInterface()
-{
-    return InterfaceMonster(this->getPosition().x(),this->getPosition().y());
-}
+// InterfaceMonster Monster::intoInterface()
+// {
+//     return InterfaceMonster(this->getPosition().x(),this->getPosition().y());
+// }
 
 void Monster::Update(){
     loseHP_timeCount ++;  //扣血限制计时器更新
@@ -349,9 +349,42 @@ void Monster::setSpeedY(float s)
     this->mSpeedY = s;
 }
 
+int Monster::getHP()
+{
+    return this->HP;
+}
+
+void Monster::setHP(int hp){
+    this->HP = hp;
+}
+
+int Monster::getMonsterType(){
+    if(mMonsterType == MonsterType::Batman)
+        return 1;
+    else if(mMonsterType == MonsterType::Biker)
+        return 2;
+    else if(mMonsterType == MonsterType::Cyborg)
+        return 3;
+    else if(mMonsterType == MonsterType::Robot)
+        return 4;
+}
+
+void Monster::initialByInterface(InterfaceMonster mmonster){
+    this->setPosition(QVector2D(mmonster.x,mmonster.y));
+    this->setHP(mmonster.HP);
+     if(mmonster.type == 1)
+        this->mMonsterType = MonsterType::Batman;
+    else if(mmonster.type == 2)
+         this->mMonsterType = MonsterType::Biker;
+    else if(mmonster.type == 3)
+        this->mMonsterType = MonsterType::Cyborg;
+    else if(mmonster.type == 4)
+        this->mMonsterType = MonsterType::Robot;
+
 int Monster::getMonsterATK()
 {
     return this->ATK;
+
 }
 
 

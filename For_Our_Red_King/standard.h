@@ -10,6 +10,7 @@ namespace PLAYER{
     extern const AnimationLoader walking;
     extern const AnimationLoader jumping;
     extern const AnimationLoader dead;
+    extern const AnimationLoader attack;
     extern const int loseHPTimePeriod;
     extern const int MaxHP;
     extern const int Player_Width;
