@@ -59,7 +59,7 @@ public:
 
     void generateContent();//!<临时生成关卡信息的函数
 
-    void changeLevel(Interface &i);   //!<改变关卡、回到主界面函数
+    void changeLevel(Interface i);   //!<改变关卡、回到主界面函数
     void generateLevelData();         //!<根据现有的GameObject制作关卡信息
     void loadData(QString target);   //!<加载数据
     void unloadData();               //!<释放数据
@@ -86,7 +86,7 @@ private:
     myTimer* mTimer;                  //!<主循环用timer
     StopButton* stopbutton;
     ReturnMainButton* returnmainbutton;
-    Interface* mInterface;            //!<关卡data的Interface
+    Interface mInterface;            //!<关卡data的Interface
 
     void Update();                       //!<更新
     void Draw();                         //!<绘制

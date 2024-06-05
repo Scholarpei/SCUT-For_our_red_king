@@ -10,6 +10,7 @@
 #include "stopbutton.h"
 #include "qteplayer.h"
 #include "qteobject.h"
+#include "interface.h"
 Game::Game(QObject *parent,MainWindow* window):
     QObject{parent},
     mPlayer(nullptr)
@@ -23,8 +24,23 @@ Game::Game(QObject *parent,MainWindow* window):
     //设置bgm
 
     mSoundPlayer = new MusicPlayer;//初始化音效player
-    qDebug()<<"这里测试player game26";
-    generateContent();//临时生成关卡信息（为了使构造函数看起来更好看）
+    qDebug()<<"现在开始测试主界面读写";
+
+//#define GENERATE_DATA_MODE
+#define LOAD_DATA_MODE
+
+    #ifdef GENERATE_DATA_MODE
+        generateContent();//临时生成关卡信息（为了使构造函数看起来更好看）
+        generateLevelData();
+    #endif
+
+    //上面这两行是用来生成关卡数据用的，下面的是载入数据用的
+
+    #ifdef LOAD_DATA_MODE
+        loadData("..\\..\\Data\\levelData\\mainLevel");//这里更改路径可以生成数据
+        changeLevel(mInterface);
+    #endif
+
     //在制作好关卡后，就是先loadData(关卡字符串资源url) 到 Game中的mInterface中，再调用changeLevel(mInterface)来切换关卡了
     //示例：loadData("mainLevel.data"); changeLevel(mInterface)
     Initialize();
@@ -35,26 +51,37 @@ void Game::loadData(QString target)
 {
     //载入target为名字的Interface数据，存储在mInterface中
     //类似于mInterface = read()....
+    QString fileName = target;
+    QFile file(fileName);
+    if (!file.open(QIODevice::ReadOnly))
+    {
+        qDebug("读入失败！！！");
+        exit(0);
+    }
+    file.read((char *)&mInterface,sizeof(Interface));//读取数据到Interface
 }
 
 void Game::generateLevelData()
 {
     Interface i;//空的关卡data
     //下面为示例写法
-    /*
-     * PlayerInterface Playertmp;
-     * MonsterInterface Monstertmp;
-     for(auto gameObject:mGameObject)
+    InterfacePlayer   Playertmp ;
+    InterfaceMonster  Monstertmp;
+    Player* playerptr;
+    Monster* monsterptr;
+    for(auto gameObject:mGameObjects)
         {
             switch(gameObject->gameObjectType){
                 //根据不同的gameobject的类型选择对应的类的函数
                 case GameObject::Type::Player :
-                    Playertmp.interfaceInitialization(gameObject);
+                    playerptr = dynamic_cast<Player*>(gameObject);
+                    Playertmp.interfaceInitialization(playerptr);
                     i.playerinterface = Playertmp;
                     break;
                 case GameObject::Type::Monster :
-                    Monstertmp.interfaceInitialization(gameObject);
-                    i.Monsterinterface[sizeMonster++] = Monstertmp;
+                    monsterptr = dynamic_cast<Monster*>(gameObject);
+                    Monstertmp.interfaceInitialization(monsterptr);
+                    i.monsterinterfacearray[i.Monstersize++] = Monstertmp;
                     break;
                 default:
                     break;
@@ -65,41 +92,39 @@ void Game::generateLevelData()
 
         for(auto block : blocks)
         {
-            i.blockInterfaceArray[BlockSize++] = block;
+            i.blockInterfaceArray[i.BlockSize++] = block;
         }
 
-
-
-     */
+    QString fileName = "..\\..\\Data\\levelData\\mainLevel";    //mainLevel名字即为存在本地的名字
+    QFile file(fileName);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate))
+    {
+        qDebug()<<"写入发生错误！";
+        exit(0);
+    }
+    file.write((const char*)&i,sizeof(Interface));//写入
 }
 
-void Game::changeLevel(Interface& i)
+void Game::changeLevel(Interface i)
 {
     unloadData();//先清除之前的数据
     //根据mInterface的内容初始化数据   意思是把数据关卡信息导入到游戏中
 
-    //示例
-    /*
+
     mPlayer = new Player(this,this);
     mPlayer->initialByInterface(i.playerinterface);
     this->createGameObject(mPlayer);
 
-    for(int j=0;j<i.sizeMonster;j++){
+    for(int j=0;j<i.Monstersize;j++){
         Monster* monster = new Monster(this,this);  //实例化默认Monster
-        monster->initialByInterface(i.monsterInterface_array[j]);  //根据monsterinterface信息初始化当前的Monster
+        monster->initialByInterface(i.monsterinterfacearray[j]);  //根据monsterinterface信息初始化当前的Monster
         this->createGameObject(monster);//放入mGameObject中
     }
-
-
 
     for(int j = 0; j < i.BlockSize; j++)
     {
         i.blockInterfaceArray[j].createBlock(this);
     }
-
-
-
-    */
 
 
 }
@@ -142,21 +167,13 @@ void Game::generateContent()
 {
 
     mPlayer = new Player(this,this);
-    mQTE= new QTEObject(this,this);
     Monster* mMonster = new Monster(this,this);
     Monster* twoMonster =  new Monster(this,this);
-    twoMonster->setPosition(QVector2D(150,160));
-    stopbutton=new StopButton(this,this);
-    returnmainbutton=new ReturnMainButton(this,this);
+    twoMonster->setPosition(QVector2D(250,160));
 
     createGameObject(mPlayer);
-    createGameObject(mQTE);
     createGameObject(mMonster);
     createGameObject(twoMonster);
-    createGameObject(stopbutton);
-    createGameObject(returnmainbutton);
-    createGameObject(mQTE->object_Enermy);
-    createGameObject(mQTE->object_Player);
 
 
     {
@@ -179,6 +196,16 @@ Game::~Game()
 //!初始化
 bool Game::Initialize()
 {
+    mQTE= new QTEObject(this,this);
+    stopbutton = new StopButton(this,this);
+    returnmainbutton = new ReturnMainButton(this,this);
+    createGameObject(mQTE);
+    createGameObject(stopbutton);
+    createGameObject(returnmainbutton);
+    createGameObject(mQTE->object_Enermy);
+    createGameObject(mQTE->object_Player);
+    //其他的初始化内容 QTE button
+
     QTimer::singleShot(250,this,[=](){
         mTimer = new myTimer(this,this);
         timerLoop = startTimer(15);      //建立循环timer并设定每隔15ms触发事件timerEvent

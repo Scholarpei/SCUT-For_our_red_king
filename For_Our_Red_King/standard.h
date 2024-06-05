@@ -211,4 +211,12 @@ extern const QString returnMainButtonTYPE1;
 extern const QString returnMainButtonTYPE2;
 }
 
+namespace DATA{
+extern const QString MainLevelDataURL;
+extern const QString Level1DataURL;
+extern const QString Level2DataURL;
+extern const QString Level3DataURL;
+
+}
+
 #endif // STANDARD_H

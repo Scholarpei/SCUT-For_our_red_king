@@ -16,7 +16,7 @@ void WalkingState::onEnter()
 void WalkingState::onKeyDown(int key,GameObject* gameObject)
 {
     if(gameObject->gameObjectType == GameObject::Type::Player){
-        qDebug()<<"walking-keydown";
+        // qDebug()<<"walking-keydown";
         Player* playerPtr = dynamic_cast<Player*>(gameObject);
         switch(key)
         {

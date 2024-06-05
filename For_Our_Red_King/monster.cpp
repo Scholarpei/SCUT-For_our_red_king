@@ -254,6 +254,7 @@ void Monster:: chooseAnimation(MonsterType type,MonsterState state){
             animation->play(true);
         }
         else if(mMonsterState == MonsterState::FIGHTING){
+
             animation->resetAnimation((MONSTER::Bikerfighting));
             animation->pause();
             animation->play(true);
@@ -381,14 +382,30 @@ int Monster::getMonsterType(){
 void Monster::initialByInterface(InterfaceMonster mmonster){
     this->setPosition(QVector2D(mmonster.x,mmonster.y));
     this->setHP(mmonster.HP);
-     if(mmonster.type == 1)
-        this->mMonsterType = MonsterType::Batman;
-    else if(mmonster.type == 2)
-         this->mMonsterType = MonsterType::Biker;
-    else if(mmonster.type == 3)
-        this->mMonsterType = MonsterType::Cyborg;
-    else if(mmonster.type == 4)
-        this->mMonsterType = MonsterType::Robot;
+    switch(mmonster.type){
+        case 1:
+            this->mMonsterType = MonsterType::Batman;
+            mWidth = 96;
+            mHeight = 48;
+            ATK = 30;
+            //改变宽高
+            break;
+        case 2:
+            this->mMonsterType = MonsterType::Biker;
+            ATK = 20;
+            break;
+        case 3:
+            this->mMonsterType = MonsterType::Cyborg;
+            ATK = 20;
+            break;
+        case 4:
+            this->mMonsterType = MonsterType::Robot;
+            mWidth = 96;
+            mHeight = 60;
+            ATK = 30;
+            //改变宽高
+            break;
+    }
 }
 int Monster::getMonsterATK()
 {

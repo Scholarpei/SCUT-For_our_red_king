@@ -28,5 +28,4 @@ void InterfaceMonster::interfaceInitialization(Monster *MonsterP){
         this->y = MonsterP->getPosition().y();
         this->HP = MonsterP->getHP();
         this->type = MonsterP->getMonsterType();      //1为Batman，2为Biker，3为Cyborg，4为Robot
-
 }

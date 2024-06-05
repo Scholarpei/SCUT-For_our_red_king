@@ -32,20 +32,20 @@ const AnimationLoader Bikerwalking = AnimationLoader(":/pictureResoource/Monster
 const AnimationLoader Bikerfighting = AnimationLoader(":/pictureResoource/Monster/Biker/attack.png",48,48,8);
 const AnimationLoader Bikerdead = AnimationLoader(":/pictureResoource/Monster/Biker/death.png",48,48,6);
 
-const AnimationLoader Batmanidle = AnimationLoader(":/pictureResoource/Monster/Batman/Special.png",96,96,6);
-const AnimationLoader Batmanwalking = AnimationLoader(":/pictureResoource/Monster/Batman/walk.png",96,96,6);
-const AnimationLoader Batmanfighting = AnimationLoader(":/pictureResoource/Monster/Batman/attack.png",96,96,6);
-const AnimationLoader Batmandead = AnimationLoader(":/pictureResoource/Monster/Batman/death.png",96,96,6);
+const AnimationLoader Batmanidle = AnimationLoader(":/pictureResoource/Monster/Batman/Special.png",96,48,6);
+const AnimationLoader Batmanwalking = AnimationLoader(":/pictureResoource/Monster/Batman/walk.png",96,48,6);
+const AnimationLoader Batmanfighting = AnimationLoader(":/pictureResoource/Monster/Batman/attack.png",96,48,6);
+const AnimationLoader Batmandead = AnimationLoader(":/pictureResoource/Monster/Batman/death.png",96,48,6);
 
 const AnimationLoader Cyborgidle = AnimationLoader(":/pictureResoource/Monster/Cyborg/idle.png",48,48,4);
 const AnimationLoader Cyborgwalking = AnimationLoader(":/pictureResoource/Monster/Cyborg/run.png",48,48,6);
 const AnimationLoader Cyborgfighting = AnimationLoader(":/pictureResoource/Monster/Cyborg/attack.png",48,48,8);
 const AnimationLoader Cyborgdead = AnimationLoader(":/pictureResoource/Monster/Cyborg/death.png",48,48,6);
 
-const AnimationLoader Robotidle = AnimationLoader(":/pictureResoource/Monster/Robot/idle.png",96,96,4);
-const AnimationLoader Robotwalking = AnimationLoader(":/pictureResoource/Monster/Robot/walk.png",96,96,6);
-const AnimationLoader Robotfighting = AnimationLoader(":/pictureResoource/Monster/Robot/attack.png",96,96,6);
-const AnimationLoader Robotdead = AnimationLoader(":/pictureResoource/Monster/Robot/death.png",96,96,6);
+const AnimationLoader Robotidle = AnimationLoader(":/pictureResoource/Monster/Robot/idle.png",96,60,4);
+const AnimationLoader Robotwalking = AnimationLoader(":/pictureResoource/Monster/Robot/walk.png",96,60,6);
+const AnimationLoader Robotfighting = AnimationLoader(":/pictureResoource/Monster/Robot/attack.png",96,60,6);
+const AnimationLoader Robotdead = AnimationLoader(":/pictureResoource/Monster/Robot/death.png",96,60,6);
 
 const AnimationLoader exclamation = AnimationLoader(":/pictureResoource/QTE/exclamation.png",
                                                     256,226,3);

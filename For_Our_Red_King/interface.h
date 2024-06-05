@@ -5,17 +5,18 @@ class Monster;
 #include "blocks.h"
 struct InterfacePlayer
 {
-    float x,y;    //坐标
-    int HP;         //存档时的血量
+    float x = 0,y = 0;    //坐标
+    int HP = 100;         //存档时的血量
     InterfacePlayer();
     void interfaceInitialization(Player* playerP);
 };
 
 struct InterfaceMonster
 {
-    float x,y;    //坐标
-    int HP;         //存档时的血量
-    int type;       //怪物类型
+    float x = 50,y = 50;    //坐标
+    int HP = 100;         //存档时的血量
+    int type = 1;       //怪物类型
+    int ATK = 30;       //攻击力
     InterfaceMonster();
 
     void interfaceInitialization(Monster *MonsterP);
