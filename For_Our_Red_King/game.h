@@ -30,12 +30,12 @@ class Game: public QObject
 public:
     bool stop=false;
 
-    Player* mPlayer;                  //!<    玩家角色
-    QTEObject* mQTE;                    //!< qte Object
+    Player* mPlayer = nullptr;                  //!<    玩家角色
+    QTEObject* mQTE = nullptr;                    //!< qte Object
     std::vector<GameObject*> mGameObjects;        //!<    游戏物体容器
     std::vector<spriteComponent*>mSprites;          //!<   精灵容器
-    MainWindow* mWindow;                          //!<  主界面
-    QPainter* mPainter;                                //!<绘画Painter
+    MainWindow* mWindow = nullptr;                          //!<  主界面
+    QPainter* mPainter = nullptr;                                //!<绘画Painter
     explicit Game(QObject *parent = nullptr,MainWindow* window = nullptr);
     virtual ~Game();
 
@@ -70,8 +70,8 @@ public:
     bool qteWinPeriodFlag = false;   //!<qte结束后需要追击的flag
     int qteWintimer = 0;             //!<qte结束后等待时间的计时器
 
-    MusicPlayer* mSoundPlayer;  //!音效播放player
-    MusicPlayer * mMusicPlayer ; //!<音乐播放player
+    MusicPlayer* mSoundPlayer = nullptr;  //!音效播放player
+    MusicPlayer * mMusicPlayer  = nullptr; //!<音乐播放player
 
 protected:
     virtual void timerEvent(QTimerEvent *event);    //!<定时器事件
@@ -81,11 +81,12 @@ private:
 
     bool    mIsUpdating = false;                    //!<    是否在更新状态
     bool    mIsLooping = false;                     //!<    是否在循环中
+    int    mGoToNextLevel = 0;                 //!<    是否在下一个update切换关卡  0不切换 1主界面 2随机关卡
 
     int timerLoop;                    //!<主循环Loop的timer ID
-    myTimer* mTimer;                  //!<主循环用timer
-    StopButton* stopbutton;
-    ReturnMainButton* returnmainbutton;
+    myTimer* mTimer = nullptr;                  //!<主循环用timer
+    StopButton* stopbutton = nullptr;
+    ReturnMainButton* returnmainbutton = nullptr;
     Interface mInterface;            //!<关卡data的Interface
 
     void Update();                       //!<更新

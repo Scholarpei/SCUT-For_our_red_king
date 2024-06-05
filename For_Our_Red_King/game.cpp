@@ -18,13 +18,8 @@ Game::Game(QObject *parent,MainWindow* window):
     qDebug()<<"到达Game对象构造函数处";
     mWindow = window;
     mPainter = new QPainter(mWindow);
-
     mMusicPlayer = new MusicPlayer;
-    mMusicPlayer->play(SYSTEM::bgmURL,true);
-    //设置bgm
-
     mSoundPlayer = new MusicPlayer;//初始化音效player
-    qDebug()<<"现在开始测试主界面读写";
 
 //#define GENERATE_DATA_MODE
 #define LOAD_DATA_MODE
@@ -45,6 +40,18 @@ Game::Game(QObject *parent,MainWindow* window):
     //在制作好关卡后，就是先loadData(关卡字符串资源url) 到 Game中的mInterface中，再调用changeLevel(mInterface)来切换关卡了
     //示例：loadData("mainLevel.data"); changeLevel(mInterface)
     Initialize();
+
+    QTimer::singleShot(250,this,[=](){
+        mTimer = new myTimer(this,this);
+        timerLoop = startTimer(15);      //建立循环timer并设定每隔15ms触发事件timerEvent
+    });
+
+
+/*这个是切换关卡的示例
+    QTimer::singleShot(2000,this,[=](){
+        this->mGoToNextLevel = 1;
+     });
+*/
 
 }
 
@@ -111,6 +118,7 @@ void Game::changeLevel(Interface i)
     unloadData();//先清除之前的数据
     //根据mInterface的内容初始化数据   意思是把数据关卡信息导入到游戏中
 
+    mMusicPlayer->play(SYSTEM::bgmURL,true);
 
     mPlayer = new Player(this,this);
     mPlayer->initialByInterface(i.playerinterface);
@@ -126,7 +134,7 @@ void Game::changeLevel(Interface i)
     {
         i.blockInterfaceArray[j].createBlock(this);
     }
-
+    mIsRuning = true;
 
 }
 
@@ -144,9 +152,6 @@ void Game::ExitGame()
     overGameAnimation->play(false);
     tempObject->addComponent(overGameAnimation);
 
-    //析构new出来的部分玩意
-    delete mSoundPlayer;
-
     QTimer::singleShot(1000,this,[=](){
         unloadData();//先清除数据
         mIsRuning = false;  //游戏结束标记flag
@@ -157,6 +162,7 @@ void Game::ExitGame()
 //!释放数据
 void Game::unloadData()
 {
+    mIsRuning = false;
     //清除上一关的GameObject、Sprites、Timers或者结束游戏
     while(!mGameObjects.empty())
         this->removeGameObject(mGameObjects[0]);
@@ -219,10 +225,6 @@ bool Game::Initialize()
     createGameObject(mQTE->object_Player);
     //其他的初始化内容 QTE button
 
-    QTimer::singleShot(250,this,[=](){
-        mTimer = new myTimer(this,this);
-        timerLoop = startTimer(15);      //建立循环timer并设定每隔15ms触发事件timerEvent
-    });
     return true;
 }
 
@@ -397,7 +399,35 @@ void Game::removeGameObject(GameObject* gameObject)
 
 void Game::Event()
 {
-    //to be written需要做的事件操作
+    if(this->mGoToNextLevel){
+        //切换关卡
+        if(mGoToNextLevel == 1){
+            unloadData();
+            loadData(DATA::MainLevelDataURL);
+            changeLevel(mInterface);
+            Initialize();
+        }
+        else{
+            //从3关中随机选择一关
+            unloadData();
+            int levelVal = rand()%3+1;
+            switch(levelVal){
+            case 1:
+                loadData(DATA::Level1DataURL);
+                break;
+            case 2:
+                loadData(DATA::Level2DataURL);
+                break;
+            case 3:
+                loadData(DATA::Level3DataURL);
+                break;
+            }
+            changeLevel(mInterface);
+            Initialize();
+        }
+        this->mGoToNextLevel = 0;//归零
+    }
+    //检测是否要切换关卡并切换
 
     //qte win后的动画等待事件开始
     if(this->qteWinPeriodFlag){
@@ -480,6 +510,7 @@ void Game::TryQTE()
 
 void Game::Update()
 {
+
     //设置帧率
     Tick(60);
 

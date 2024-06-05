@@ -284,9 +284,9 @@ const QString returnMainButtonTYPE2=":/pictureResoource/button/returnmainbutton_
 }
 
 namespace DATA{
-extern const QString MainLevelDataURL =  ":/Data/levelData/mainLevel";
-extern const QString Level1DataURL;
-extern const QString Level2DataURL;
-extern const QString Level3DataURL;
+const QString MainLevelDataURL =  ":/Data/levelData/mainLevel";
+const QString Level1DataURL =  ":/Data/levelData/Level1";
+const QString Level2DataURL =  ":/Data/levelData/Level2";
+const QString Level3DataURL =  ":/Data/levelData/Level3";
 
 }
