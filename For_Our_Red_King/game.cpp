@@ -8,12 +8,14 @@
 #include "standard.h"
 #include <QAudioOutput>
 #include "stopbutton.h"
-
 #include "qteobject.h"
+#include <QFileDialog>
+#include <QMessageBox>
 Game::Game(QObject *parent,MainWindow* window):
     QObject{parent},
     mPlayer(nullptr)
 {
+
     qDebug()<<"到达Game对象构造函数处";
     mWindow = window;
     mPainter = new QPainter(mWindow);
@@ -35,6 +37,16 @@ void Game::loadData(QString target)
 {
     //载入target为名字的Interface数据，存储在mInterface中
     //类似于mInterface = read()....
+    QString fileName = target;
+
+    QFile file(fileName);
+
+    if (!file.open(QIODevice::ReadOnly))
+    {
+        qDebug("读入失败！！！");
+        exit(0);
+    }
+    file.read((char *)&mInterface,sizeof(Interface));//读取数据到Interface
 }
 
 void Game::generateLevelData()
@@ -59,6 +71,15 @@ void Game::generateLevelData()
             }
         }
      */
+
+    QString fileName = "..\\..\\levelData\\mainLevel";//mainLevel名字即为存在本地的名字
+    QFile file(fileName);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate))
+    {
+        qDebug()<<"写入发生错误！";
+        exit(0);
+    }
+    file.write((const char*)&i,sizeof(Interface));//写入
 }
 
 void Game::changeLevel(Interface& i)
