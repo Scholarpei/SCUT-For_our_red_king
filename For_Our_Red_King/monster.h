@@ -22,8 +22,9 @@ public:
     enum class MonsterState{WALKING,FIGHTING,IDLE,DYING};//!怪物状态集合（判断,怪物应该只存在walking跟fighting的两种状态）
     MonsterState mMonsterState;
     virtual void changeMonsterState(MonsterState state);//!改变怪物状态
-
+    // 加monstertype的时候记得补一下QTEEnermy类的searchAnimation函数
     enum class MonsterType{Cyborg,Biker,Batman,Robot};
+    // 加monstertype的时候记得补一下QTEEnermy类的searchAnimation函数
     MonsterType mMonsterType = MonsterType::Biker;
     InterfaceMonster intoInterface();        //!<从player转为Interface函数
 
