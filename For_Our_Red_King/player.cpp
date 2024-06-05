@@ -15,7 +15,7 @@ Player::Player(QObject *parent,Game* game):
 
     this->setPosition(QVector2D(50,50));
     mSoundPlayer = new MusicPlayer;
-
+    changeTheFightingAnimation = 0;
     gameObjectType = GameObject::Type::Player;
     mPlayerState = playerState::IDLE;   //初始化player状态为idle
     _playerStateSet = new PlayerStatesSet(this,this);
