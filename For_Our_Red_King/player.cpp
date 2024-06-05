@@ -12,7 +12,6 @@ Player::Player(QObject *parent,Game* game):
 
     mWidth = PLAYER::Player_Width;
     mHeight = PLAYER::Player_Height;
-    deathFrime = 0;
 
     this->setPosition(QVector2D(50,50));
     mSoundPlayer = new MusicPlayer;
@@ -70,12 +69,8 @@ Player::Player(QObject *parent,Game* game):
 void Player::Update(){
 
     loseHP_timeCount ++ ;   //扣血限制计时器更新
-    if(mPlayerState == playerState::DYING){
-    deathFrime++;
-    if(deathFrime == 30){
-        this->mState = State::EDead;                //优化人物死亡不再攻击，将player移除
-    }
-    }
+    if(this->mPlayerState == playerState::FIGHTING)
+        changeTheFightingAnimation++;      //对是否战斗播放做特判
     if(mState == State::EDead)
         return;
     //物体标定为消亡就不再更新了
@@ -142,6 +137,9 @@ void Player::beingCollide(GameObject* s)
 //!碰撞其他gameobject的事件movecomponent处理(d是this碰撞到的GameObject)
 void Player::movenotCollide(QVector2D& lastposition)
 {
+    if(changeTheFightingAnimation>=32){
+        changePlayerState(playerState::IDLE);
+    }
     //to be written
     //似乎什么都不用做
 }
@@ -162,6 +160,9 @@ int Player::getDrawDirection()
 void Player::changePlayerState(playerState state)
 {
     this->mSoundPlayer->stop();
+    if(this->mPlayerState == playerState::FIGHTING){
+        changeTheFightingAnimation = 0;
+    }
 
     switch (state)
     {
@@ -181,6 +182,9 @@ void Player::changePlayerState(playerState state)
         case playerState::DYING:
             //还需插入音效
             this->mPlayerState = playerState::DYING;
+            break;
+        case playerState::FIGHTING:
+            this->mPlayerState = playerState::FIGHTING;
     }
 
         if(mPlayerState == playerState::IDLE){
@@ -199,6 +203,10 @@ void Player::changePlayerState(playerState state)
             animation->resetAnimation(PLAYER::dead);
             animation->play(false);
             }
+        else if(mPlayerState == playerState::FIGHTING){
+            animation->resetAnimation(PLAYER::attack);
+            animation->play(false);
+        }
         //动画播放内容根据当前状态决定
 }
 

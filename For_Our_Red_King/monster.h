@@ -73,21 +73,4 @@ private:
 
 };
 
-struct InterfaceMonster
-{
-    float x,y;    //坐标
-    int HP;         //存档时的血量
-    int type;       //怪物类型
-    InterfaceMonster(){
-        //空的构造函数
-    }
-
-    void interfaceInitialization(Monster *MonsterP){
-        this->x = MonsterP->getPosition().x();
-        this->y = MonsterP->getPosition().y();
-        this->HP = MonsterP->getHP();
-        this->type = MonsterP->getMonsterType();      //1为Batman，2为Biker，3为Cyborg，4为Robot
-
-    }
-};
 #endif // MONSTER_H

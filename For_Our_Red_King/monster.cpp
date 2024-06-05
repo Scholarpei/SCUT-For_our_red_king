@@ -92,12 +92,16 @@ void Monster::movecollideOthers(GameObject* d,QVector2D& lastposition)
     if(d->gameObjectType == GameObject::Type::Player){
         //玩家碰到怪物
         Player* PlayerPtr = dynamic_cast<Player*>(d);
+        if(PlayerPtr->mPlayerState != Player::playerState::DYING){
         changeTheFightingAnimation =0;
         this->moveDirection = (PlayerPtr->getPosition().x()-this->getPosition().x()<0)?-1:1;    //让怪物朝向人物，发动攻击
         changeMonsterState(MonsterState::FIGHTING);
         this->mGame->mPlayer->loseHPEvent(5);        //玩家掉血，在Player类中实现
-    }
-
+        }
+        else if(PlayerPtr->mPlayerState == Player::playerState::DYING){
+            this->moveDirection = -this->moveDirection;
+        }
+}
     this->setPosition(lastposition);
     //若发生碰撞，让移动不执行并切换运动方向
     if(d->gameObjectType != GameObject::Type::Player)
@@ -128,11 +132,16 @@ void Monster::beingCollide(GameObject* s)
     if(s->gameObjectType == GameObject::Type::Player){
         //玩家碰到怪物
         Player* PlayerPtr = dynamic_cast<Player*>(s);
+        if(PlayerPtr->mPlayerState != Player::playerState::DYING){
         changeTheFightingAnimation =0;
         this->moveDirection = (PlayerPtr->getPosition().x()-this->getPosition().x()<0)?-1:1;    //让怪物朝向人物，发动攻击
         changeMonsterState(MonsterState::FIGHTING);
         this->mGame->mPlayer->loseHPEvent(5);        //玩家掉血
-    }
+        }
+        else if(PlayerPtr->mPlayerState == Player::playerState::DYING){
+            this->moveDirection = -this->moveDirection;
+        }
+}
 }
 
 //!碰撞其他gameobject的事件movecomponent处理(d是this碰撞到的GameObject)

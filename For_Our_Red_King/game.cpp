@@ -1,4 +1,4 @@
-#include "game.h"
+﻿#include "game.h"
 #include "mytimer.h"
 #include "spritecomponent.h"
 #include "player.h"
@@ -49,11 +49,11 @@ void Game::generateLevelData()
             switch(gameObject->gameObjectType){
                 //根据不同的gameobject的类型选择对应的类的函数
                 case GameObject::Type::Player :
-                    Playertmp.initialize(gameObject);
+                    Playertmp.interfaceInitialization(gameObject);
                     i.playerinterface = Playertmp;
                     break;
                 case GameObject::Type::Monster :
-                    Monstertmp.initialize(gameObject);
+                    Monstertmp.interfaceInitialization(gameObject);
                     i.Monsterinterface[++sizeMonster] = Monstertmp;
                     break;
             }
@@ -69,12 +69,12 @@ void Game::changeLevel(Interface& i)
     //示例
     /*
     mPlayer = new Player(this,this);
-    mPlayer->Initialize(i.playerinterface)
+    mPlayer->initialByInterface(i.playerinterface);
     this->createGameObject(mPlayer);
 
-    for(int i=0;i<i.sizeMonster;i++){
+    for(int j=0;j<i.sizeMonster;j++){
         Monster* monster = new Monster(this,this);  //实例化默认Monster
-        monster->Initialize(i.monsterInterface_array[i]);  //根据monsterinterface信息初始化当前的Monster
+        monster->initialByInterface(i.monsterInterface_array[j]);  //根据monsterinterface信息初始化当前的Monster
         this->createGameObject(monster);//放入mGameObject中
     }
     */
