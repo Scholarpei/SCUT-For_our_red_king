@@ -185,6 +185,7 @@ void Player::changePlayerState(playerState state)
             break;
         case playerState::FIGHTING:
             this->mPlayerState = playerState::FIGHTING;
+            break;
     }
 
         if(mPlayerState == playerState::IDLE){

@@ -16,7 +16,7 @@ Monster::Monster(QObject *parent,Game* game):
     mWidth = MONSTER::Monster_Width;
     mHeight = MONSTER::Monster_Height;
     this->setPosition(QVector2D(100,320));   //怪物位置也需要确定好
-    mMonsterType = MonsterType::Cyborg;      //注意怪物类型
+    mMonsterType = MonsterType::Batman;      //注意怪物类型
     changeTheFightingAnimation = 0;
     deathFrime = 0;
 
