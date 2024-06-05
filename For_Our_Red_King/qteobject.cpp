@@ -78,6 +78,7 @@ void QTEObject::win(){
     this->mGame->mPlayer->teleportation = new PlayerTeleportationComponent(this->mGame->mPlayer,targetPosition);
 
     //瞬移动画
+    this->mGame->mPlayer->changePlayerState(Player::playerState::FIGHTING);
 }
 void QTEObject::lose_typeone(){
     this->QTEEnd();
@@ -87,6 +88,7 @@ void QTEObject::lose_typeone(){
     mbgmPlayer->stop();//停止鼓点
     this->mGame->mMusicPlayer->setVolumeProportion(0.8f);//设置背景音乐恢复音量
     this->mGame->nowIsQTE = false;//结束qte,flag设置为false
+    enermy->changeMonsterState(Monster::MonsterState::WALKING);//怪物walking恢复
 }
 void QTEObject::lose_typetwo(){
     this->QTEEnd();
@@ -96,6 +98,7 @@ void QTEObject::lose_typetwo(){
     mbgmPlayer->stop();//停止鼓点
     this->mGame->mMusicPlayer->setVolumeProportion(0.8f);//设置背景音乐恢复音量
     this->mGame->nowIsQTE = false;//结束qte,flag设置为false
+    enermy->changeMonsterState(Monster::MonsterState::WALKING);//怪物walking恢复
 }
 
 Monster* QTEObject::getEnermy()

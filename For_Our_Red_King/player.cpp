@@ -68,6 +68,8 @@ Player::Player(QObject *parent,Game* game):
 
 void Player::Update(){
 
+    qDebug("fight %d",changeTheFightingAnimation);
+
     loseHP_timeCount ++ ;   //扣血限制计时器更新
     if(this->mPlayerState == playerState::FIGHTING)
         changeTheFightingAnimation++;      //对是否战斗播放做特判
