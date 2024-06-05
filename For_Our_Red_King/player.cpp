@@ -66,10 +66,10 @@ Player::Player(QObject *parent,Game* game):
 //     //添加组件到组件数组中
 // }
 
-InterfacePlayer Player::intoInterface()
-{
-    return InterfacePlayer(this->getPosition().x(),this->getPosition().y(),this->getHP());
-}
+// InterfacePlayer Player::intoInterface()
+// {
+//     return InterfacePlayer(this->getPosition().x(),this->getPosition().y(),this->getHP());
+// }
 
 void Player::Update(){
 
@@ -270,6 +270,10 @@ void Player::setSpeedY(float s)
     this->mSpeedY = s;
 }
 
+void Player::setHP(int hp){
+    this->HP = hp;
+}
+
 //!键盘按下事件处理
 void Player::inputKeyPressProcess(int key)
 {
@@ -297,6 +301,11 @@ void Player::inputKeyReleaseProcess(int key)
     else if(mPlayerState == playerState::WALKING){
         _playerStateSet->_walkingState->onKeyUp(key,this);
     }
+}
+
+void Player::initialByInterface(InterfacePlayer mplayer){
+    this->setPosition(QVector2D(mplayer.x,mplayer.y));
+    this->setHP(mplayer.HP);
 }
 
 

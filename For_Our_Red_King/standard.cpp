@@ -8,6 +8,7 @@ const AnimationLoader jumping = AnimationLoader(":/pictureResoource/Player/jump.
                                           48,48,4);
 const AnimationLoader dead = AnimationLoader(":/pictureResoource/Player/death.png",
                                              48,48,6);
+const AnimationLoader attack = AnimationLoader(":/pictureResoource/Player/attack3.png",48,48,8);
 const int loseHPTimePeriod = 30;
 const int MaxHP = 100;
 const int Player_Width = 48;
