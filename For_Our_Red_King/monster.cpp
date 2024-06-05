@@ -1,4 +1,4 @@
-#include "monster.h"
+﻿#include "monster.h"
 #include "spritecomponent.h"
 #include "movecomponent.h"
 #include "game.h"
@@ -380,7 +380,7 @@ void Monster::initialByInterface(InterfaceMonster mmonster){
         this->mMonsterType = MonsterType::Cyborg;
     else if(mmonster.type == 4)
         this->mMonsterType = MonsterType::Robot;
-
+}
 int Monster::getMonsterATK()
 {
     return this->ATK;

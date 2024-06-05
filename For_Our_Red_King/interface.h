@@ -1,7 +1,6 @@
 ﻿#ifndef INTERFACE_H
 #define INTERFACE_H
-#include "player.h"
-#include "monster.h"
+
 class Interface
 {
 public:
