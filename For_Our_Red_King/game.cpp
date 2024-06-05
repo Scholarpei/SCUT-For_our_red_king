@@ -8,14 +8,12 @@
 #include "standard.h"
 #include <QAudioOutput>
 #include "stopbutton.h"
+
 #include "qteobject.h"
-#include <QFileDialog>
-#include <QMessageBox>
 Game::Game(QObject *parent,MainWindow* window):
     QObject{parent},
     mPlayer(nullptr)
 {
-
     qDebug()<<"到达Game对象构造函数处";
     mWindow = window;
     mPainter = new QPainter(mWindow);
@@ -37,16 +35,6 @@ void Game::loadData(QString target)
 {
     //载入target为名字的Interface数据，存储在mInterface中
     //类似于mInterface = read()....
-    QString fileName = target;
-
-    QFile file(fileName);
-
-    if (!file.open(QIODevice::ReadOnly))
-    {
-        qDebug("读入失败！！！");
-        exit(0);
-    }
-    file.read((char *)&mInterface,sizeof(Interface));//读取数据到Interface
 }
 
 void Game::generateLevelData()
@@ -71,15 +59,6 @@ void Game::generateLevelData()
             }
         }
      */
-
-    QString fileName = "..\\..\\levelData\\mainLevel";//mainLevel名字即为存在本地的名字
-    QFile file(fileName);
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate))
-    {
-        qDebug()<<"写入发生错误！";
-        exit(0);
-    }
-    file.write((const char*)&i,sizeof(Interface));//写入
 }
 
 void Game::changeLevel(Interface& i)
@@ -142,7 +121,7 @@ void Game::generateContent()
     mQTE= new QTEObject(this,this);
     Monster* mMonster = new Monster(this,this);
     Monster* twoMonster =  new Monster(this,this);
-    twoMonster->setPosition(QVector2D(350,160));
+    twoMonster->setPosition(QVector2D(150,160));
     stopbutton=new StopButton(this,this);
     returnmainbutton=new ReturnMainButton(this,this);
     createGameObject(mPlayer);
@@ -454,7 +433,7 @@ void Game::Event()
                     if(monsterptr->mMonsterState == Monster::MonsterState::DYING)
                         continue;//不考虑死亡的Monster
                     dis = std::sqrt(std::pow(object->getPosition().x() - mPlayer->getPosition().x(),2) + std::pow(object->getPosition().y() - mPlayer->getPosition().y(),2));
-                    if(dis < QTE::leastQTEAppendDistance){
+                    if(dis < QTE::leastQTEDistance){
                         //小于追击范围，锁定目标
                         sourceMonsterPtr = dynamic_cast<Monster*>(object);
                         break;
@@ -467,8 +446,6 @@ void Game::Event()
                 mPlayer->setMoveDirection(-to);
                 sourceMonsterPtr->setMoveDirection(to);
                 //改变二者的方向关系
-
-                sourceMonsterPtr->changeMonsterState(Monster::MonsterState::IDLE);//怪物idle动画
 
                 mQTE->setMonster(sourceMonsterPtr);
                 mQTE->QTEshowGraph(true);
@@ -508,8 +485,6 @@ void Game::TryQTE()
         mPlayer->setMoveDirection(-to);
         sourceMonsterPtr->setMoveDirection(to);
         //改变二者的方向关系
-
-        sourceMonsterPtr->changeMonsterState(Monster::MonsterState::IDLE);//怪物idle动画
 
         mQTE->setMonster(sourceMonsterPtr);
         this->nowIsQTE = true;
