@@ -41,6 +41,7 @@ HEADERS += animationComponent.h \
            newspritecomponent.h \
            player.h \
            playerstatesset.h \
+           playerteleportationcomponent.h \
            qteobject.h \
            returnmainbutton.h \
            rotationcomponent.h \
@@ -78,6 +79,7 @@ SOURCES += animationComponent.cpp \
            newspritecomponent.cpp \
            player.cpp \
            playerstatesset.cpp \
+           playerteleportationcomponent.cpp \
            qteobject.cpp \
            returnmainbutton.cpp \
            rotationcomponent.cpp \

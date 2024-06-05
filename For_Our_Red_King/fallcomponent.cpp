@@ -9,6 +9,10 @@ FallComponent::FallComponent(GameObject* gameObject):
 
 void FallComponent::Update()
 {
+    if(this->mGameObject->mGame->nowIsQTE)
+        return;
+    //qte下不参与fall，也不考虑碰撞
+
     if(mGameObject->gameObjectType == GameObject::Type::Player){
         //player类型的判定
         Player* playerPtr = dynamic_cast<Player*>(mGameObject);

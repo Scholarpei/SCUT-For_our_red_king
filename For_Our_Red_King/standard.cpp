@@ -13,6 +13,8 @@ const int loseHPTimePeriod = 30;
 const int MaxHP = 100;
 const int Player_Width = 48;
 const int Player_Height = 60;
+const int PlayerTeleportationTime = 20;   //Player缓慢移动到瞬移的帧数
+const float PlayerTeleportationMovingProportion = 0.3;  //player从移动到瞬移要走的距离比例
 
 const QString walkSoundURL = ":/sound/player/soundPlayerWalking.wav";
 const QString jumpSoundURL = ":/sound/player/soundPlayerJumping.wav";
@@ -50,6 +52,8 @@ const float exclamationXOffset = 7;//感叹号相比于monster的x上的偏移�
 const float exclamationYOffset = -10;//感叹号相比于monster的y上的偏移量
 const int ExclamationWidth = 32;
 const int ExclamationHeight = 32;
+
+const QString monsterBeingDestroyedURL = QString(":/sound/monster/monsterBeingDestroyed.wav");
 }
 
 namespace BACKGROUND{
@@ -183,13 +187,13 @@ const AnimationLoader ExitGameFilter(":/pictureResoource/background/exitGameFilt
 }
 
 namespace ACTIONCONST{
-const float maxSpeed = 5;
-const float gravityAcceleration = 0.5;
-const float jump_gravityAcceleration = 0.1;
-const float playerMoveXSpeed = 5;
-const float playerMoveYSpeed = -5;
-const float monsterMoveXSpeed = 1;
-const float monsterMoveYSpeed = 1;
+const float maxSpeed = 10;
+const float gravityAcceleration = 2.0;
+const float jump_gravityAcceleration = 0.3;
+const float playerMoveXSpeed = 10;
+const float playerMoveYSpeed = -9;
+const float monsterMoveXSpeed = 3;
+const float monsterMoveYSpeed = 3;
 const int monsterIdleFrame = 90;
 
 
@@ -210,7 +214,15 @@ const QString BLUEPART=":/pictureResoource/QTE/QTE_blue.png";
 const QString ORANGEPART=":/pictureResoource/QTE/QTE_orange.png";
 const int TIMEWIDTH = 1;
 const float leastQTEDistance = 200;
+const float leastQTEAppendDistance = leastQTEDistance * 1.8;  //追击时的最小可自动qte距离
 const int QteWinWaitingTime = SYSTEM::fpsNormal;   //qte结束后等待的动画时间
+
+const QString firstStartQTEURL = QString(":/sound/qte/firstStartQTE.wav");   //开启qte的音效
+const QString qteHit1URL= QString(":/sound/qte/hit1.wav");         //击打1音效
+const QString qteHit2URL= QString(":/sound/qte/hit2.wav");         //击打2音效
+const QString qteHit3URL= QString(":/sound/qte/hit3.wav");         //击打3音效
+const QString qteContinueURL= QString(":/sound/qte/QTEContinue.wav");     //qte中播放鼓点音乐
+const QString qteMissURL = QString(":/sound/qte/miss.wav");         //击打打空miss
 
 }
 namespace BUTTONS{

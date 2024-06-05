@@ -22,17 +22,65 @@ Game::Game(QObject *parent,MainWindow* window):
     mMusicPlayer->play(SYSTEM::bgmURL,true);
     //设置bgm
 
+    mSoundPlayer = new MusicPlayer;//初始化音效player
+
     generateContent();//临时生成关卡信息（为了使构造函数看起来更好看）
     //在制作好关卡后，就是先loadData(关卡字符串资源url) 到 Game中的mInterface中，再调用changeLevel(mInterface)来切换关卡了
-
+    //示例：loadData("mainLevel.data"); changeLevel(mInterface)
     Initialize();
 
 }
 
-void loadData(QString target)
+void Game::loadData(QString target)
 {
-
+    //载入target为名字的Interface数据，存储在mInterface中
+    //类似于mInterface = read()....
 }
+
+void Game::generateLevelData()
+{
+    Interface i;//空的关卡data
+    //下面为示例写法
+    /*
+     * PlayerInterface Playertmp;
+     * MonsterInterface Monstertmp;
+     for(auto gameObject:mGameObject)
+        {
+            switch(gameObject->gameObjectType){
+                //根据不同的gameobject的类型选择对应的类的函数
+                case GameObject::Type::Player :
+                    Playertmp.initialize(gameObject);
+                    i.playerinterface = Playertmp;
+                    break;
+                case GameObject::Type::Monster :
+                    Monstertmp.initialize(gameObject);
+                    i.Monsterinterface[++sizeMonster] = Monstertmp;
+                    break;
+            }
+        }
+     */
+}
+
+void Game::changeLevel(Interface& i)
+{
+    unloadData();//先清除之前的数据
+    //根据mInterface的内容初始化数据   意思是把数据关卡信息导入到游戏中
+
+    //示例
+    /*
+    mPlayer = new Player(this,this);
+    mPlayer->Initialize(i.playerinterface)
+    this->createGameObject(mPlayer);
+
+    for(int i=0;i<i.sizeMonster;i++){
+        Monster* monster = new Monster(this,this);  //实例化默认Monster
+        monster->Initialize(i.monsterInterface_array[i]);  //根据monsterinterface信息初始化当前的Monster
+        this->createGameObject(monster);//放入mGameObject中
+    }
+    */
+}
+
+
 
 //!退出游戏就调用这个函数
 void Game::ExitGame()
@@ -45,6 +93,9 @@ void Game::ExitGame()
     overGameAnimation->setRect(SYSTEM::windowWidth,SYSTEM::windowHeight);
     overGameAnimation->play(false);
     tempObject->addComponent(overGameAnimation);
+
+    //析构new出来的部分玩意
+    delete mSoundPlayer;
 
     QTimer::singleShot(1000,this,[=](){
         unloadData();//先清除数据
@@ -69,11 +120,14 @@ void Game::generateContent()
     mPlayer = new Player(this,this);
     mQTE= new QTEObject(this,this);
     Monster* mMonster = new Monster(this,this);
+    Monster* twoMonster =  new Monster(this,this);
+    twoMonster->setPosition(QVector2D(150,160));
     stopbutton=new StopButton(this,this);
     returnmainbutton=new ReturnMainButton(this,this);
     createGameObject(mPlayer);
     createGameObject(mQTE);
     createGameObject(mMonster);
+    createGameObject(twoMonster);
     createGameObject(stopbutton);
     createGameObject(returnmainbutton);
 
@@ -375,6 +429,9 @@ void Game::Event()
             for(auto object:mGameObjects)
                 if(object->gameObjectType == GameObject::Type::Monster){
                     //怪物才追击
+                    Monster * monsterptr = dynamic_cast<Monster*>(object);
+                    if(monsterptr->mMonsterState == Monster::MonsterState::DYING)
+                        continue;//不考虑死亡的Monster
                     dis = std::sqrt(std::pow(object->getPosition().x() - mPlayer->getPosition().x(),2) + std::pow(object->getPosition().y() - mPlayer->getPosition().y(),2));
                     if(dis < QTE::leastQTEDistance){
                         //小于追击范围，锁定目标
@@ -384,12 +441,20 @@ void Game::Event()
                 }
             //结束搜索
             if(sourceMonsterPtr != nullptr){
+                bool dir = (mPlayer->getPosition().x() - sourceMonsterPtr->getPosition().x()) > 0;
+                int to = dir? 1 : -1;
+                mPlayer->setMoveDirection(-to);
+                sourceMonsterPtr->setMoveDirection(to);
+                //改变二者的方向关系
+
                 mQTE->setMonster(sourceMonsterPtr);
                 mQTE->QTEshowGraph(true);
-                mQTE->QTEBegin();
+                mQTE->startQTEfrom3();//从最后一轮开始
             }
             else{
                 this->nowIsQTE = false;//结束qte了， component正常运作
+                this->mMusicPlayer->setVolumeProportion(0.8f);//设置背景音乐恢复音量
+                mQTE->mbgmPlayer->stop();//停止播放鼓点
             }
         }
     }
@@ -403,6 +468,9 @@ void Game::TryQTE()
     for(auto object:mGameObjects)
         if(object->gameObjectType == GameObject::Type::Monster){
             //怪物才追击
+            Monster * monsterptr = dynamic_cast<Monster*>(object);
+            if(monsterptr->mMonsterState == Monster::MonsterState::DYING)
+                continue;//不考虑死亡的Monster
             dis = std::sqrt(std::pow(object->getPosition().x() - mPlayer->getPosition().x(),2) + std::pow(object->getPosition().y() - mPlayer->getPosition().y(),2));
             if(dis < QTE::leastQTEDistance){
                 //小于追击范围，锁定目标
@@ -412,7 +480,19 @@ void Game::TryQTE()
         }
     if(sourceMonsterPtr != nullptr){
         //已获取
-        this->isQTE = true;
+        bool dir = (mPlayer->getPosition().x() - sourceMonsterPtr->getPosition().x()) > 0;
+        int to = dir? 1 : -1;
+        mPlayer->setMoveDirection(-to);
+        sourceMonsterPtr->setMoveDirection(to);
+        //改变二者的方向关系
+
+        mQTE->setMonster(sourceMonsterPtr);
+        this->nowIsQTE = true;
+        mQTE->QTEshowGraph(true);
+        this->mMusicPlayer->setVolumeProportion(0.2);//设置背景音乐弱化
+        mQTE->mbgmPlayer->play(QTE::qteContinueURL,false);//qte的bgm鼓点
+        this->mSoundPlayer->play(QTE::firstStartQTEURL,false);//开始qte的音效
+        mQTE->QTEBegin();
     }
 }
 
@@ -505,7 +585,7 @@ void Game::removeMyTimer(myTimer* timer)
 void Game::keyPressInput(int e)
 {
     if(this->mIsRuning){
-        if(e == Qt::Key_E){
+        if(e == Qt::Key_E && !nowIsQTE){
             //按下qte检测的E键单独处理
             TryQTE();
         }

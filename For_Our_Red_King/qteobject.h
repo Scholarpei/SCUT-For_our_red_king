@@ -7,6 +7,7 @@ class QTEObject:public FightQTE
 {
 public:
     QTEObject(QObject *parent=nullptr,Game* game=nullptr,Monster* enermy=nullptr);
+    ~QTEObject();
     void setMonster(Monster* monster);
     void QTEBegin();//设置qte开始
     void QTEEnd();//设置qte结束
@@ -19,6 +20,9 @@ public:
     virtual void inputMousePressProcess(QMouseEvent * key);
     virtual void inputKeyPressProcess(int key);//test use;
     //测试用 z键打开盘 x关掉盘 c从颜色开始 v暂停 m使下一轮继续出现红色 n直接从round3开始
+
+    Monster* getEnermy();   //get enermy
+
 protected:
     Monster* enermy;
 

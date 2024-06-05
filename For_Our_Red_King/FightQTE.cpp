@@ -17,6 +17,10 @@ void FightQTE::initial()
     timer = new TimerComponent(this, this);
     timer->EndRun();
 
+    //!新建音效播放
+    mbgmPlayer = new MusicPlayer;
+    mSoundPlayer = new MusicPlayer;
+
     // timer->startRun();
     // 绘画部分
     sprite_Plate = new NewspriteComponent(this, DRAWORRDER::QTE);
@@ -57,8 +61,10 @@ FightQTE::~FightQTE()
 {
     delete sprite_Plate;
     delete sprite_Point;
+    delete mbgmPlayer;
+    delete mSoundPlayer;
 }
-FightQTE::FightQTE(QObject *parent, Game *game) : GameObject(parent, game), round(0), angle(QTE::BEGINANGLE)
+FightQTE::FightQTE(QObject *parent, Game *game) : GameObject(parent, game)
 {
     initial();
 }
@@ -123,6 +129,7 @@ void FightQTE::centralFunction()
                     if (cnt >= 4)
                         cnt = 3;
                 }
+                this->mSoundPlayer->play(QTE::qteMissURL,false);
                 lose_typeone();
             }
             else
@@ -139,6 +146,7 @@ void FightQTE::centralFunction()
         {
             if (!isHit && sprite_colors.at(TargetAngle)->getNeedDraw())
             {
+                this->mSoundPlayer->play(QTE::qteMissURL,false);
                 lose_typeone();
             }
             else
@@ -149,7 +157,7 @@ void FightQTE::centralFunction()
 void FightQTE::nextRound()
 {
     //qDebug()<<"nextround";
-    TargetAngle = rand() % 4;
+    TargetAngle = rand() % 3+1;
     for (int i = 0; i < 4; i++)
     {
         sprite_colors.at(i)->setNeedDraw(0);
@@ -182,7 +190,7 @@ void FightQTE::rotation(int addAngle)
 }
 inline int FightQTE::changeKeyToNumber(int e)
 {
-    int number;
+    int number = -1;
     if (e == Qt::LeftButton)
         number = 0;
     else if (e == Qt::RightButton)
@@ -201,6 +209,7 @@ void FightQTE::round2Judge(int key)
     int number = changeKeyToNumber(key);
     if (isHit || number != hit_type.at(cnt))
     {
+        this->mSoundPlayer->play(QTE::qteMissURL,false);
         lose_typetwo();
         flag = 0;
     }
@@ -215,6 +224,11 @@ void FightQTE::round2Judge(int key)
 
         if (deltaAngle <= QTE::DELTAANGLE)
         {
+            if(hit_type.at(cnt) == 1)
+                this->mSoundPlayer->play(QTE::qteHit1URL,false);
+            else
+                this->mSoundPlayer->play(QTE::qteHit2URL,false);
+            //播放不同hit音效
             cnt++;
             if(cnt>3)cnt=3;
             isHit = 1;
@@ -233,6 +247,7 @@ void FightQTE::round3Judge(int key)
     if (isHit || number != 2)
     {
         //!< lose 重复hit
+        this->mSoundPlayer->play(QTE::qteMissURL,false);
         lose_typetwo();
         cnt--;
         flag = 0;
@@ -250,6 +265,7 @@ void FightQTE::round3Judge(int key)
             //            qDebug()<<"setfalse2";
             sprite_colors.at(TargetAngle)->setNeedDraw(0);
             isHit = 1;
+            this->mSoundPlayer->play(QTE::qteHit3URL,false);//红色
             //!< correct
             //! <sound
             //! <animation

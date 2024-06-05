@@ -8,6 +8,7 @@
 #include<QDebug>
 #include"standard.h"
 #include "musicplayer.h"
+#include "playerteleportationcomponent.h"
 class GameObject;
 
 class Player : public GameObject
@@ -39,7 +40,7 @@ public:
 
     InterfacePlayer intoInterface();        //!<从player转为Interface函数
 
-    void Update()override;                          //!<每帧更新
+    void Update()override;                  //!<每帧更新
 
     void inputKeyPressProcess(int key)override;   //!<处理键盘输入按下
     void inputKeyReleaseProcess(int key)override;   //!<处理键盘输入松开
@@ -67,6 +68,7 @@ public:
     FallComponent * fallCom;       //掉落组件
     MoveComponent * moveCom;        //移动组件
     AnimationComponent* animation;           //动画组件
+    PlayerTeleportationComponent* teleportation;  //qte后瞬移组件
 
 private:
     int deathFrime = 0;
