@@ -9,18 +9,7 @@
 #include"standard.h"
 #include "newanimationcomponent.h"
 
-struct InterfaceMonster
-{
-    float x,y;    //坐标
-    InterfaceMonster(){
-        //空的构造函数
-    }
-    InterfaceMonster(float x,float y){
-        this->x = x;
-        this->y = y;
-    }
-};
-
+struct InterfaceMonster;
 
 class GameObject;
 class Monster : public GameObject
@@ -46,7 +35,10 @@ public:
     void setMoveDirection(int dir)override;    //!<设置运动方向
     void setSpeedX(float s)override;   //!<设置X速度
     void setSpeedY(float s)override;   //!<设置Y速度
+    void setHP(int hp);                 //设置hp
     int getDrawDirection()override;    //!<获得绘画方向（正常1，镜像-1）
+    int getMonsterType();              //获取怪物种类
+    int getHP();                // 获得血量
 
     void movecollideOthers(GameObject* d,QVector2D& lastposition)override;        //!<在moveComponent中碰撞其他gameobject的事件处理(d是this碰撞到的GameObject)
     void fallcollideOthers(GameObject* d,QVector2D& lastposition)override;        //!<在fallComponent中碰撞其他gameobject的事件处理(d是this碰撞到的GameObject)
@@ -60,6 +52,8 @@ public:
     FallComponent * fallCom;       //掉落组件
     MoveComponent * moveCom;        //移动组件
     AnimationComponent* animation;           //动画组件
+
+    void initialByInterface(InterfaceMonster mmonster);                           //通过interface初始化
 
     int changeTheFightingAnimation;              //是否对打玩家图片特殊处理
     int deathFrime = 0;                         //死亡特殊处理
@@ -77,4 +71,21 @@ private:
 
 };
 
+struct InterfaceMonster
+{
+    float x,y;    //坐标
+    int HP;         //存档时的血量
+    int type;       //怪物类型
+    InterfaceMonster(){
+        //空的构造函数
+    }
+
+    void interfaceInitialization(Monster *MonsterP){
+        this->x = MonsterP->getPosition().x();
+        this->y = MonsterP->getPosition().y();
+        this->HP = MonsterP->getHP();
+        this->type = MonsterP->getMonsterType();      //1为Batman，2为Biker，3为Cyborg，4为Robot
+
+    }
+};
 #endif // MONSTER_H
