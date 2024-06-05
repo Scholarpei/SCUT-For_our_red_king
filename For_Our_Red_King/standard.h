@@ -14,6 +14,8 @@ namespace PLAYER{
     extern const int MaxHP;
     extern const int Player_Width;
     extern const int Player_Height;
+    extern const int PlayerTeleportationTime;   //Player缓慢移动到瞬移的帧数
+    extern const float PlayerTeleportationMovingProportion;  //player从移动到瞬移要走的距离比例
 
     extern const QString walkSoundURL;
     extern const QString jumpSoundURL;

@@ -35,11 +35,6 @@ Monster::Monster(QObject *parent,Game* game):
 
     this->chooseAnimation(mMonsterType,mMonsterState);       //预设播放器图片为行走
 
-    this->addComponent(moveCom);
-    this->addComponent(fallCom);
-    this->addComponent(animation);
-    this->addComponent(exclamationAnimation);
-    //添加组件到组件数组中
 }
 
 InterfaceMonster Monster::intoInterface()

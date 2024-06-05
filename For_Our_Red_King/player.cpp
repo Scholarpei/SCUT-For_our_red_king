@@ -29,10 +29,6 @@ Player::Player(QObject *parent,Game* game):
     animation->resetAnimation(PLAYER::idle);    //预设播放器图片为空闲状态
     animation->play(true);
 
-    this->addComponent(moveCom);
-    this->addComponent(fallCom);
-    this->addComponent(animation);
-    //添加组件到组件数组中
 }
 
 // Player::Player(QObject *parent,class Game* game,InterfacePlayer i):

@@ -8,6 +8,7 @@
 #include<QDebug>
 #include"standard.h"
 #include "musicplayer.h"
+#include "playerteleportationcomponent.h"
 class GameObject;
 
 struct InterfacePlayer
@@ -64,6 +65,7 @@ public:
     FallComponent * fallCom;       //掉落组件
     MoveComponent * moveCom;        //移动组件
     AnimationComponent* animation;           //动画组件
+    PlayerTeleportationComponent* teleportation;  //qte后瞬移组件
 
 private:
     int deathFrime = 0;

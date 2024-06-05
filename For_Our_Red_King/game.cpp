@@ -441,6 +441,12 @@ void Game::Event()
                 }
             //结束搜索
             if(sourceMonsterPtr != nullptr){
+                bool dir = (mPlayer->getPosition().x() - sourceMonsterPtr->getPosition().x()) > 0;
+                int to = dir? 1 : -1;
+                mPlayer->setMoveDirection(-to);
+                sourceMonsterPtr->setMoveDirection(to);
+                //改变二者的方向关系
+
                 mQTE->setMonster(sourceMonsterPtr);
                 mQTE->QTEshowGraph(true);
                 mQTE->startQTEfrom3();//从最后一轮开始
@@ -474,6 +480,12 @@ void Game::TryQTE()
         }
     if(sourceMonsterPtr != nullptr){
         //已获取
+        bool dir = (mPlayer->getPosition().x() - sourceMonsterPtr->getPosition().x()) > 0;
+        int to = dir? 1 : -1;
+        mPlayer->setMoveDirection(-to);
+        sourceMonsterPtr->setMoveDirection(to);
+        //改变二者的方向关系
+
         mQTE->setMonster(sourceMonsterPtr);
         this->nowIsQTE = true;
         mQTE->QTEshowGraph(true);

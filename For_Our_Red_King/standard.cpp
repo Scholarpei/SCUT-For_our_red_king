@@ -12,6 +12,8 @@ const int loseHPTimePeriod = 30;
 const int MaxHP = 100;
 const int Player_Width = 48;
 const int Player_Height = 60;
+const int PlayerTeleportationTime = 20;   //Player缓慢移动到瞬移的帧数
+const float PlayerTeleportationMovingProportion = 0.3;  //player从移动到瞬移要走的距离比例
 
 const QString walkSoundURL = ":/sound/player/soundPlayerWalking.wav";
 const QString jumpSoundURL = ":/sound/player/soundPlayerJumping.wav";
@@ -184,13 +186,13 @@ const AnimationLoader ExitGameFilter(":/pictureResoource/background/exitGameFilt
 }
 
 namespace ACTIONCONST{
-const float maxSpeed = 5;
-const float gravityAcceleration = 0.5;
-const float jump_gravityAcceleration = 0.1;
-const float playerMoveXSpeed = 5;
-const float playerMoveYSpeed = -5;
-const float monsterMoveXSpeed = 1;
-const float monsterMoveYSpeed = 1;
+const float maxSpeed = 10;
+const float gravityAcceleration = 2.0;
+const float jump_gravityAcceleration = 0.3;
+const float playerMoveXSpeed = 10;
+const float playerMoveYSpeed = -9;
+const float monsterMoveXSpeed = 3;
+const float monsterMoveYSpeed = 3;
 const int monsterIdleFrame = 90;
 
 
