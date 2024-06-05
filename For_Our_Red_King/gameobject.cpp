@@ -6,8 +6,7 @@ GameObject::GameObject(QObject *parent,Game *game):
     QObject{parent},
     mState(State::EActive),
     mPosition(QVector2D(0,0)),
-    mScale(QVector2D(1,1)),
-    attendCollision(1)
+    mScale(QVector2D(1,1))
 {
 
     //注意这里默认设置了物体参与碰撞
@@ -125,7 +124,7 @@ float GameObject::getHeight()
 
 int GameObject::getDirection()
 {
-    qDebug()<<"调用了getDirection来自GameObject基类的函数，发生错误！\n";
+    // qDebug()<<"调用了getDirection来自GameObject基类的函数，发生错误！\n";
     return 1;
 }
 

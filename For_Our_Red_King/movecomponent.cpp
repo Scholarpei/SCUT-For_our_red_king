@@ -9,6 +9,10 @@ MoveComponent::MoveComponent(GameObject* gameObject):
 
 void MoveComponent::Update()
 {
+    if(this->mGameObject->mGame->nowIsQTE)
+        return;
+    //qte下不参与fall，也不考虑碰撞
+
     // qDebug()<<"MoveComponent update启动";
     //只考虑横向的运动
     int dir = mGameObject->getDirection();

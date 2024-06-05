@@ -2,13 +2,18 @@
 
 MusicPlayer::MusicPlayer()
 {
+    // this->sound = new QSoundEffect;
+}
 
+MusicPlayer::~MusicPlayer()
+{
+    delete this->sound;
 }
 
 void MusicPlayer::play(QString address,bool repeat)
 {
-    if(sound != nullptr)
-        delete sound;
+    if(this->sound != nullptr)
+        delete this->sound;
     this->sound = new QSoundEffect;
     this->sound->setSource(QUrl::fromLocalFile(address));
     this->sound->setVolume(0.8f);
@@ -18,6 +23,11 @@ void MusicPlayer::play(QString address,bool repeat)
         this->sound->setLoopCount(1);
     //设置循环播放次数
     this->sound->play();
+}
+
+void MusicPlayer::setVolumeProportion(float v)
+{
+    this->sound->setVolume(v);
 }
 
 void MusicPlayer::stop()

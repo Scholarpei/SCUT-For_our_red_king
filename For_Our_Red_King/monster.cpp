@@ -1,4 +1,4 @@
-﻿#include "monster.h"
+#include "monster.h"
 #include "spritecomponent.h"
 #include "movecomponent.h"
 #include "game.h"
@@ -7,9 +7,7 @@
 #include "player.h"
 
 Monster::Monster(QObject *parent,Game* game):
-    GameObject(parent,game),
-    mSpeedX(ACTIONCONST::monsterMoveXSpeed),
-    moveDirection(1)
+    GameObject(parent,game)
 {
     mGame = game;//赋值game对象
 
@@ -185,6 +183,9 @@ void Monster::changeMonsterState(MonsterState state)
     case MonsterState::FIGHTING:
         this->mMonsterState = MonsterState::FIGHTING;
         break;
+    case MonsterState::DYING:
+        this->mMonsterState = MonsterState::DYING;
+        break;
     }
 
 
@@ -201,6 +202,7 @@ void Monster::changeMonsterState(MonsterState state)
         this->chooseAnimation(mMonsterType,mMonsterState);
     }
     else if(mMonsterState == MonsterState::DYING){
+        this->setSpeedX(0);//死亡不能动
         this->chooseAnimation(mMonsterType,mMonsterState);
     }
     //动画播放内容根据当前状态决定
@@ -383,6 +385,9 @@ void Monster::initialByInterface(InterfaceMonster mmonster){
         this->mMonsterType = MonsterType::Cyborg;
     else if(mmonster.type == 4)
         this->mMonsterType = MonsterType::Robot;
+int Monster::getMonsterATK()
+{
+    return this->ATK;
 }
 
 

@@ -52,6 +52,8 @@ namespace MONSTER {
     extern const int ExclamationWidth;
     extern const int ExclamationHeight;
 
+    extern const QString monsterBeingDestroyedURL ;   //monster被摧毁音效
+
 }
 
 namespace BACKGROUND{
@@ -164,7 +166,15 @@ extern const QString ORANGEPART;
 
 extern const int TIMEWIDTH;
 extern const float leastQTEDistance;  //最小可qte距离
+extern const float leastQTEAppendDistance;  //追击时的最小可自动qte距离
 extern const int QteWinWaitingTime;   //qte结束后等待的动画时间
+
+extern const QString firstStartQTEURL;   //开启qte的音效
+extern const QString qteHit1URL;         //击打1音效
+extern const QString qteHit2URL;         //击打2音效
+extern const QString qteHit3URL;         //击打3音效
+extern const QString qteContinueURL;     //qte中播放鼓点音乐
+extern const QString qteMissURL;         //击打打空miss
 }
 
 namespace FILTER{
