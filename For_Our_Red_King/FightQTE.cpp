@@ -129,6 +129,7 @@ void FightQTE::centralFunction()
                     if (cnt >= 4)
                         cnt = 3;
                 }
+                this->mSoundPlayer->play(QTE::qteMissURL,false);
                 lose_typeone();
             }
             else
@@ -145,6 +146,7 @@ void FightQTE::centralFunction()
         {
             if (!isHit && sprite_colors.at(TargetAngle)->getNeedDraw())
             {
+                this->mSoundPlayer->play(QTE::qteMissURL,false);
                 lose_typeone();
             }
             else
@@ -207,7 +209,7 @@ void FightQTE::round2Judge(int key)
     int number = changeKeyToNumber(key);
     if (isHit || number != hit_type.at(cnt))
     {
-        // this->mSoundPlayer->play(QTE::qteMissURL,false);
+        this->mSoundPlayer->play(QTE::qteMissURL,false);
         lose_typetwo();
         flag = 0;
     }
@@ -245,7 +247,7 @@ void FightQTE::round3Judge(int key)
     if (isHit || number != 2)
     {
         //!< lose 重复hit
-        // this->mSoundPlayer->play(QTE::qteMissURL,false);
+        this->mSoundPlayer->play(QTE::qteMissURL,false);
         lose_typetwo();
         cnt--;
         flag = 0;

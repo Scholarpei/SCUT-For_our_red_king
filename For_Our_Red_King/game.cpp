@@ -448,6 +448,7 @@ void Game::Event()
             else{
                 this->nowIsQTE = false;//结束qte了， component正常运作
                 this->mMusicPlayer->setVolumeProportion(0.8f);//设置背景音乐恢复音量
+                mQTE->mbgmPlayer->stop();//停止播放鼓点
             }
         }
     }

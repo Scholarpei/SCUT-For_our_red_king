@@ -9,5 +9,6 @@
         <file>sound/qte/hit3.wav</file>
         <file>sound/qte/QTEContinue.wav</file>
         <file>sound/monster/monsterBeingDestroyed.wav</file>
+        <file>sound/qte/miss.wav</file>
     </qresource>
 </RCC>

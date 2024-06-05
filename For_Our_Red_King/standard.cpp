@@ -219,6 +219,7 @@ const QString qteHit1URL= QString(":/sound/qte/hit1.wav");         //击打1音�
 const QString qteHit2URL= QString(":/sound/qte/hit2.wav");         //击打2音效
 const QString qteHit3URL= QString(":/sound/qte/hit3.wav");         //击打3音效
 const QString qteContinueURL= QString(":/sound/qte/QTEContinue.wav");     //qte中播放鼓点音乐
+const QString qteMissURL = QString(":/sound/qte/miss.wav");         //击打打空miss
 
 }
 namespace BUTTONS{

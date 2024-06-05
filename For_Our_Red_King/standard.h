@@ -173,6 +173,7 @@ extern const QString qteHit1URL;         //击打1音效
 extern const QString qteHit2URL;         //击打2音效
 extern const QString qteHit3URL;         //击打3音效
 extern const QString qteContinueURL;     //qte中播放鼓点音乐
+extern const QString qteMissURL;         //击打打空miss
 }
 
 namespace FILTER{

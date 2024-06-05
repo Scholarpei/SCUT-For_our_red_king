@@ -73,7 +73,7 @@ void QTEObject::lose_typeone(){
     qDebug() << "type1";
     this->QTEshowGraph(false);
     this->mGame->mPlayer->loseHPEvent(this->enermy->getMonsterATK());//减怪物的攻击力的血量
-    this->mGame->mSoundPlayer->stop();//停止鼓点
+    mbgmPlayer->stop();//停止鼓点
     this->mGame->mMusicPlayer->setVolumeProportion(0.8f);//设置背景音乐恢复音量
     this->mGame->nowIsQTE = false;//结束qte,flag设置为false
 }
@@ -82,7 +82,7 @@ void QTEObject::lose_typetwo(){
     qDebug() << "type2";
     this->QTEshowGraph(false);
     this->mGame->mPlayer->loseHPEvent(this->enermy->getMonsterATK());//减怪物的攻击力的血量
-    this->mGame->mSoundPlayer->stop();//停止鼓点
+    mbgmPlayer->stop();//停止鼓点
     this->mGame->mMusicPlayer->setVolumeProportion(0.8f);//设置背景音乐恢复音量
     this->mGame->nowIsQTE = false;//结束qte,flag设置为false
 }
