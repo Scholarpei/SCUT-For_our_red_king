@@ -79,14 +79,14 @@ void QTEObject::win(){
     enermy->changeMonsterState(Monster::MonsterState::DYING);//改变为死亡状态
     this->object_Enermy->dead();
 
-    //瞬移动画
+    this->mGame->mPlayer->changePlayerState(Player::playerState::FIGHTING);//打击动画
 
+    //瞬移动画
     QVector2D targetPosition;//目标位置
     int enermydir = enermy->getDirection();
     targetPosition.setX(enermy->getPosition().x() + (-enermydir * this->mGame->mPlayer->getWidth()));
     targetPosition.setY(enermy->getPosition().y() - this->mGame->mPlayer->getHeight());
     this->mGame->mPlayer->teleportation = new PlayerTeleportationComponent(this->mGame->mPlayer,targetPosition);
-
     //瞬移动画
 }
 void QTEObject::lose_typeone(){

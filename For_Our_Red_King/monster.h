@@ -25,7 +25,7 @@ public:
     // 加monstertype的时候记得补一下QTEEnermy类的searchAnimation函数
     enum class MonsterType{Cyborg,Biker,Batman,Robot};
     // 加monstertype的时候记得补一下QTEEnermy类的searchAnimation函数
-    MonsterType mMonsterType = MonsterType::Biker;
+    MonsterType mMonsterType = MonsterType::Batman;
     InterfaceMonster intoInterface();        //!<从player转为Interface函数
 
     void Update()override;                          //!<每帧更新

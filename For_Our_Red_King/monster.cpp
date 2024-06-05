@@ -16,7 +16,6 @@ Monster::Monster(QObject *parent,Game* game):
     mWidth = MONSTER::Monster_Width;
     mHeight = MONSTER::Monster_Height;
     this->setPosition(QVector2D(100,320));   //怪物位置也需要确定好
-    mMonsterType = MonsterType::Batman;      //注意怪物类型
     changeTheFightingAnimation = 0;
     deathFrime = 0;
 
@@ -44,6 +43,7 @@ Monster::Monster(QObject *parent,Game* game):
 
 void Monster::Update(){
     loseHP_timeCount ++;  //扣血限制计时器更新
+
     if(mMonsterState == MonsterState::DYING){
         deathFrime++;
         if(deathFrime == 30){
@@ -214,7 +214,7 @@ void Monster::changeMonsterState(MonsterState state)
 
 void Monster::loseHPEvent(int num)
 {
-    qDebug("time%d",loseHP_timeCount);
+    // qDebug("time%d",loseHP_timeCount);
     if(loseHP_timeCount < MONSTER::loseHPTimePeriod)
         return ;
     //用于限制扣血的时间间隔
@@ -241,6 +241,7 @@ void Monster::loseHPEvent(int num)
 }
 
 void Monster:: chooseAnimation(MonsterType type,MonsterState state){
+    qDebug("%d",type);
     switch(type)
     {
     case MonsterType::Biker:
@@ -388,21 +389,29 @@ void Monster::initialByInterface(InterfaceMonster mmonster){
             mWidth = 96;
             mHeight = 48;
             ATK = 30;
+            animation->resetAnimation(MONSTER::Batmanwalking);
+            animation->play(true);
             //改变宽高
             break;
         case 2:
             this->mMonsterType = MonsterType::Biker;
             ATK = 20;
+            animation->resetAnimation(MONSTER::Bikerwalking);
+            animation->play(true);
             break;
         case 3:
             this->mMonsterType = MonsterType::Cyborg;
             ATK = 20;
+            animation->resetAnimation(MONSTER::Cyborgwalking);
+            animation->play(true);
             break;
         case 4:
             this->mMonsterType = MonsterType::Robot;
             mWidth = 96;
             mHeight = 60;
             ATK = 30;
+            animation->resetAnimation(MONSTER::Robotwalking);
+            animation->play(true);
             //改变宽高
             break;
     }

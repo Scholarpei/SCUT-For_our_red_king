@@ -38,6 +38,7 @@ Game::Game(QObject *parent,MainWindow* window):
 
     #ifdef LOAD_DATA_MODE
         loadData(DATA::MainLevelDataURL);//这里更改路径可以生成数据
+        // loadData("../../Data/levelData/test");
         changeLevel(mInterface);
     #endif
 
@@ -168,12 +169,24 @@ void Game::generateContent()
 
     mPlayer = new Player(this,this);
     Monster* mMonster = new Monster(this,this);
-    Monster* twoMonster =  new Monster(this,this);
-    twoMonster->setPosition(QVector2D(250,160));
+
+    Monster* Monster2 =  new Monster(this,this);
+    Monster2->setPosition(QVector2D(250,160));
+    Monster2->mMonsterType = Monster::MonsterType::Biker;
+
+    Monster* Monster3 =  new Monster(this,this);
+    Monster3->setPosition(QVector2D(450,160));
+    Monster3->mMonsterType = Monster::MonsterType::Cyborg;
+
+    Monster* Monster4 =  new Monster(this,this);
+    Monster4->setPosition(QVector2D(600,160));
+    Monster4->mMonsterType = Monster::MonsterType::Robot;
 
     createGameObject(mPlayer);
     createGameObject(mMonster);
-    createGameObject(twoMonster);
+    createGameObject(Monster2);
+    createGameObject(Monster3);
+    createGameObject(Monster4);
 
 
     {
@@ -227,24 +240,63 @@ bool Game::collisionDetection(GameObject* first,GameObject* second)
 
     //下面是对于贴图不透明度的修改进行的玄学修改框框位置以及大小（针对player）
     auto getCollidePosition = [](QVector2D pos,GameObject* object) -> QVector2D{
-        if(object->getDirection() == 1)
-            pos = QVector2D(pos.x() + object->getWidth() * 0.08,pos.y()+ object->getHeight() * 0.15);
-        else
-            pos = QVector2D(pos.x() + object->getWidth() * 0.07,pos.y()+ object->getHeight() * 0.15);
+        pos.setY(pos.y()+ object->getHeight() * 0.15);
+        if(object->gameObjectType == GameObject::Type::Player){
+            if(object->getDirection() == 1)
+                pos.setX( pos.x() + object->getWidth() * 0.08);
+            else
+                pos.setX(pos.x() + object->getWidth() * 0.07);
+        }
+        else if(object->gameObjectType == GameObject::Type::Monster){
+
+        }
         return pos;
     };
 
     if(first->gameObjectType == GameObject::Type::Player){
         f_pos = getCollidePosition(f_pos,first);
         f_Width *= 0.55;
+        f_Height *= 0.80;
+    }
+
+    if(first->gameObjectType == GameObject::Type::Monster){
+        f_pos = getCollidePosition(f_pos,first);
+        Monster* monsterptr = dynamic_cast<Monster*>(first);
+        switch(monsterptr->mMonsterType){
+        case Monster::MonsterType::Batman:
+            f_Width *= 0.3;
+            break;
+        case Monster::MonsterType::Biker:
+            f_Width *= 0.4;
+            break;
+        case Monster::MonsterType::Cyborg :
+            f_Width *= 0.4;
+            break;
+        case Monster::MonsterType::Robot :
+            f_Width *= 0.4;
+            break;
+        }
         f_Height *= 0.85;
     }
     if(second->gameObjectType == GameObject::Type::Monster){
         s_pos = getCollidePosition(s_pos,second);
-        s_Width *= 0.55;
+        Monster* monsterptr = dynamic_cast<Monster*>(second);
+        switch(monsterptr->mMonsterType){
+            case Monster::MonsterType::Batman:
+                s_Width *= 0.3;
+                break;
+            case Monster::MonsterType::Biker:
+                s_Width *= 0.4;
+                break;
+            case Monster::MonsterType::Cyborg :
+                s_Width *= 0.4;
+                break;
+            case Monster::MonsterType::Robot :
+                s_Width *= 0.4;
+                break;
+        }
         s_Height *= 0.85;
     }
-
 
     auto getMiddlePoint = [](QVector2D pos,float width,float height) -> QVector2D{
         QVector2D ret = QVector2D(pos.x()+(width/2),pos.y() + (height/2));

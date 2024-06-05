@@ -40,10 +40,10 @@ void FallComponent::Update()
     bool isCollideMonster = false; //纠正怪物移动过度超出平台的特殊处理flag
     if(mGameObject->gameObjectType == GameObject::Type::Monster){
         QVector2D tempPos = mGameObject->getPosition();
-        mGameObject->setPosition(QVector2D(curPos.x()+this->mGameObject->getDirection()*this->mGameObject->mWidth*1.2, curPos.y() + mGameObject->getSpeedY()));//设置新位置
+        mGameObject->setPosition(QVector2D(curPos.x()+this->mGameObject->getDirection()*32, curPos.y() + mGameObject->getSpeedY()));//设置新位置
         if(mGameObject->attendCollision)
             for(auto s_gameObject : mGameObject->mGame->mGameObjects)
-                if(s_gameObject!=mGameObject&&s_gameObject != mGameObject->mGame->mPlayer &&s_gameObject->attendCollision){//要参与碰撞且不为自身且不考虑Player
+                if(s_gameObject!=mGameObject&&s_gameObject != mGameObject->mGame->mPlayer &&s_gameObject->gameObjectType!=GameObject::Type::Monster&&s_gameObject->attendCollision){//要参与碰撞且不为自身且不考虑Player
                     if(mGameObject->mGame->collisionDetection(mGameObject,s_gameObject)){
                         //与其他物体发生碰撞
                         isCollideMonster = true;

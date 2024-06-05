@@ -50,7 +50,8 @@ void AnimationComponent::Draw()
             QTransform transform;
             transform.scale(-1, 1);  // 水平翻转
             frame = frame.transformed(transform);
-            QRect target2(this->mGameObject->getPosition().x()-15,
+            QRect target2(this->mGameObject->getPosition().x() -
+                              ((this->mGameObject->gameObjectType == GameObject::Type::Player || this->mGameObject->gameObjectType == GameObject::Type::Monster)?this->mGameObject->mWidth * 0.5:0),
                           this->mGameObject->getPosition().y(),
                           mGameObject->mWidth * mGameObject->getScale().x(),
                           mGameObject->mHeight * mGameObject->getScale().y());
