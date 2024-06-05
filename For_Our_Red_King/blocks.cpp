@@ -48,7 +48,12 @@ void Block::beingCollide(GameObject *s)
 void RockSpawner::RockSpawner::fromID(short id)
 {
     std::vector<AnimationLoader> animes = InterfaceBlock::toAnime(id);
-    animes.resize(9, TILES::masuTile);
+    if(animes.size() < 9)
+    {
+        auto anime = animes[0];
+        animes.resize(9);
+        std::fill(animes.begin(), animes.end(), anime);
+    }
     this->bricks = std::array<AnimationLoader, 9>();
     for(int i = 0; i < 9; i++)
     {
@@ -182,33 +187,9 @@ std::vector<AnimationLoader> InterfaceBlock::toAnime(short ID)
               TILES::redP1,
               TILES::redP2,
               TILES::redP3}},
-        {21, {TILES::masuTile,
-              TILES::masuTile,
-              TILES::masuTile,
-              TILES::masuTile,
-              TILES::masuTile,
-              TILES::masuTile,
-              TILES::masuTile,
-              TILES::masuTile,
-              TILES::masuTile}},
-        {22,{TILES::air,
-             TILES::air,
-             TILES::air,
-             TILES::air,
-             TILES::air,
-             TILES::air,
-             TILES::air,
-             TILES::air,
-             TILES::air}},
-        {23, {TILES::pftTile,
-              TILES::pftTile,
-              TILES::pftTile,
-              TILES::pftTile,
-              TILES::pftTile,
-              TILES::pftTile,
-              TILES::pftTile,
-              TILES::pftTile,
-              TILES::pftTile}},
+        {21, {TILES::masuTile}},
+        {22, {TILES::air}},
+        {23, {TILES::pftTile}},
         {31, {TILES::door1}},
         {41, {TILES::money}},
         {42, {TILES::broken}},
@@ -750,21 +731,20 @@ std::vector<InterfaceBlock> VANITY::unlimited_block_works(short id)
     InterfaceBlock interface;
     std::vector<InterfaceBlock> blocks;
 
+    interface.initializeBackGround(1);
+    blocks.push_back(interface);        // 背景
+    interface.initializeBar(0, QVector2D(5, 5));
+    blocks.push_back(interface);        // 血条
+    interface.initializeDamage(22,
+                               QVector2D(-4, 19),
+                               0,
+                               60,
+                               1000,
+                               QVector2D(35, 1));
+    blocks.push_back(interface);        // 虚空 vanity
+
     if(id == 0)
     {
-        interface.initializeBackGround(1);
-        blocks.push_back(interface);        // 背景
-        interface.initializeBar(0, QVector2D(5, 5));
-        blocks.push_back(interface);        // 血条
-        interface.initializeDamage(22,
-                                   QVector2D(-4, 19),
-                                   0,
-                                   60,
-                                   1000,
-                                   QVector2D(35, 1));
-        blocks.push_back(interface);        // 虚空 vanity
-
-
         interface.initializeRock(12,
                                  QVector2D(8, 10),
                                  QVector2D(4, 1),
@@ -860,6 +840,10 @@ std::vector<InterfaceBlock> VANITY::unlimited_block_works(short id)
                                  QVector2D(0, 17),
                                  2,0);
         blocks.push_back(interface);        // 退出游戏
+
+    }
+    else if(id == 1)
+    {
 
     }
 

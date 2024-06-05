@@ -97,7 +97,8 @@ void QTEObject::lose_typeone(){
     mbgmPlayer->stop();//停止鼓点
     this->mGame->mMusicPlayer->setVolumeProportion(0.8f);//设置背景音乐恢复音量
     this->mGame->nowIsQTE = false;//结束qte,flag设置为false
-    qDebug()<<angle;
+    this->object_Player->setNeedDraw(0);
+    this->object_Enermy->setNeedDraw(0);
 }
 void QTEObject::lose_typetwo(){
     this->QTEEnd();
@@ -107,6 +108,8 @@ void QTEObject::lose_typetwo(){
     mbgmPlayer->stop();//停止鼓点
     this->mGame->mMusicPlayer->setVolumeProportion(0.8f);//设置背景音乐恢复音量
     this->mGame->nowIsQTE = false;//结束qte,flag设置为false
+    this->object_Player->setNeedDraw(0);
+    this->object_Enermy->setNeedDraw(0);
 }
 
 Monster* QTEObject::getEnermy()
