@@ -104,6 +104,8 @@ const AnimationLoader door1(":/pictureResoource/Tiles/door.png",
                             32, 32, 8);
 const AnimationLoader money(":/pictureResoource/Tiles/Money.png",
                             24, 24, 6);
+const AnimationLoader screen1(":/pictureResoource/Tiles/Screen1.png",
+                              32, 32, 4);
 const AnimationLoader screen2(":/pictureResoource/Tiles/Screen2.png",
                               32, 42, 4);
 const AnimationLoader bench(":/pictureResoource/Tiles/Bench.png",
@@ -154,6 +156,29 @@ const AnimationLoader n(":/pictureResoource/Tiles/n.png",
                         16, 16, 1);
 const AnimationLoader g(":/pictureResoource/Tiles/g.png",
                         16, 16, 1);
+
+const AnimationLoader locker(":/pictureResoource/Tiles/Locker.png",
+                             32, 36, 1);
+const AnimationLoader masuTile2(":/pictureResoource/Tiles/masuTile2.png",
+                                32, 32, 1);
+const AnimationLoader masuTile4(":/pictureResoource/Tiles/masuTile4.png",
+                                32, 32, 1);
+const AnimationLoader pillarRc(":/pictureResoource/Tiles/pillarRc.png",
+                                32, 32, 1);
+const AnimationLoader pillarRb(":/pictureResoource/Tiles/pillarRb.png",
+                               32, 32, 1);
+const AnimationLoader pillarRa(":/pictureResoource/Tiles/pillarRa.png",
+                               32, 32, 1);
+const AnimationLoader pillarBc(":/pictureResoource/Tiles/pillarBc.png",
+                               32, 32, 1);
+const AnimationLoader pillarBb(":/pictureResoource/Tiles/pillarBb.png",
+                               32, 32, 1);
+const AnimationLoader plateR(":/pictureResoource/Tiles/plateR.png",
+                               32, 32, 1);
+const AnimationLoader plateM(":/pictureResoource/Tiles/plateM.png",
+                             32, 32, 1);
+const AnimationLoader plateL(":/pictureResoource/Tiles/plateL.png",
+                             32, 32, 1);
 }
 
 namespace DRAWORRDER{

@@ -84,6 +84,7 @@ extern const AnimationLoader masuTile;
 extern const AnimationLoader pftTile;
 extern const AnimationLoader door1;
 extern const AnimationLoader money;
+extern const AnimationLoader screen1;
 extern const AnimationLoader screen2;
 extern const AnimationLoader bench;
 extern const AnimationLoader air;
@@ -109,6 +110,18 @@ extern const AnimationLoader d;
 extern const AnimationLoader k;
 extern const AnimationLoader n;
 extern const AnimationLoader g;
+
+extern const AnimationLoader locker;
+extern const AnimationLoader masuTile2;
+extern const AnimationLoader masuTile4;
+extern const AnimationLoader pillarRc;
+extern const AnimationLoader pillarRb;
+extern const AnimationLoader pillarRa;
+extern const AnimationLoader pillarBb;
+extern const AnimationLoader pillarBc;
+extern const AnimationLoader plateR;
+extern const AnimationLoader plateM;
+extern const AnimationLoader plateL;
 }
 
 

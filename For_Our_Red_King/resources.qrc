@@ -38,5 +38,17 @@
         <file>pictureResoource/Tiles/broken.png</file>
         <file>pictureResoource/Tiles/plate1.png</file>
         <file>Data/levelData/mainLevel</file>
+        <file>pictureResoource/Tiles/Locker.png</file>
+        <file>pictureResoource/Tiles/masuTile4.png</file>
+        <file>pictureResoource/Tiles/masuTile2.png</file>
+        <file>pictureResoource/Tiles/pillarRc.png</file>
+        <file>pictureResoource/Tiles/pillarRb.png</file>
+        <file>pictureResoource/Tiles/pillarRa.png</file>
+        <file>pictureResoource/Tiles/pillarBb.png</file>
+        <file>pictureResoource/Tiles/pillarBc.png</file>
+        <file>pictureResoource/Tiles/plateR.png</file>
+        <file>pictureResoource/Tiles/plateM.png</file>
+        <file>pictureResoource/Tiles/plateL.png</file>
+        <file>pictureResoource/Tiles/Screen1.png</file>
     </qresource>
 </RCC>
