@@ -10,8 +10,6 @@
 #include "musicplayer.h"
 class GameObject;
 
-struct InterfacePlayer;
-
 class Player : public GameObject
 {
 public:
@@ -78,7 +76,5 @@ private:
     long long loseHP_timeCount = 0;  //!< 距离上一次扣血已经经过的时间
     float mSpeedX = 0,mSpeedY = 0;     //!< 移动速度 X横,Y竖
 };
-
-class GameObject;
 
 #endif // PLAYER_H
