@@ -76,6 +76,7 @@ void QTEObject::win(){
     this->QTEshowGraph(false);
     this->mGame->qteWinPeriodFlag = true;  //设置追击flag
     this->mGame->qteWintimer = 0;   //追击计时器归零
+    this->mSoundPlayer->play(MONSTER::monsterBeingDestroyedURL,false);
     enermy->changeMonsterState(Monster::MonsterState::DYING);//改变为死亡状态
     this->object_Enermy->dead();
 

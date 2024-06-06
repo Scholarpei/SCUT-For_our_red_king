@@ -74,6 +74,7 @@ public:
     MusicPlayer * mMusicPlayer  = nullptr; //!<音乐播放player
 
     int    mGoToNextLevel = 0;         //!<    是否在下一个update切换关卡  0不切换 1主界面 2随机关卡
+    int    lastLevelNo   = 0;          //!<  上一关卡的编号
 
 protected:
     virtual void timerEvent(QTimerEvent *event);    //!<定时器事件

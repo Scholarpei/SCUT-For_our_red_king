@@ -67,6 +67,16 @@ void Game::loadData(QString target)
         exit(0);
     }
     file.read((char *)&mInterface,sizeof(Interface));//读取数据到Interface
+
+    if(target == DATA::MainLevelDataURL)
+        this->lastLevelNo = 0;
+    else if(target == DATA::Level1DataURL)
+        this->lastLevelNo = 1;
+    else if(target ==DATA::Level2DataURL)
+        this->lastLevelNo = 2;
+    else if(target == DATA::Level3DataURL)
+        this->lastLevelNo = 3;
+    //记录切换关卡编号
 }
 
 void Game::generateLevelData(QString filename)
@@ -435,6 +445,8 @@ void Game::Event()
             //从3关中随机选择一关
             unloadData();
             int levelVal = rand()%3+1;
+            while(levelVal != lastLevelNo)
+                levelVal = rand()%3+1;//关卡切换不能跟上一关一样
             switch(levelVal){
             case 1:
                 loadData(DATA::Level1DataURL);

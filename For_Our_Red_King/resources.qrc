@@ -51,5 +51,7 @@
         <file>pictureResoource/Tiles/plateL.png</file>
         <file>pictureResoource/Tiles/Screen1.png</file>
         <file>Data/levelData/Level1</file>
+        <file>Data/levelData/Level2</file>
+        <file>Data/levelData/Level3</file>
     </qresource>
 </RCC>
