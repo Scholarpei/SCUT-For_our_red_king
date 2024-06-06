@@ -1,5 +1,6 @@
 #include "returnmainbutton.h"
 #include "standard.h"
+#include "game.h"
 ReturnMainButton::ReturnMainButton(QObject *parent,Game* game)
     : Buttons{parent,game}
 {
@@ -11,5 +12,5 @@ ReturnMainButton::ReturnMainButton(QObject *parent,Game* game)
 void ReturnMainButton::buttonFunction()
 {
     qDebug()<<"returnMain";
-    qDebug()<<"nothing for now";
+    this->mGame->mGoToNextLevel = 1;
 }
