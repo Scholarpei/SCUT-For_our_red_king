@@ -30,6 +30,12 @@ Player::Player(QObject *parent,Game* game):
 
 }
 
+Player::~Player()
+{
+    qDebug()<<"Player";
+    delete mSoundPlayer;
+}
+
 // Player::Player(QObject *parent,class Game* game,InterfacePlayer i):
 //     GameObject(parent,game)
 // {

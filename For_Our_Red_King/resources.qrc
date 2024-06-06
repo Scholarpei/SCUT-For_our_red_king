@@ -37,7 +37,6 @@
         <file>pictureResoource/Tiles/Barrel1-export.png</file>
         <file>pictureResoource/Tiles/broken.png</file>
         <file>pictureResoource/Tiles/plate1.png</file>
-        <file>Data/levelData/mainLevel</file>
         <file>pictureResoource/Tiles/Locker.png</file>
         <file>pictureResoource/Tiles/masuTile4.png</file>
         <file>pictureResoource/Tiles/masuTile2.png</file>
@@ -50,9 +49,10 @@
         <file>pictureResoource/Tiles/plateM.png</file>
         <file>pictureResoource/Tiles/plateL.png</file>
         <file>pictureResoource/Tiles/Screen1.png</file>
+        <file>pictureResoource/Tiles/Box8.png</file>
         <file>Data/levelData/Level1</file>
         <file>Data/levelData/Level2</file>
         <file>Data/levelData/Level3</file>
-        <file>pictureResoource/Tiles/Box8.png</file>
+        <file>Data/levelData/mainLevel</file>
     </qresource>
 </RCC>

@@ -473,6 +473,7 @@ void BlockDoor::beingCollide(GameObject *s)
     {
         return;
     }
+
     if (this->isOpen)
     {
         switch(this->type)
@@ -553,7 +554,7 @@ void BlockBar::initialize(BleedingComponent *bar, int posX, int posY)
     this->bricks.resize(0, std::vector<Brick*>(0));
 
     this->HPbar = bar;
-    this->addComponent(this->HPbar);
+    // this->addComponent(this->HPbar);
 }
 
 void BlockBar::initialize(const InterfaceBlock &interface)

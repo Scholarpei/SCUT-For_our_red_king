@@ -12,7 +12,7 @@ Brick::Brick(QObject *parent, Game *game, int drawOrder):
 
     this->animation = new AnimationComponent(this, drawOrder);
 
-    this->addComponent(animation);
+    // this->addComponent(animation);
     // this->mGame->createSprite(this->animation);
 }
 

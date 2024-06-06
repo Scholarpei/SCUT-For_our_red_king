@@ -17,7 +17,7 @@ QTEObject::~QTEObject()
 }
 void QTEObject::setMonster(Monster* monster){
     this->enermy=monster;
-    this->object_Enermy->kindOfenermy=monster->mMonsterType;
+    this->object_Enermy->kindOfenermy = monster->mMonsterType;
 }
 void QTEObject::QTEBegin(){
     this->startQTE();
@@ -85,8 +85,8 @@ void QTEObject::win(){
     //瞬移动画
     QVector2D targetPosition;//目标位置
     int enermydir = enermy->getDirection();
-    targetPosition.setX(enermy->getPosition().x() + (-enermydir * this->mGame->mPlayer->getWidth() * (0.5)));
-    targetPosition.setY(enermy->getPosition().y() - this->mGame->mPlayer->getHeight());
+    targetPosition.setX(enermy->getPosition().x());
+    targetPosition.setY(enermy->getPosition().y() - this->mGame->mPlayer->getHeight() * (0.5));
     this->mGame->mPlayer->teleportation = new PlayerTeleportationComponent(this->mGame->mPlayer,targetPosition);
     //瞬移动画
 }
@@ -94,6 +94,7 @@ void QTEObject::lose_typeone(){
     this->QTEEnd();
     qDebug() << "type1";
     this->QTEshowGraph(false);
+    this->mGame->qteWinPeriodFlag = false;
     this->mGame->mPlayer->loseHPEvent(this->enermy->getMonsterATK());//减怪物的攻击力的血量
     mbgmPlayer->stop();//停止鼓点
     this->mGame->mMusicPlayer->setVolumeProportion(0.8f);//设置背景音乐恢复音量
@@ -105,6 +106,7 @@ void QTEObject::lose_typetwo(){
     this->QTEEnd();
     qDebug() << "type2";
     this->QTEshowGraph(false);
+    this->mGame->qteWinPeriodFlag = false;
     this->mGame->mPlayer->loseHPEvent(this->enermy->getMonsterATK());//减怪物的攻击力的血量
     mbgmPlayer->stop();//停止鼓点
     this->mGame->mMusicPlayer->setVolumeProportion(0.8f);//设置背景音乐恢复音量

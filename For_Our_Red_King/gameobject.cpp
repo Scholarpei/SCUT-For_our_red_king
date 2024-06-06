@@ -21,9 +21,10 @@ GameObject::~GameObject()
     {
         Component* tmp = mComponents.back();
         delete tmp;
-        this->removeComponent(mComponents.back());
+        // this->removeComponent(mComponents.back());
         // mComponents.pop_back();
     }
+    this->getGame()->removeGameObject(this);
 }
 
 void GameObject::Update()

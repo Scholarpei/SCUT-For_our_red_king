@@ -167,7 +167,7 @@ public:
     virtual void Update();
 
 protected:
-    BleedingComponent* HPbar;
+    BleedingComponent* HPbar = nullptr;
 
     int hp = PLAYER::MaxHP;
 };

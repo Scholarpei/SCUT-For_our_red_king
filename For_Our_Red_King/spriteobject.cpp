@@ -11,6 +11,12 @@ SpriteObject::SpriteObject(QObject *parent, Game *game,int draworder)
     opacity=0;
     this->sprite=new AnimationComponent(this,draworder);
 }
+
+SpriteObject::~SpriteObject()
+{
+    delete this->sprite;
+}
+
 void SpriteObject::setDirection(int dir){
     if(dir==1||dir==-1)
         this->direction=dir;

@@ -84,6 +84,7 @@ private:
 
     bool    mIsUpdating = false;                    //!<    是否在更新状态
     bool    mIsLooping = false;                     //!<    是否在循环中
+    bool    mExitGameAnimationFlag = false;          //!<播结束动画的一次flag
 
     int timerLoop;                    //!<主循环Loop的timer ID
     myTimer* mTimer = nullptr;                  //!<主循环用timer

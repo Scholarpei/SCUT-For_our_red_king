@@ -7,6 +7,7 @@ class NewspriteComponent : public spriteComponent
 {
 public:
     NewspriteComponent(GameObject *gameObject = nullptr, int drawOrder = 200);
+    virtual ~NewspriteComponent();
     void Draw()override;
     void setAngle(int angle);
     void setScale(float scale);
@@ -16,7 +17,6 @@ public:
     bool getNeedDraw()const;
     void setWidth(int width);
     void setHeight(int height);
-    ~NewspriteComponent();
     // void setAlpha(int alpha);
 protected:
     int drawAngle;//旋转角度

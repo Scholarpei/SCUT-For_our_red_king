@@ -15,6 +15,7 @@ class Player : public GameObject
 {
 public:
     explicit Player(QObject *parent = nullptr,class Game* game = nullptr);
+    ~ Player();
     // explicit Player(QObject *parent = nullptr,class Game* game = nullptr,InterfacePlayer i = InterfacePlayer ());
 
     class PlayerStatesSet* _playerStateSet;    //!<玩家状态集合

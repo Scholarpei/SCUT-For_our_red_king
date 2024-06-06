@@ -36,6 +36,11 @@ Monster::Monster(QObject *parent,Game* game):
 
 }
 
+Monster::~Monster()
+{
+    qDebug()<<"Monster";
+}
+
 // InterfaceMonster Monster::intoInterface()
 // {
 //     return InterfaceMonster(this->getPosition().x(),this->getPosition().y());
@@ -50,10 +55,10 @@ void Monster::Update(){
             this->mState = State::EDead;                //优化人物死亡不再攻击，将player移除
         }
     }
-    if(this->mMonsterState == MonsterState::FIGHTING)
-        changeTheFightingAnimation++;      //对是否战斗播放做特判
     if(mState == State::EDead)
         return;
+    if(this->mMonsterState == MonsterState::FIGHTING)
+        changeTheFightingAnimation++;      //对是否战斗播放做特判
     //物体标定为消亡就不再更新
 
     QVector2D playerPosition = mGame->mPlayer->getPosition();
@@ -241,7 +246,6 @@ void Monster::loseHPEvent(int num)
 }
 
 void Monster:: chooseAnimation(MonsterType type,MonsterState state){
-    qDebug("%d",type);
     switch(type)
     {
     case MonsterType::Biker:
@@ -378,6 +382,7 @@ int Monster::getMonsterType(){
         return 3;
     else if(mMonsterType == MonsterType::Robot)
         return 4;
+    return -1;
 }
 
 void Monster::initialByInterface(InterfaceMonster mmonster){

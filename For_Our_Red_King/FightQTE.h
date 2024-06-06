@@ -12,7 +12,7 @@ class FightQTE : public GameObject
 public:
     void initial();
     FightQTE(QObject *parent = nullptr, Game *game = nullptr);
-    ~FightQTE();
+    virtual ~FightQTE();
     virtual void inputMousePressProcess(QMouseEvent * key) override;
     void centralFunction();
     int getDrawDirection();
@@ -27,10 +27,10 @@ public:
     virtual void lose_typetwo(); // 打错或者重复打
     bool roundIncre = 0;
 
-    MusicPlayer* mbgmPlayer;//播放鼓点音乐的
-    MusicPlayer*mSoundPlayer;//播放音效的
-    QTEPlayer* object_Player;
-    QTEEnermy* object_Enermy;
+    MusicPlayer* mbgmPlayer = nullptr;//播放鼓点音乐的
+    MusicPlayer*mSoundPlayer = nullptr;//播放音效的
+    QTEPlayer* object_Player = nullptr;
+    QTEEnermy* object_Enermy = nullptr;
 
 protected:
     int angle = QTE::BEGINANGLE; // 0-360
@@ -43,10 +43,10 @@ protected:
     void round2Judge(int key);
     void round3Judge(int key);
     void RoundInitial();
-    NewspriteComponent* mouses;//鼠标的图标
-    NewspriteComponent *sprite_Point;
-    NewspriteComponent *sprite_Plate;
-    TimerComponent *timer;
+    NewspriteComponent* mouses = nullptr;//鼠标的图标
+    NewspriteComponent *sprite_Point = nullptr;
+    NewspriteComponent *sprite_Plate = nullptr;
+    TimerComponent *timer = nullptr;
 
 
     std::array<int, 4> hit_type;                       // 击打的类型

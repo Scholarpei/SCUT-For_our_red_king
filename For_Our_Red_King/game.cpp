@@ -26,14 +26,13 @@ Game::Game(QObject *parent,MainWindow* window):
 
     #ifdef GENERATE_DATA_MODE
         generateContent();//临时生成关卡信息（为了使构造函数看起来更好看）
-        generateLevelData("Level1");
+        // generateLevelData("Level3");用以生成level data
     #endif
 
     //上面这两行是用来生成关卡数据用的，下面的是载入数据用的
 
     #ifdef LOAD_DATA_MODE
         loadData(DATA::MainLevelDataURL);//这里更改路径可以生成数据
-        // loadData("../../Data/levelData/Level1");
         changeLevel(mInterface);
     #endif
 
@@ -170,13 +169,15 @@ void Game::changeLevel(Interface i)
 void Game::ExitGame()
 {
     //这里要制作退出游戏的缓冲动画
-    GameObject* tempObject = new GameObject(this,this);
-    this->createGameObject(tempObject);
-    NewAnimationComponent* overGameAnimation = new NewAnimationComponent(tempObject,DRAWORRDER::backGroundfilter,this);
-    overGameAnimation->resetAnimation(FILTER::ExitGameFilter);
-    overGameAnimation->setRect(SYSTEM::windowWidth,SYSTEM::windowHeight);
-    overGameAnimation->play(false);
-    tempObject->addComponent(overGameAnimation);
+    if(!mExitGameAnimationFlag){
+        GameObject* tempObject = new GameObject(this,this);
+        this->createGameObject(tempObject);
+        NewAnimationComponent* overGameAnimation = new NewAnimationComponent(tempObject,DRAWORRDER::backGroundfilter,this);
+        overGameAnimation->resetAnimation(FILTER::ExitGameFilter);
+        overGameAnimation->setRect(SYSTEM::windowWidth,SYSTEM::windowHeight);
+        overGameAnimation->play(false);
+        mExitGameAnimationFlag= true;
+    }
 
     QTimer::singleShot(1000,this,[=](){
         unloadData();//先清除数据
@@ -190,8 +191,14 @@ void Game::unloadData()
 {
     mIsRuning = false;
     //清除上一关的GameObject、Sprites、Timers或者结束游戏
-    while(!mGameObjects.empty())
-        this->removeGameObject(mGameObjects[0]);
+
+
+    for(int i=0;i<mGameObjects.size();i++){
+        qDebug("order:%d",i);
+        delete mGameObjects[i];
+    }
+    mGameObjects.clear();
+
     while(!mSprites.empty())
         this->removeSprite(mSprites[0]);
 }
@@ -199,6 +206,57 @@ void Game::unloadData()
 void Game::generateContent()
 {
 
+    mPlayer = new Player(this,this);
+    mPlayer->setPosition(QVector2D(550,600));
+    createGameObject(mPlayer);
+
+
+    Monster* Monster1 = new Monster(this,this);
+    Monster1->setPosition(QVector2D(800,600));
+    Monster1->mMonsterType = Monster::MonsterType::Robot;
+
+
+    Monster* Monster2 =  new Monster(this,this);
+    Monster2->setPosition(QVector2D(800,200));
+    Monster2->mMonsterType = Monster::MonsterType::Biker;
+
+    Monster* Monster3 =  new Monster(this,this);
+    Monster3->setPosition(QVector2D(500,400));
+    Monster3->mMonsterType = Monster::MonsterType::Cyborg;
+
+    Monster* Monster4 =  new Monster(this,this);
+    Monster4->setPosition(QVector2D(850,50));
+    Monster4->mMonsterType = Monster::MonsterType::Batman;
+
+    Monster* Monster5 =  new Monster(this,this);
+    Monster5->setPosition(QVector2D(100,50));
+    Monster5->mMonsterType = Monster::MonsterType::Robot;
+
+    Monster* Monster6 =  new Monster(this,this);
+    Monster6->setPosition(QVector2D(200,300));
+    Monster6->mMonsterType = Monster::MonsterType::Batman;
+
+
+    createGameObject(Monster1);
+    createGameObject(Monster2);
+    createGameObject(Monster3);
+    createGameObject(Monster4);
+    createGameObject(Monster5);
+    createGameObject(Monster6);
+
+
+    {
+        // 测试用创建砖块
+
+        auto blocks = VANITY::unlimited_block_works(3);
+
+        for(auto block : blocks)
+        {
+            block.createBlock(this);
+        }
+    }
+
+    /* Level1 information
     mPlayer = new Player(this,this);
     mPlayer->setPosition(QVector2D(20,500));
     createGameObject(mPlayer);
@@ -235,17 +293,51 @@ void Game::generateContent()
     createGameObject(Monster4);
     createGameObject(Monster5);
     createGameObject(Monster6);
+    */
 
-    {
-        // 测试用创建砖块
+    /* Level2 information
+    mPlayer = new Player(this,this);
+    mPlayer->setPosition(QVector2D(20,100));
+    createGameObject(mPlayer);
 
-        auto blocks = VANITY::unlimited_block_works(1);
 
-        for(auto block : blocks)
-        {
-            block.createBlock(this);
-        }
-    }
+    Monster* Monster1 = new Monster(this,this);
+    Monster1->setPosition(QVector2D(150,400));
+    Monster1->mMonsterType = Monster::MonsterType::Robot;
+
+
+    Monster* Monster2 =  new Monster(this,this);
+    Monster2->setPosition(QVector2D(750,660));
+    Monster2->mMonsterType = Monster::MonsterType::Biker;
+
+    Monster* Monster3 =  new Monster(this,this);
+    Monster3->setPosition(QVector2D(500,500));
+    Monster3->mMonsterType = Monster::MonsterType::Cyborg;
+
+    Monster* Monster4 =  new Monster(this,this);
+    Monster4->setPosition(QVector2D(850,550));
+    Monster4->mMonsterType = Monster::MonsterType::Batman;
+
+    Monster* Monster5 =  new Monster(this,this);
+    Monster5->setPosition(QVector2D(600,200));
+    Monster5->mMonsterType = Monster::MonsterType::Biker;
+
+    Monster* Monster6 =  new Monster(this,this);
+    Monster6->setPosition(QVector2D(700,50));
+    Monster6->mMonsterType = Monster::MonsterType::Robot;
+
+    Monster* Monster7 =  new Monster(this,this);
+    Monster7->setPosition(QVector2D(300,50));
+    Monster7->mMonsterType = Monster::MonsterType::Cyborg;
+
+    createGameObject(Monster1);
+    createGameObject(Monster2);
+    createGameObject(Monster3);
+    createGameObject(Monster4);
+    createGameObject(Monster5);
+    createGameObject(Monster6);
+    createGameObject(Monster7);
+    */
 }
 
 Game::~Game()
@@ -451,8 +543,8 @@ void Game::Event()
         else{
             //从3关中随机选择一关
             unloadData();
-            int levelVal = rand()%3+1;
-            while(levelVal != lastLevelNo)
+            int levelVal = std::rand()%3+1;
+            while(levelVal == lastLevelNo)
                 levelVal = rand()%3+1;//关卡切换不能跟上一关一样
             switch(levelVal){
             case 1:
@@ -465,7 +557,6 @@ void Game::Event()
                 loadData(DATA::Level3DataURL);
                 break;
             }
-            loadData(DATA::Level1DataURL);//暂时切换到第一关
             changeLevel(mInterface);
             Initialize();
         }
@@ -592,7 +683,6 @@ void Game::Update()
     // 释放掉所有死亡区的物体
     for (auto deadObject : deadObjects)
     {
-        this->removeGameObject(deadObject);
         delete deadObject;
     }
 
@@ -629,7 +719,7 @@ void Game::createSprite(spriteComponent* sprite)
 void Game::removeSprite(spriteComponent* sprite)
 {
     std::vector<spriteComponent*>::iterator iter = std::find(mSprites.begin(), mSprites.end(), sprite);
-    if(iter!= mSprites.end())
+    if(iter != mSprites.end())
         mSprites.erase(iter);
 }
 

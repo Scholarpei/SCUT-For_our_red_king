@@ -7,7 +7,8 @@ MusicPlayer::MusicPlayer()
 
 MusicPlayer::~MusicPlayer()
 {
-    delete this->sound;
+    if(this->sound != nullptr)
+        delete this->sound;
 }
 
 void MusicPlayer::play(QString address,bool repeat)

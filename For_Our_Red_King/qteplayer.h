@@ -14,7 +14,7 @@ public:
     void attack2();
     void attack3();
     void idle();//强制回到idle
-    void Update();
+    void Update()override;
     virtual void inputKeyPressProcess(int key)override;
 protected:
     bool isAttack;

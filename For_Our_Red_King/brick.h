@@ -9,7 +9,7 @@ class Brick: public GameObject
 public:
     QVector2D gridPosition;
     QVector2D gridSize;
-    AnimationComponent* animation;
+    AnimationComponent* animation = nullptr;
 
 public:
     explicit Brick(QObject *parent = nullptr,class Game* game = nullptr, int drawOrder = 0);

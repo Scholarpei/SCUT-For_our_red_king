@@ -8,7 +8,7 @@ class QTEObject:public FightQTE
 {
 public:
     QTEObject(QObject *parent=nullptr,Game* game=nullptr,Monster* enermy=nullptr);
-    ~QTEObject();
+    virtual ~QTEObject();
     void setMonster(Monster* monster);
     void QTEBegin();//设置qte开始
     void QTEEnd();//设置qte结束

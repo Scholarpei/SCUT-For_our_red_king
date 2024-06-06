@@ -17,8 +17,8 @@ class Monster : public GameObject
 public:
 
     explicit Monster(QObject *parent = nullptr,class Game* game = nullptr);
+    virtual ~Monster();
 
-    class MonsterStateSet* _monsterStateSet;     //!<怪物状态集合
     enum class MonsterState{WALKING,FIGHTING,IDLE,DYING};//!怪物状态集合（判断,怪物应该只存在walking跟fighting的两种状态）
     MonsterState mMonsterState;
     virtual void changeMonsterState(MonsterState state);//!改变怪物状态

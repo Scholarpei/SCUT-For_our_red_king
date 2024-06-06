@@ -10,7 +10,7 @@ class AnimationComponent: public spriteComponent
 {
 public:
     explicit AnimationComponent(class GameObject* gameObject=nullptr,int drawOrder=200);
-    ~AnimationComponent();
+    virtual ~AnimationComponent();
 
     // 绘制函数
     virtual void Draw();
