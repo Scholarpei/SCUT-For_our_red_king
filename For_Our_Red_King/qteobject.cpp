@@ -18,6 +18,7 @@ QTEObject::~QTEObject()
 void QTEObject::setMonster(Monster* monster){
     this->enermy=monster;
     this->object_Enermy->kindOfenermy = monster->mMonsterType;
+    this->object_Enermy->idle();
 }
 void QTEObject::QTEBegin(){
     this->startQTE();

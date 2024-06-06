@@ -21,10 +21,13 @@ void SpriteObject::setDirection(int dir){
     if(dir==1||dir==-1)
         this->direction=dir;
 }
-void SpriteObject::setPosition(int x,int y){
+void SpriteObject::setPositionX(int x){
     this->realPosX=x;
-    this->realPosY=y;
     this->drawPosX=x-this->mWidth/2;
+    this->GameObject::setPosition(QVector2D(drawPosX,drawPosY));
+}
+void SpriteObject::setPositionY(int y){
+    this->realPosY=y;
     this->drawPosY=y-this->mHeight/2;
     this->GameObject::setPosition(QVector2D(drawPosX,drawPosY));
 }
@@ -41,14 +44,17 @@ void SpriteObject::setNeedDraw(bool needOrNot){
 void SpriteObject::setWidth(int width){
     this->mWidth=width;
     this->drawPosX=this->realPosX-width/2;
+    this->GameObject::setPosition(QVector2D(drawPosX,drawPosY));
 }
 void SpriteObject::setHeight(int height){
     this->mHeight=height;
     this->drawPosY=this->realPosY-height/2;
+    this->GameObject::setPosition(QVector2D(drawPosX,drawPosY));
 }
 void SpriteObject::reload(){
     this->drawPosX=this->realPosX-this->mWidth/2;
     this->drawPosY=this->realPosY-this->mHeight/2;
+    this->GameObject::setPosition(QVector2D(drawPosX,drawPosY));
     sprite->setOpacity(opacity);
     sprite->setDisplay(needDraw);
 }

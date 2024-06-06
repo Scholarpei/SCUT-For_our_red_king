@@ -236,7 +236,7 @@ const QString PlatePicture=":/pictureResoource/QTE/QTE_Plate.png";
 const int qteWidth=32*12;
 const int qteHeight=32*12;
 const QVector2D centralPosition(SYSTEM::windowWidth/2,SYSTEM::windowHeight/2);
-const int addAngle=5;//增加难度请调timewidth（system） 不要改这个吧
+const int addAngle=5;//增加难度请调timewidth 不要改这个吧
 const int TIMEWIDTH = 2;
 const int DELTAANGLE = 15;
 const int BEGINANGLE=0;
@@ -246,12 +246,14 @@ const int mouseWidth=qteWidth/8;
 const int mouseHeight=mouseWidth*3;
 const QVector2D mousePosition(SYSTEM::windowWidth/2-256,SYSTEM::windowHeight/2-qteHeight-16);
 const QString MOUSEPICTURE=":/pictureResoource/QTE/mouses.png";
-const int playerWidth=32*12*3;
-const int playerHeight=32*12*3;
-const QVector2D playerPosistion(SYSTEM::windowWidth/2-qteWidth/2,SYSTEM::windowHeight/2-16);
-const int enermyWidth=32*12*3;
-const int enermyHeight=32*12*3;
-const QVector2D enermyPosition(SYSTEM::windowWidth/2+qteWidth/2,SYSTEM::windowHeight/2-16);
+const int playerWidth=48;
+const int playerHeight=48;
+const int playerPosistionX=SYSTEM::windowWidth/2-qteWidth/2-48;
+const int enermyWidth=48*6*3;
+const int enermyHeight=48*6*3;
+const int DrawScale=13;
+const int Ground=SYSTEM::windowHeight/2+256;
+const int enermyPositionX=SYSTEM::windowWidth/2+qteWidth/2+8;
 
 const QString REDPART=":/pictureResoource/QTE/QTE_red.png";
 const QString BLUEPART=":/pictureResoource/QTE/QTE_blue.png";

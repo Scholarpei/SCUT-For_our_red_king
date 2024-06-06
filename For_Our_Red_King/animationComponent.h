@@ -45,11 +45,10 @@ public:
     void setCurrentFrame(int val);//子类设置
 
     bool isPlaying;             // 是否继续播放
+    AnimationLoader animation;  // 动画本尊哒
 protected:
     //以下都是实现切换动画所用
     short TICKS_PER_FRAME = SYSTEM::durationPerFrame;
-    AnimationLoader animation;  // 动画本尊哒
-
 
     QPixmap spriteSheet;        // 雪碧图
     int currentTick;            // 积累到切换下一帧动图的帧数

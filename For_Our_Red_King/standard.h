@@ -187,10 +187,12 @@ extern const int mouseHeight;
 extern const QVector2D mousePosition;
 extern const int playerWidth;
 extern const int playerHeight;
-extern const QVector2D playerPosistion;
+extern const int playerPosistionX;
 extern const int enermyWidth;
 extern const int enermyHeight;
-extern const QVector2D enermyPosition;
+extern const int DrawScale;
+extern const int Ground;
+extern const int enermyPositionX;
 extern const int TIMEWIDTH;
 extern const float leastQTEDistance;  //最小可qte距离
 extern const float leastQTEAppendDistance;  //追击时的最小可自动qte距离

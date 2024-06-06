@@ -8,9 +8,10 @@ QTEPlayer::QTEPlayer(QObject *parent, Game *game,int draworder)
     this->setNeedDraw(0);
     this->setDirection(1);
 
-    this->setWidth(QTE::playerWidth);
-    this->setHeight(QTE::playerHeight);
-    this->setPosition(QTE::playerPosistion.x(),QTE::playerPosistion.y());
+    this->setWidth(QTE::playerWidth*QTE::DrawScale);
+    this->setHeight(QTE::playerHeight*QTE::DrawScale);
+    this->setPositionX(QTE::playerPosistionX);
+    this->setPositionY(QTE::Ground-QTE::DrawScale*48/2);
     this->setOpacity(0.3);
     reload();
 

@@ -11,11 +11,14 @@ QTEEnermy::QTEEnermy(QObject *parent, Game *game,int draworder)
 
     this->setWidth(QTE::enermyWidth);
     this->setHeight(QTE::enermyHeight);
-    this->setPosition(QTE::enermyPosition.x(),QTE::enermyPosition.y());
+    this->setPositionX(QTE::enermyPositionX);
     this->setOpacity(0.3);
     reload();
 
     this->sprite->resetAnimation(searchAnimation(this->kindOfenermy,EnermyType::idle));//初始值
+    this->setPositionY(QTE::Ground-sprite->animation.GetpixY()*QTE::DrawScale/2);
+    this->setWidth(this->sprite->animation.GetpixX()*QTE::DrawScale);
+    this->setHeight(this->sprite->animation.GetpixY()*QTE::DrawScale);
     this->sprite->setRepeat(1);
 }
 
@@ -56,19 +59,27 @@ const AnimationLoader& QTEEnermy::searchAnimation(Monster::MonsterType typeKind,
         }
 
 }
-
 void QTEEnermy::attack(){
     this->sprite->resetAnimation(searchAnimation(this->kindOfenermy,EnermyType::attack));
+    this->setPositionY(QTE::Ground-sprite->animation.GetpixY()*QTE::DrawScale/2);
+    this->setWidth(this->sprite->animation.GetpixX()*QTE::DrawScale);
+    this->setHeight(this->sprite->animation.GetpixY()*QTE::DrawScale);
     isAttack=1;
     this->sprite->play(0);
 }
 void QTEEnermy::dead(){
     this->sprite->resetAnimation(searchAnimation(this->kindOfenermy,EnermyType::dead));
+    this->setPositionY(QTE::Ground-sprite->animation.GetpixY()*QTE::DrawScale/2);
+    this->setWidth(this->sprite->animation.GetpixX()*QTE::DrawScale);
+    this->setHeight(this->sprite->animation.GetpixY()*QTE::DrawScale);
     this->sprite->play(0);
 }
 void QTEEnermy::idle(){
     this->isAttack=0;
     this->sprite->resetAnimation(searchAnimation(this->kindOfenermy,EnermyType::idle));
+    this->setPositionY(QTE::Ground-sprite->animation.GetpixY()*QTE::DrawScale/2);
+    this->setWidth(this->sprite->animation.GetpixX()*QTE::DrawScale);
+    this->setHeight(this->sprite->animation.GetpixY()*QTE::DrawScale);
     this->sprite->play(1);
 }
 void QTEEnermy::Update(){
@@ -77,6 +88,9 @@ void QTEEnermy::Update(){
         if(!this->sprite->isPlaying)
         {
             this->sprite->resetAnimation(searchAnimation(this->kindOfenermy,EnermyType::idle));
+            this->setPositionY(QTE::Ground-sprite->animation.GetpixY()*QTE::DrawScale/2);
+            this->setWidth(this->sprite->animation.GetpixX()*QTE::DrawScale);
+            this->setHeight(this->sprite->animation.GetpixY()*QTE::DrawScale);
             this->sprite->play(1);
         }
     }
