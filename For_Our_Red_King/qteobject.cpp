@@ -84,7 +84,7 @@ void QTEObject::win(){
     //瞬移动画
     QVector2D targetPosition;//目标位置
     int enermydir = enermy->getDirection();
-    targetPosition.setX(enermy->getPosition().x() + (-enermydir * this->mGame->mPlayer->getWidth()));
+    targetPosition.setX(enermy->getPosition().x() + (-enermydir * this->mGame->mPlayer->getWidth() * (0.5)));
     targetPosition.setY(enermy->getPosition().y() - this->mGame->mPlayer->getHeight());
     this->mGame->mPlayer->teleportation = new PlayerTeleportationComponent(this->mGame->mPlayer,targetPosition);
     //瞬移动画

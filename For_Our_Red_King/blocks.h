@@ -124,7 +124,7 @@ public:
 class BlockDoor : public Block
 {
 private:
-    bool isOpen;
+    bool isOpen = false;
     short type;
 
     void openDoor();

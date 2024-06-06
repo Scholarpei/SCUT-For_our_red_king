@@ -3,6 +3,7 @@
 #include "game.h"
 #include "player.h"
 #include <math.h>
+#include "monster.h"
 
 Block::Block(QObject *parent, Game *game):
     GameObject(parent, game)
@@ -429,10 +430,22 @@ void BlockDoor::initialize(const InterfaceBlock &interface)
 void BlockDoor::Update()
 {
     // TODO 检测怪物数量，检测玩家位置，发送下一关信号
+    Monster* monsterPtr = nullptr;
+
     switch(this->type)
     {
     case 1:
     {
+        bool flag = false;
+        for(auto gameObject:this->mGame->mGameObjects){
+            if(gameObject->gameObjectType == GameObject::Type::Monster){
+                monsterPtr = dynamic_cast<Monster*> (gameObject);
+                if(monsterPtr->mMonsterState != Monster::MonsterState::DYING)
+                    flag = true;
+            }
+        }
+        if(!flag)
+            this->openDoor();
         break;
     }
     case 2:
@@ -455,6 +468,10 @@ void BlockDoor::beingCollide(GameObject *s)
         {
         case 1:
         {
+            //随机选择关卡跳转
+            QTimer::singleShot(100,this,[=](){
+                this->mGame->mGoToNextLevel = 2;
+            });
             break;
         }
         case 2:

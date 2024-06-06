@@ -226,7 +226,9 @@ void Player::loseHPEvent(int num)
             return;
         }
         changePlayerState(playerState::DYING);
-        // 触发Player死亡
+        QTimer::singleShot(1000,this,[=](){
+            this->mGame->mGoToNextLevel = 1;
+        });
     }
     else if(this->HP - num > PLAYER::MaxHP)
     {

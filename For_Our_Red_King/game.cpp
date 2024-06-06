@@ -26,14 +26,14 @@ Game::Game(QObject *parent,MainWindow* window):
 
     #ifdef GENERATE_DATA_MODE
         generateContent();//临时生成关卡信息（为了使构造函数看起来更好看）
-        generateLevelData("mainLevel");
+        generateLevelData("Level1");
     #endif
 
     //上面这两行是用来生成关卡数据用的，下面的是载入数据用的
 
     #ifdef LOAD_DATA_MODE
         loadData(DATA::MainLevelDataURL);//这里更改路径可以生成数据
-        // loadData("../../Data/levelData/test");
+        // loadData("../../Data/levelData/Level1");
         changeLevel(mInterface);
     #endif
 
@@ -96,15 +96,24 @@ void Game::generateLevelData(QString filename)
             }
         }
 
-        auto blocks = VANITY::unlimited_block_works(0);
+    int blocksleveltype = -1;
+    if(filename == "mainLevel")
+        blocksleveltype = 0;
+    else if(filename == "Level1")
+        blocksleveltype = 1;
+    else if(filename == "Level2")
+        blocksleveltype = 2;
+    else if(filename == "Level3")
+        blocksleveltype = 3;
 
-        for(auto block : blocks)
-        {
-            i.blockInterfaceArray[i.BlockSize++] = block;
-        }
+    auto blocks = VANITY::unlimited_block_works(blocksleveltype);
+    for(auto block : blocks)
+    {
+        i.blockInterfaceArray[i.BlockSize++] = block;
+    }
 
-    QString fileName = "..\\..\\Data\\levelData\\" + filename;    //mainLevel名字即为存在本地的名字
-    QFile file(fileName);
+    QString Filename = "..\\..\\Data\\levelData\\" + filename;    //mainLevel名字即为存在本地的名字
+    QFile file(Filename);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate))
     {
         qDebug()<<"写入发生错误！";
@@ -174,31 +183,46 @@ void Game::generateContent()
 {
 
     mPlayer = new Player(this,this);
-    Monster* mMonster = new Monster(this,this);
+    mPlayer->setPosition(QVector2D(20,500));
+    createGameObject(mPlayer);
+
+
+    Monster* Monster1 = new Monster(this,this);
+    Monster1->setPosition(QVector2D(400,600));
+    Monster1->mMonsterType = Monster::MonsterType::Robot;
+
 
     Monster* Monster2 =  new Monster(this,this);
-    Monster2->setPosition(QVector2D(250,160));
+    Monster2->setPosition(QVector2D(750,660));
     Monster2->mMonsterType = Monster::MonsterType::Biker;
 
     Monster* Monster3 =  new Monster(this,this);
-    Monster3->setPosition(QVector2D(450,160));
+    Monster3->setPosition(QVector2D(1050,560));
     Monster3->mMonsterType = Monster::MonsterType::Cyborg;
 
     Monster* Monster4 =  new Monster(this,this);
-    Monster4->setPosition(QVector2D(600,160));
-    Monster4->mMonsterType = Monster::MonsterType::Robot;
+    Monster4->setPosition(QVector2D(600,360));
+    Monster4->mMonsterType = Monster::MonsterType::Batman;
 
-    createGameObject(mPlayer);
-    createGameObject(mMonster);
+    Monster* Monster5 =  new Monster(this,this);
+    Monster5->setPosition(QVector2D(300,300));
+    Monster5->mMonsterType = Monster::MonsterType::Biker;
+
+    Monster* Monster6 =  new Monster(this,this);
+    Monster6->setPosition(QVector2D(550,50));
+    Monster6->mMonsterType = Monster::MonsterType::Biker;
+
+    createGameObject(Monster1);
     createGameObject(Monster2);
     createGameObject(Monster3);
     createGameObject(Monster4);
-
+    createGameObject(Monster5);
+    createGameObject(Monster6);
 
     {
         // 测试用创建砖块
 
-        auto blocks = VANITY::unlimited_block_works(0);
+        auto blocks = VANITY::unlimited_block_works(1);
 
         for(auto block : blocks)
         {
@@ -422,6 +446,7 @@ void Game::Event()
                 loadData(DATA::Level3DataURL);
                 break;
             }
+            loadData(DATA::Level1DataURL);//暂时切换到第一关
             changeLevel(mInterface);
             Initialize();
         }

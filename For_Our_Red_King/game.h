@@ -73,6 +73,8 @@ public:
     MusicPlayer* mSoundPlayer = nullptr;  //!音效播放player
     MusicPlayer * mMusicPlayer  = nullptr; //!<音乐播放player
 
+    int    mGoToNextLevel = 0;         //!<    是否在下一个update切换关卡  0不切换 1主界面 2随机关卡
+
 protected:
     virtual void timerEvent(QTimerEvent *event);    //!<定时器事件
 
@@ -81,7 +83,6 @@ private:
 
     bool    mIsUpdating = false;                    //!<    是否在更新状态
     bool    mIsLooping = false;                     //!<    是否在循环中
-    int    mGoToNextLevel = 0;                 //!<    是否在下一个update切换关卡  0不切换 1主界面 2随机关卡
 
     int timerLoop;                    //!<主循环Loop的timer ID
     myTimer* mTimer = nullptr;                  //!<主循环用timer

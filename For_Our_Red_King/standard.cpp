@@ -257,7 +257,7 @@ const QString BLUEPART=":/pictureResoource/QTE/QTE_blue.png";
 const QString ORANGEPART=":/pictureResoource/QTE/QTE_orange.png";
 
 const float leastQTEDistance = 200;
-const float leastQTEAppendDistance = leastQTEDistance * 1.8;  //追击时的最小可自动qte距离
+const float leastQTEAppendDistance = leastQTEDistance * 2.5;  //追击时的最小可自动qte距离
 const int QteWinWaitingTime = SYSTEM::fpsNormal;   //qte结束后等待的动画时间
 
 const QString firstStartQTEURL = QString(":/sound/qte/firstStartQTE.wav");   //开启qte的音效
