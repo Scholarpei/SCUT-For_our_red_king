@@ -100,7 +100,7 @@ const AnimationLoader masuTile(":/pictureResoource/Tiles/masuTile.png",
                          32, 32, 1);
 const AnimationLoader pftTile(":/pictureResoource/Tiles/pftTile.png",
                                32, 32, 1);
-const AnimationLoader door1(":/pictureResoource/Tiles/door.png",
+const AnimationLoader door1(":/pictureResoource/Tiles/door1.png",
                             32, 32, 8);
 const AnimationLoader money(":/pictureResoource/Tiles/Money.png",
                             24, 24, 6);
@@ -179,13 +179,14 @@ const AnimationLoader plateM(":/pictureResoource/Tiles/plateM.png",
                              32, 32, 1);
 const AnimationLoader plateL(":/pictureResoource/Tiles/plateL.png",
                              32, 32, 1);
+const AnimationLoader Box8(":/pictureResoource/Tiles/Box8.png",
+                             28, 22, 1);
 }
 
 namespace DRAWORRDER{
 //值从低到高，绘制从下往上
 const int backGround = 1;//背景
 const int backGroundfilter = 125;//背景滤镜（这个数值取决于你想不想要让其他Object染上滤镜效果）
-const int backGroundTile = 5;//背景砖块
 const int ground = 8;//地面
 const int door = 40;//游戏结束的门
 const int platForm = 42;//平台

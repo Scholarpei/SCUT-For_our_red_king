@@ -204,7 +204,8 @@ std::vector<AnimationLoader> InterfaceBlock::toAnime(short ID)
         {51, {TILES::locker}},
         {52, {TILES::masuTile2}},
         {53, {TILES::masuTile4}},
-        {54, {TILES::screen1}}
+        {54, {TILES::screen1}},
+        {55, {TILES::Box8}}
     };
     return mapping[ID];
 }
@@ -404,6 +405,7 @@ void BlockDoor::initialize(const AnimationLoader &anime, QVector2D posi, short t
     {
     case 1:
     {
+        this->isOpen = false;
         break;
     }
     case 2:     // 退出游戏
@@ -413,6 +415,7 @@ void BlockDoor::initialize(const AnimationLoader &anime, QVector2D posi, short t
     }
     case 3:
     {
+        this->isOpen = true;
         break;
     }
     }
@@ -436,6 +439,10 @@ void BlockDoor::Update()
     {
     case 1:
     {
+        if(this->isOpen)
+        {
+            return;
+        }
         bool flag = false;
         for(auto gameObject:this->mGame->mGameObjects){
             if(gameObject->gameObjectType == GameObject::Type::Monster){
@@ -462,6 +469,10 @@ void BlockDoor::Update()
 void BlockDoor::beingCollide(GameObject *s)
 {
     // TODO 检测怪物数量，检测玩家位置，发送下一关信号
+    if(s->gameObjectType != GameObject::Type::Player)
+    {
+        return;
+    }
     if (this->isOpen)
     {
         switch(this->type)
@@ -482,6 +493,9 @@ void BlockDoor::beingCollide(GameObject *s)
         }
         case 3:
         {
+            QTimer::singleShot(100,this,[=](){
+                this->mGame->mGoToNextLevel = 2;
+            });
             break;
         }
         }
@@ -739,7 +753,8 @@ std::vector<AnimationLoader> BlockLine::getAnime(short id)
         {5, {TILES::k,
              TILES::i,
              TILES::n,
-             TILES::g}}
+             TILES::g}},
+        {6, {TILES::pftTile}}
     };
 
     return mapping[id];
@@ -1015,9 +1030,350 @@ std::vector<InterfaceBlock> VANITY::unlimited_block_works(short id)
                                  0,0,0,0,0);
         blocks.push_back(interface);        // 右上台阶2
 
-        interface.initializeDoor(43,
+        interface.initializeDoor(31,
+                                 QVector2D(24, 6),
+                                 1,0);
+        blocks.push_back(interface);        // 门
+    }
+    else if(id == 2)
+    {
+        interface.initializeLine(6,
+                                 QVector2D(0, 5),
+                                 1,1,2,0);
+        blocks.push_back(interface);        // 左上大块
+
+        interface.initializeRock(24,
+                                 QVector2D(3, 5),
+                                 QVector2D(5, 1),
+                                 0,0,1,1,0);
+        blocks.push_back(interface);        // 左上平台
+
+        interface.initializeRock(25,
+                                 QVector2D(5, 0),
+                                 QVector2D(1, 3),
+                                 1,1,0,0,0);
+        blocks.push_back(interface);        // 左上柱子
+
+        interface.initializeRock(24,
+                                 QVector2D(9, 6),
+                                 QVector2D(4, 1),
+                                 0,0,1,1,0);
+        blocks.push_back(interface);        // 上平台
+
+        interface.initializeLine(6,
+                                 QVector2D(14, 6),
+                                 1,1,1,0);
+        blocks.push_back(interface);        // 上块
+
+        interface.initializeRock(21,
+                                 QVector2D(10, 2),
+                                 QVector2D(3, 1),
+                                 0,0,0,0,0);
+        blocks.push_back(interface);        // 上masu平台
+
+        interface.initializeRock(52,
+                                 QVector2D(14, 3),
+                                 QVector2D(5, 1),
+                                 0,0,0,0,0);
+        blocks.push_back(interface);        // 上masu2平台
+
+        interface.initializeRock(53,
+                                 QVector2D(20, 4),
+                                 QVector2D(2, 1),
+                                 0,0,0,0,0);
+        blocks.push_back(interface);        // 上masu4平台
+
+        interface.initializeRock(53,
+                                 QVector2D(21, 5),
+                                 QVector2D(2, 1),
+                                 0,0,0,0,0);
+        blocks.push_back(interface);        // 上masu4台阶
+
+        interface.initializeRock(53,
+                                 QVector2D(22, 6),
+                                 QVector2D(3, 1),
+                                 0,0,0,0,0);
+        blocks.push_back(interface);        // 上masu4台阶2
+
+        interface.initializeDoor(31,
                                  QVector2D(24, 5),
-                                 1,6);
+                                 1,0);
+        blocks.push_back(interface);        // 门
+
+        interface.initializeLine(6,
+                                 QVector2D(0, 11),
+                                 1,1,2,0);
+        blocks.push_back(interface);        // 左大块
+
+        interface.initializeLine(6,
+                                 QVector2D(2, 11),
+                                 1,1,2,0);
+        blocks.push_back(interface);        // 左大块
+
+        interface.initializeLine(6,
+                                 QVector2D(5, 13),
+                                 1,1,1,0);
+        blocks.push_back(interface);        // 左下块
+
+        interface.initializeRock(23,
+                                 QVector2D(7, 13),
+                                 QVector2D(4, 1),
+                                 0,0,0,0,0);
+        blocks.push_back(interface);        // 下平台
+
+        interface.initializeRock(50,
+                                 QVector2D(12, 15),
+                                 QVector2D(4, 1),
+                                 0,0,0,0,0);
+        blocks.push_back(interface);        // 下平台2
+
+        interface.initializeRock(23,
+                                 QVector2D(17, 13),
+                                 QVector2D(8, 1),
+                                 0,0,0,0,0);
+        blocks.push_back(interface);        // 右平台
+
+        interface.initializeRock(49,
+                                 QVector2D(22, 12),
+                                 QVector2D(1, 1),
+                                 0,0,0,0,0);
+        blocks.push_back(interface);        // 右桶子
+
+        interface.initializeDamage(55,
+                                   QVector2D(20, 10),
+                                   0,60, 5,
+                                   QVector2D(1,1)
+                                   ,0);
+        blocks.push_back(interface);        // 巴列尔
+
+        interface.initializeDamage(22,
+                                   QVector2D(15, 9),
+                                   0,60,-10,
+                                   QVector2D(4, 1),
+                                   0);
+        blocks.push_back(interface);        // 巴列尔
+
+        interface.initializeRock(12,
+                                 QVector2D(15, 9),
+                                 QVector2D(2, 1),
+                                 0,0,1,1,0);
+        blocks.push_back(interface);        // 回血平台
+
+        interface.initializeRock(49,
+                                 QVector2D(15, 8),
+                                 QVector2D(1, 1),
+                                 0,0,0,0,0);
+        blocks.push_back(interface);        // 桶子
+
+        interface.initializeRock(54,
+                                 QVector2D(17, 10),
+                                 QVector2D(1, 1),
+                                 0,0,0,0,6);
+        blocks.push_back(interface);        // 显示屏
+    }
+    else if(id == 3)
+    {
+        interface.initializeRock(11,
+                                 QVector2D(10, 16),
+                                 QVector2D(3, 1),
+                                 1,0,1,1,0);
+        blocks.push_back(interface);        // 下平台
+
+        interface.initializeDecoration(51,
+                                       QVector2D(10, 14),
+                                       0,0);
+        blocks.push_back(interface);        // 柜子
+
+        interface.initializeRock(22,
+                                 QVector2D(10, 14),
+                                 QVector2D(1, 2),
+                                 0,0,0,0,0);
+        blocks.push_back(interface);        // 柜子
+
+        interface.initializeDamage(45,
+                                   QVector2D(10, 12)
+                                   ,0,300,99,
+                                   QVector2D(1, 1),
+                                   0);
+        blocks.push_back(interface);        // 旗子
+
+        interface.initializeRock(11,
+                                 QVector2D(16, 15),
+                                 QVector2D(3, 2),
+                                 1,0,1,1,0);
+        blocks.push_back(interface);        // 右下
+
+        interface.initializeRock(11,
+                                 QVector2D(23, 15),
+                                 QVector2D(1, 2),
+                                 1,0,1,0,0);
+        blocks.push_back(interface);        // 右下
+
+        interface.initializeRock(11,
+                                 QVector2D(24, 12),
+                                 QVector2D(1, 1),
+                                 0,0,0,0,0);
+        blocks.push_back(interface);        // 右
+
+        interface.initializeRock(11,
+                                 QVector2D(20, 11),
+                                 QVector2D(3, 1),
+                                 0,0,0,0,0);
+        blocks.push_back(interface);        // 右平台
+
+        interface.initializeRock(11,
+                                 QVector2D(15, 9),
+                                 QVector2D(3, 0),
+                                 1,1,1,1,0);
+        blocks.push_back(interface);        // 右块
+
+        interface.initializeRock(23,
+                                 QVector2D(20, 6),
+                                 QVector2D(4, 1),
+                                 0,0,0,0,0);
+        blocks.push_back(interface);        // 右上平台
+
+        interface.initializeRock(23,
+                                 QVector2D(23, 5),
+                                 QVector2D(2, 1),
+                                 0,0,0,0,0);
+        blocks.push_back(interface);        // 右上台阶1
+
+        interface.initializeRock(23,
+                                 QVector2D(24, 4),
+                                 QVector2D(1, 1),
+                                 0,0,0,0,0);
+        blocks.push_back(interface);        // 右上台阶2
+
+        interface.initializeRock(53,
+                                 QVector2D(14, 3),
+                                 QVector2D(8, 1),
+                                 0,0,0,0,0);
+        blocks.push_back(interface);        // 右上平台
+
+        interface.initializeRock(26,
+                                 QVector2D(13, 2),
+                                 QVector2D(1, 8),
+                                 0,1,0,0,0);
+        blocks.push_back(interface);        // 擎天柱
+
+        interface.initializeRock(52,
+                                 QVector2D(11, 7),
+                                 QVector2D(2, 1),
+                                 0,0,0,0,0);
+        blocks.push_back(interface);        // 中间平台
+
+        interface.initializeDamage(55,
+                                   QVector2D(11, 6),
+                                   0,300,20,
+                                   QVector2D(1, 1),0);
+        blocks.push_back(interface);        // 巴列尔
+
+        interface.initializeRock(21,
+                                 QVector2D(8, 11),
+                                 QVector2D(6, 1),
+                                 0,0,0,0,0);
+        blocks.push_back(interface);        // 中下平台
+
+        interface.initializeDamage(22,
+                                   QVector2D(3, 15),
+                                   0,60,-100,
+                                   QVector2D(5, 1),
+                                   0);
+        blocks.push_back(interface);        // 巴列尔
+
+        interface.initializeRock(12,
+                                 QVector2D(3, 15),
+                                 QVector2D(3, 1),
+                                 0,0,1,1,0);
+        blocks.push_back(interface);        // 回血平台
+
+        interface.initializeLine(6,
+                                 QVector2D(0, 15),
+                                 1,1,2,0);
+        blocks.push_back(interface);        // 左大块
+
+        interface.initializeRock(23,
+                                 QVector2D(1, 12),
+                                 QVector2D(1, 1),
+                                 0,0,0,0,0);
+        blocks.push_back(interface);        // 左平台
+
+        interface.initializeRock(23,
+                                 QVector2D(2, 10),
+                                 QVector2D(1, 3),
+                                 0,0,0,0,0);
+        blocks.push_back(interface);        // 左台阶
+
+        interface.initializeRock(23,
+                                 QVector2D(3, 8),
+                                 QVector2D(1, 3),
+                                 0,0,0,0,0);
+        blocks.push_back(interface);        // 左台阶
+
+        interface.initializeRock(24,
+                                 QVector2D(4, 8),
+                                 QVector2D(1, 1),
+                                 0,0,1,1,0);
+        blocks.push_back(interface);        // 左平台
+
+        interface.initializeRock(23,
+                                 QVector2D(6, 5),
+                                 QVector2D(1, 1),
+                                 0,0,0,0,0);
+        blocks.push_back(interface);        // 左上块
+
+        interface.initializeRock(23,
+                                 QVector2D(4, 4),
+                                 QVector2D(1, 1),
+                                 0,0,0,0,0);
+        blocks.push_back(interface);        // 左上块
+
+        interface.initializeRock(50,
+                                 QVector2D(0, 4),
+                                 QVector2D(4, 1),
+                                 0,0,0,0,0);
+        blocks.push_back(interface);        // 左上平台
+
+        interface.initializeRock(23,
+                                 QVector2D(8, 2),
+                                 QVector2D(1, 1),
+                                 0,0,0,0,0);
+        blocks.push_back(interface);        // 上块
+
+        interface.initializeRock(26,
+                                 QVector2D(8, 3),
+                                 QVector2D(1, 6),
+                                 0,0,0,0,0);
+        blocks.push_back(interface);        // 擎天柱
+
+        interface.initializeRock(53,
+                                 QVector2D(9, 2),
+                                 QVector2D(3, 1),
+                                 0,0,0,0,0);
+        blocks.push_back(interface);        // 上平台
+
+        interface.initializeRock(53,
+                                 QVector2D(6, 2),
+                                 QVector2D(2, 1),
+                                 0,0,0,0,0);
+        blocks.push_back(interface);        // 上平台
+
+        interface.initializeRock(26,
+                                 QVector2D(11, 0),
+                                 QVector2D(1, 1),
+                                 0,1,0,0,0);
+        blocks.push_back(interface);        // 左上块
+
+        interface.initializeRock(54,
+                                 QVector2D(7, 3),
+                                 QVector2D(1, 1),
+                                 0,0,0,0,6);
+        blocks.push_back(interface);        // 显示屏
+
+        interface.initializeDoor(31,
+                                 QVector2D(9, 1),
+                                 1,0);
         blocks.push_back(interface);        // 门
     }
 

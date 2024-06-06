@@ -1,4 +1,4 @@
-﻿#include "game.h"
+#include "game.h"
 #include "mytimer.h"
 #include "spritecomponent.h"
 #include "player.h"
@@ -153,6 +153,13 @@ void Game::changeLevel(Interface i)
     {
         i.blockInterfaceArray[j].createBlock(this);
     }
+
+    // auto blocks = VANITY::unlimited_block_works(3);
+    // for(auto block : blocks)
+    // {
+    //     block.createBlock(this);
+    // }
+
     mIsRuning = true;
 
 }

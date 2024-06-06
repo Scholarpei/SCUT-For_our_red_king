@@ -53,5 +53,6 @@
         <file>Data/levelData/Level1</file>
         <file>Data/levelData/Level2</file>
         <file>Data/levelData/Level3</file>
+        <file>pictureResoource/Tiles/Box8.png</file>
     </qresource>
 </RCC>
