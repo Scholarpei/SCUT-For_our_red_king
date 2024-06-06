@@ -225,9 +225,12 @@ void Player::loseHPEvent(int num)
 
     loseHP_timeCount = 0;  //扣血计时归零
 
+    this->mGame->mStatistic.maxCombos = 0;//combo归零
+
     if (this->HP <= num)
     {
         HP = 0;
+        this->mGame->mStatistic.maxPassLevelNumber = 0;//过关归零
         if(mPlayerState == playerState::DYING){
             return;
         }

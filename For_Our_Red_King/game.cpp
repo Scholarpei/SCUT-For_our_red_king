@@ -40,6 +40,8 @@ Game::Game(QObject *parent,MainWindow* window):
     //示例：loadData("mainLevel.data"); changeLevel(mInterface)
     Initialize();
 
+    mStatistic = this->getLocalStatistic();
+
     QTimer::singleShot(250,this,[=](){
         mTimer = new myTimer(this,this);
         timerLoop = startTimer(15);      //建立循环timer并设定每隔15ms触发事件timerEvent
@@ -179,6 +181,9 @@ void Game::ExitGame()
         mExitGameAnimationFlag= true;
     }
 
+    this->updateStatistic();
+    //更新数据
+
     QTimer::singleShot(1000,this,[=](){
         unloadData();//先清除数据
         mIsRuning = false;  //游戏结束标记flag
@@ -191,7 +196,6 @@ void Game::unloadData()
 {
     mIsRuning = false;
     //清除上一关的GameObject、Sprites、Timers或者结束游戏
-
 
     for(int i=0;i<mGameObjects.size();i++){
         qDebug("order:%d",i);
@@ -351,11 +355,13 @@ bool Game::Initialize()
     mQTE= new QTEObject(this,this);
     stopbutton = new StopButton(this,this);
     returnmainbutton = new ReturnMainButton(this,this);
+    statisticbutton = new StatisticButton(this,this);
     createGameObject(mQTE);
     createGameObject(stopbutton);
     createGameObject(returnmainbutton);
     createGameObject(mQTE->object_Enermy);
     createGameObject(mQTE->object_Player);
+    createGameObject(statisticbutton);
     //其他的初始化内容 QTE button
 
     return true;
@@ -535,6 +541,7 @@ void Game::Event()
     if(this->mGoToNextLevel){
         //切换关卡
         if(mGoToNextLevel == 1){
+            this->mStatistic.maxPassLevelNumber = 0;//过关归零
             unloadData();
             loadData(DATA::MainLevelDataURL);
             changeLevel(mInterface);
@@ -558,6 +565,7 @@ void Game::Event()
                 break;
             }
             changeLevel(mInterface);
+
             Initialize();
         }
         this->mGoToNextLevel = 0;//归零
@@ -764,4 +772,44 @@ void Game::mouseReleaseInput(QMouseEvent * e)
         for(auto gameObject:mGameObjects)
             gameObject->inputMouseReleaseProcess(e);
     }
+}
+
+GameStatisticInterface Game::getLocalStatistic()
+{
+    QFile file(DATA::GameStatisticURL);
+    if (!file.open(QIODevice::ReadOnly))
+    {
+        qDebug("本地读入失败或尚未创建本地文件");
+        GameStatisticInterface i;
+        QString Filename = ".\\GameStatistic";    //这个路径可以根据自己的更改
+        QFile file(Filename);
+        if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate))
+        {
+            qDebug()<<"写入Statistic发生错误！";
+            exit(0);
+        }
+        file.write((const char*)&i,sizeof(GameStatisticInterface));//写入一个默认数据
+    }
+    GameStatisticInterface temp;
+    file.read((char *)&temp,sizeof(GameStatisticInterface));//读取数据到temp;
+    return temp;
+}
+
+void Game::updateStatistic()
+{
+    GameStatisticInterface u = getLocalStatistic();
+    if(u.maxPassLevelNumber < this->mStatistic.maxPassLevelNumber)
+        u.maxPassLevelNumber = mStatistic.maxPassLevelNumber;
+    if(mStatistic.alreadyKillMonsterNumber)
+        u.alreadyKillMonsterNumber += mStatistic.alreadyKillMonsterNumber,mStatistic.alreadyKillMonsterNumber = 0;
+    if(u.maxCombos < this->mStatistic.maxCombos)
+        u.maxCombos = this->mStatistic.maxCombos;
+    QString Filename = ".\\GameStatistic";    //这个路径可以根据自己的更改
+    QFile file(Filename);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate))
+    {
+        qDebug()<<"写入Statistic发生错误！";
+        exit(0);
+    }
+    file.write((const char*)&u,sizeof(GameStatisticInterface));//写入数据
 }

@@ -224,6 +224,10 @@ extern const QString stopButtonTYPE4;
 extern const QVector2D returnMainButtonPOS;
 extern const QString returnMainButtonTYPE1;
 extern const QString returnMainButtonTYPE2;
+
+extern const QVector2D statisticButtonPOS;
+extern const QString statisticButtonTYPE1;
+extern const QString statisticButtonTYPE2;
 }
 
 namespace DATA{
@@ -231,6 +235,7 @@ extern const QString MainLevelDataURL;
 extern const QString Level1DataURL;
 extern const QString Level2DataURL;
 extern const QString Level3DataURL;
+extern const QString GameStatisticURL;
 
 }
 

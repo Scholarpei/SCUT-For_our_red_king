@@ -237,7 +237,7 @@ const int qteWidth=32*12;
 const int qteHeight=32*12;
 const QVector2D centralPosition(SYSTEM::windowWidth/2,SYSTEM::windowHeight/2);
 const int addAngle=5;//增加难度请调timewidth 不要改这个吧
-const int TIMEWIDTH = 2;
+const int TIMEWIDTH = 1;
 const int DELTAANGLE = 15;
 const int BEGINANGLE=0;
 const int ROUNDENDANGLE=290;
@@ -260,7 +260,7 @@ const QString BLUEPART=":/pictureResoource/QTE/QTE_blue.png";
 const QString ORANGEPART=":/pictureResoource/QTE/QTE_orange.png";
 
 const float leastQTEDistance = 200;
-const float leastQTEAppendDistance = leastQTEDistance * 2.5;  //追击时的最小可自动qte距离
+const float leastQTEAppendDistance = leastQTEDistance * 4;  //追击时的最小可自动qte距离
 const int QteWinWaitingTime = SYSTEM::fpsNormal;   //qte结束后等待的动画时间
 
 const QString firstStartQTEURL = QString(":/sound/qte/firstStartQTE.wav");   //开启qte的音效
@@ -284,6 +284,10 @@ const QString stopButtonTYPE4=":/pictureResoource/button/stopbutton_type4.png";
 const QVector2D returnMainButtonPOS(SYSTEM::windowWidth-64,32);
 const QString returnMainButtonTYPE1=":/pictureResoource/button/returnmainbutton_type1.png";
 const QString returnMainButtonTYPE2=":/pictureResoource/button/returnmainbutton_type2.png";
+
+const QVector2D statisticButtonPOS(SYSTEM::windowWidth-96,32);
+const QString statisticButtonTYPE1 = ":/pictureResoource/button/statisticbutton_type1.png";
+const QString statisticButtonTYPE2 = ":/pictureResoource/button/statisticbutton_type2.png";
 }
 
 namespace DATA{
@@ -291,5 +295,6 @@ const QString MainLevelDataURL =  ":/Data/levelData/mainLevel";
 const QString Level1DataURL =  ":/Data/levelData/Level1";
 const QString Level2DataURL =  ":/Data/levelData/Level2";
 const QString Level3DataURL =  ":/Data/levelData/Level3";
+const QString GameStatisticURL = "./GameStatistic";
 
 }

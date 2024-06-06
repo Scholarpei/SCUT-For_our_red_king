@@ -481,9 +481,8 @@ void BlockDoor::beingCollide(GameObject *s)
         case 1:
         {
             //随机选择关卡跳转
-            QTimer::singleShot(100,this,[=](){
-                this->mGame->mGoToNextLevel = 2;
-            });
+            this->mGame->mStatistic.maxPassLevelNumber++;
+            this->mGame->mGoToNextLevel = 2;
             break;
         }
         case 2:

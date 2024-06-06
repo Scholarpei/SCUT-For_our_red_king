@@ -59,5 +59,8 @@
         <file>pictureResoource/Player/attack2.png</file>
         <file>pictureResoource/background/exitGameFilter.jpg</file>
         <file>pictureResoource/Monster/Batman/Special.png</file>
+        <file>pictureResoource/background/statisticBackGround.jpg</file>
+        <file>pictureResoource/button/statisticbutton_type1.png</file>
+        <file>pictureResoource/button/statisticbutton_type2.png</file>
     </qresource>
 </RCC>

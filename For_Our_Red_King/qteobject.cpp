@@ -52,7 +52,8 @@ void QTEObject::setContinue(bool isContinue){
     neednextRound=isContinue;
 }
 void QTEObject::inputMousePressProcess(QMouseEvent * e){
-    this->FightQTE::inputMousePressProcess(e);
+    if(this->mGame->nowIsQTE)
+        this->FightQTE::inputMousePressProcess(e);
 }
 void QTEObject::inputKeyPressProcess(int key){
     // if(key=='Z')
@@ -74,6 +75,10 @@ void QTEObject::inputKeyPressProcess(int key){
 void QTEObject::win(){
     this->QTEEnd();
     qDebug() << "win";
+
+    this->mGame->mStatistic.alreadyKillMonsterNumber++;
+    this->mGame->mStatistic.maxCombos++;
+
     this->QTEshowGraph(false);
     this->mGame->qteWinPeriodFlag = true;  //设置追击flag
     this->mGame->qteWintimer = 0;   //追击计时器归零

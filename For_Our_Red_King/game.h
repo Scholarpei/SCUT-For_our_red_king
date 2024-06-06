@@ -14,6 +14,7 @@
 #include "stopbutton.h"
 #include "returnmainbutton.h"
 #include "interface.h"
+#include "statisticbutton.h"
 
 class GameObject;
 class spriteComponent;
@@ -36,6 +37,11 @@ public:
     std::vector<spriteComponent*>mSprites;          //!<   精灵容器
     MainWindow* mWindow = nullptr;                          //!<  主界面
     QPainter* mPainter = nullptr;                                //!<绘画Painter
+
+    GameStatisticInterface mStatistic;   //!<当前游戏统计数据
+    GameStatisticInterface getLocalStatistic() ; //!<获得本地上的数据统计，没有的话就write到本地
+    void updateStatistic(); //!<更新数据用
+
     explicit Game(QObject *parent = nullptr,MainWindow* window = nullptr);
     virtual ~Game();
 
@@ -90,6 +96,7 @@ private:
     myTimer* mTimer = nullptr;                  //!<主循环用timer
     StopButton* stopbutton = nullptr;
     ReturnMainButton* returnmainbutton = nullptr;
+    StatisticButton* statisticbutton = nullptr;
     Interface mInterface;            //!<关卡data的Interface
 
     void Update();                       //!<更新

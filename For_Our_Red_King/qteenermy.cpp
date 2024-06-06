@@ -68,6 +68,7 @@ void QTEEnermy::attack(){
     this->sprite->play(0);
 }
 void QTEEnermy::dead(){
+    isAttack=0;
     this->sprite->resetAnimation(searchAnimation(this->kindOfenermy,EnermyType::dead));
     this->setPositionY(QTE::Ground-sprite->animation.GetpixY()*QTE::DrawScale/2);
     this->setWidth(this->sprite->animation.GetpixX()*QTE::DrawScale);

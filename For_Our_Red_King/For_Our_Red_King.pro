@@ -51,6 +51,7 @@ HEADERS += animationComponent.h \
            spriteobject.h \
            standard.h \
            statebase.h \
+           statisticbutton.h \
            stopbutton.h \
            threedimenbutton.h \
            TimerComponent.h \
@@ -92,6 +93,7 @@ SOURCES += animationComponent.cpp \
            spriteobject.cpp \
            standard.cpp \
            statebase.cpp \
+           statisticbutton.cpp \
            stopbutton.cpp \
            threedimenbutton.cpp \
            TimerComponent.cpp \

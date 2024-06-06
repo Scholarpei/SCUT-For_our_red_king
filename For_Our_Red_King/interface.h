@@ -39,4 +39,12 @@ public:
 
 };
 
+struct GameStatisticInterface
+{
+    int maxCombos = 0;    //最高不扣血连击数
+    int alreadyKillMonsterNumber = 0;//已经击杀了几只怪物
+    int maxPassLevelNumber = 0;   //最高一次性通过多少关
+    GameStatisticInterface():maxCombos(0),alreadyKillMonsterNumber(0),maxPassLevelNumber(0){};
+};
+
 #endif // INTERFACE_H
