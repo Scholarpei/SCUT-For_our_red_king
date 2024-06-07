@@ -586,7 +586,7 @@ void Game::Event()
                     if(monsterptr->mMonsterState == Monster::MonsterState::DYING)
                         continue;//不考虑死亡的Monster
                     dis = std::sqrt(std::pow(object->getPosition().x() - mPlayer->getPosition().x(),2) + std::pow(object->getPosition().y() - mPlayer->getPosition().y(),2));
-                    if(dis < QTE::leastQTEDistance){
+                    if(dis < QTE::leastQTEAppendDistance){
                         //小于追击范围，锁定目标
                         sourceMonsterPtr = dynamic_cast<Monster*>(object);
                         break;

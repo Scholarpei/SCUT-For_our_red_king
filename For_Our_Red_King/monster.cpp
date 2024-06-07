@@ -101,7 +101,7 @@ void Monster::movecollideOthers(GameObject* d,QVector2D& lastposition)
         changeTheFightingAnimation =0;
         this->moveDirection = (PlayerPtr->getPosition().x()-this->getPosition().x()<0)?-1:1;    //让怪物朝向人物，发动攻击
         changeMonsterState(MonsterState::FIGHTING);
-        this->mGame->mPlayer->loseHPEvent(5);        //玩家掉血，在Player类中实现
+        this->mGame->mPlayer->loseHPEvent(15);        //玩家掉血，在Player类中实现
         }
         else if(PlayerPtr->mPlayerState == Player::playerState::DYING){
             this->moveDirection = -this->moveDirection;
