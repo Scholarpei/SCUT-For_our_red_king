@@ -102,7 +102,7 @@
       <string notr="true">border-image: url();</string>
      </property>
      <property name="text">
-      <string>一次性最高通过了</string>
+      <string>最远到达第</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>

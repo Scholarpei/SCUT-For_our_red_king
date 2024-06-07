@@ -40,7 +40,7 @@ Game::Game(QObject *parent,MainWindow* window):
     //示例：loadData("mainLevel.data"); changeLevel(mInterface)
     Initialize();
 
-    mStatistic = this->getLocalStatistic();
+        mStatistic = GameStatisticInterface();
 
     QTimer::singleShot(250,this,[=](){
         mTimer = new myTimer(this,this);
